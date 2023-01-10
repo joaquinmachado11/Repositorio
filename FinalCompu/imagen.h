@@ -21,7 +21,7 @@ public:
     void setRangoDinamico(int newRangoDinamico);
 
     void dimensionar();
-    Pixel getPixel (int fila, int columna); //ver si se pasa como puntero
+    Pixel& getPixel (int fila, int columna); //ver si esta bien escrito
 
 private:
     vector < vector < Pixel >> imagen;

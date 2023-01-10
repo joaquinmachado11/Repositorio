@@ -22,6 +22,14 @@ float Pixel::devolverComponente(int componente)
     return pixel[componente];
 }
 
+void Pixel::definirComponente(int i, int valor)
+{
+    if (i<3)
+    {
+        pixel[i]=valor;
+    }
+}
+
 Pixel &Pixel::operator++()
 {
     pixel[0]++;

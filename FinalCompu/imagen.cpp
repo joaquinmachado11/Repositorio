@@ -34,7 +34,7 @@ void Imagen::dimensionar()
     }
 }
 
-Pixel Imagen::getPixel(int fila, int columna)
+Pixel &Imagen::getPixel(int fila, int columna)
 {
     return imagen[fila][columna];
 }

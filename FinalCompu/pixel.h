@@ -12,7 +12,7 @@ public:
     vector <float> devolverPixel();
     void definirPixel(int, int, int);
     float devolverComponente (int componente);
-    //definirComponente (int i, int valor)
+    void definirComponente (int i, int valor);
 
     Pixel& operator++();
     Pixel& operator--();
