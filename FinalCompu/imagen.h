@@ -22,6 +22,7 @@ public:
 
     void dimensionar();
     Pixel& getPixel (int fila, int columna); //ver si esta bien escrito
+    void setPixel (int fila, int columna, Pixel pixel);
 
 private:
     vector < vector < Pixel >> imagen;

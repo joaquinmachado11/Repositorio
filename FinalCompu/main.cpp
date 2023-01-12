@@ -8,11 +8,11 @@ int main(int argc, char *argv[])
     QCoreApplication a(argc, argv);
 
 //pruebas para pixel
-{/*
+{
     //ejecucion de constructor de pixel y definicion
-    Pixel pixel1, pixel2;
-    pixel1.definirPixel(1,1,1);
-    pixel2.definirPixel(2,2,2);
+    Pixel pixel1(1,1,1), pixel2(2,2,2);
+    //pixel1.definirPixel(1,1,1);
+    //pixel2.definirPixel(2,2,2);
 
     //corroboro q se guardo bien
     cout<<"Pixel 1: "<<endl;
@@ -62,7 +62,7 @@ int main(int argc, char *argv[])
         cout<<"Son iguales"<<endl;
     else
         cout<<"Son distintos"<<endl;
-*/}
+}
 
     return a.exec();
 }

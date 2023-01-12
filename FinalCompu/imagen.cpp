@@ -39,6 +39,11 @@ Pixel &Imagen::getPixel(int fila, int columna)
     return imagen[fila][columna];
 }
 
+void Imagen::setPixel(int fila, int columna, Pixel pixel)
+{
+    imagen[fila][columna]=pixel;
+}
+
 int Imagen::getRangoDinamico() const
 {
     return rangoDinamico;

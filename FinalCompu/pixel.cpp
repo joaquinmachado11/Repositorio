@@ -1,5 +1,11 @@
 #include "pixel.h"
 
+Pixel::Pixel(float primerValor, float segundoValor, float tercerValor)
+{
+    pixel.resize(3);
+    definirPixel(primerValor,segundoValor,tercerValor);
+}
+
 Pixel::Pixel()
 {
     pixel.resize(3);
@@ -10,7 +16,7 @@ vector<float> Pixel::devolverPixel()
     return pixel;
 }
 
-void Pixel::definirPixel(int primerValor, int segundoValor, int tercerValor)
+void Pixel::definirPixel(float primerValor, float segundoValor, float tercerValor)
 {
     pixel[0]=primerValor;
     pixel[1]=segundoValor;

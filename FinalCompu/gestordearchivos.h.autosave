@@ -1,0 +1,20 @@
+#ifndef GESTORDEARCHIVOS_H
+#define GESTORDEARCHIVOS_H
+#include <espaciodetrabajo.h>
+#include <archivo.h>
+
+class GestorDeArchivos
+{
+public:
+    GestorDeArchivos();
+
+    
+private: 
+    EspacioDeTrabajo espacioDeTrabajo; //genera un vector que luego usara gestor de archivo para generar los objetos imagen
+    void reconocerFormato();
+    string raiz, ruta;//
+};
+
+#endif // GESTORDEARCHIVOS_H
+
+//reconoce si es pnm o aic

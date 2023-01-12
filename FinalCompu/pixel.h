@@ -9,8 +9,9 @@ class Pixel
 {
 public:
     Pixel();
+    Pixel(float, float, float);
     vector <float> devolverPixel();
-    void definirPixel(int, int, int);
+    void definirPixel(float, float, float);
     float devolverComponente (int componente);
     void definirComponente (int i, int valor);
 
@@ -26,5 +27,3 @@ private:
 
 #endif // PIXEL_H
 
-//Se puede sumar, restar, comparar (sobrecarga de operadores + - ==)
-//Se puede aumentar/disminuir los valores de su terna (sobrecarga ++ y --)
