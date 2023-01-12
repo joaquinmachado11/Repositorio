@@ -11,8 +11,8 @@ class ArchivoPNM: public Archivo
 {
 public:
     ArchivoPNM();
-    Imagen cargarImagen(string nombreArchivo);
-    void guardarImagen(Imagen &imagen, string nombreArchivo, string directorio){};
+    Imagen leerImagen(string nombreArchivo);
+    void escribirImagen(Imagen &imagen, string nombreArchivo, string directorio){};
 
 private:
     fstream archivo;

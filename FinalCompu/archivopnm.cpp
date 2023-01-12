@@ -6,7 +6,7 @@ ArchivoPNM::ArchivoPNM()
 
 }
 
-Imagen ArchivoPNM::cargarImagen(string nombreArchivo)
+Imagen ArchivoPNM::leerImagen(string nombreArchivo)
 {
     Imagen imagen;
     string identificacion;

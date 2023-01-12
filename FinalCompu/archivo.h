@@ -10,8 +10,8 @@ class Archivo
 {
 public:
     Archivo();
-    virtual Imagen cargarImagen(string nombreArchivo)=0;
-    virtual void guardarImagen(Imagen &imagen, string nombreArchivo, string directorio)=0;
+    virtual Imagen leerImagen(string nombreArchivo)=0;
+    virtual void escribirImagen(Imagen &imagen, string nombreArchivo, string directorio)=0;
 };
 
 #endif // ARCHIVO_H
