@@ -7,7 +7,7 @@ class GestorDeArchivos
 {
 public:
     GestorDeArchivos();
-    Imagen generarImagen(int id);
+    Imagen generarImagen(int pID);
     void guardarImagen(string nombreImagen, Imagen& imagen);
 
     const string &getRaiz() const;

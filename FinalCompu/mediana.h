@@ -6,7 +6,7 @@ class Mediana
 {
 public:
     Mediana();
-    void aplicarMediana(Imagen&);
+    void aplicarMediana(Imagen& imagen);
 };
 
 #endif // MEDIANA_H

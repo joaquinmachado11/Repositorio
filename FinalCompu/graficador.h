@@ -6,7 +6,8 @@ class Graficador
 {
 public:
     Graficador();
-    void graficarImagen(Imagen&);
+    void graficarImagen(Imagen& imagen);
+    void graficarHistograma();
 };
 
 #endif // GRAFICADOR_H

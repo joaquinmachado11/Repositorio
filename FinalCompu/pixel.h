@@ -9,11 +9,11 @@ class Pixel
 {
 public:
     Pixel();
-    Pixel(float, float, float);
+    Pixel(float componente0, float componente1, float componente2);
     vector <float> devolverPixel();
-    void definirPixel(float, float, float);
+    void definirPixel(float componente0, float componente1, float componente2);
     float devolverComponente (int componente);
-    void definirComponente (int i, int valor);
+    void definirComponente (int componente, int valor);
 
     Pixel& operator++();
     Pixel& operator--();

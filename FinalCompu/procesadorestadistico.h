@@ -7,12 +7,13 @@ class ProcesadorEstadistico
 {
 public:
     ProcesadorEstadistico();
-    float promedio(Imagen);
-    int minimo (Imagen);
-    int maximo (Imagen);
-    int moda (Imagen);
-    float desvioEstandar(Imagen);
-    int area(Imagen); //este metodo se relaciona con alg pintor
+    float promedio(Imagen& imagen);
+    int minimo (Imagen& imagen);
+    int maximo (Imagen& imagen);
+    int moda (Imagen& imagen);
+    float desvioEstandar(Imagen& imagen);
+    int area(Imagen& imagen); //este metodo se relaciona con alg pintor
+    //histograma
 };
 
 #endif // PROCESADORESTADISTICO_H

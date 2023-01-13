@@ -6,7 +6,7 @@ class Suavizado
 {
 public:
     Suavizado();
-    void aplicarSuavizado(Imagen&);
+    void aplicarSuavizado(Imagen& imagen);
 };
 
 #endif // SUAVIZADO_H

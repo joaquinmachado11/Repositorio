@@ -10,9 +10,10 @@ using namespace std;
 class ArchivoPNM: public Archivo
 {
 public:
+    ~ArchivoPNM();
     ArchivoPNM();
     Imagen leerImagen(string nombreArchivo);
-    void escribirImagen(Imagen &imagen, string nombreArchivo, string directorio){};
+    void escribirImagen(Imagen& imagen, string nombreArchivo, string directorio){};
 
 private:
     fstream archivo;
