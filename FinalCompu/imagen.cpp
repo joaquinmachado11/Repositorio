@@ -44,6 +44,16 @@ void Imagen::setPixel(int fila, int columna, Pixel pixel)
     imagen[fila][columna]=pixel;
 }
 
+const string &Imagen::getCodigo() const
+{
+    return codigo;
+}
+
+void Imagen::setCodigo(const string &newCodigo)
+{
+    codigo = newCodigo;
+}
+
 int Imagen::getRangoDinamico() const
 {
     return rangoDinamico;

@@ -21,14 +21,19 @@ public:
     void setRangoDinamico(int newRangoDinamico);
 
     void dimensionar();
+
     Pixel& getPixel (int fila, int columna); //ver si esta bien escrito
     void setPixel (int fila, int columna, Pixel pixel);
+
+    const string &getCodigo() const;
+    void setCodigo(const string &newCodigo);
 
 private:
     vector < vector < Pixel >> imagen;
     int filas;
     int columnas;
     int rangoDinamico;
+    string codigo;
 };
 
 #endif // IMAGEN_H
