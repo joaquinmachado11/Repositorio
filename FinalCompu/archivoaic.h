@@ -12,8 +12,8 @@ class ArchivoAIC: public Archivo
 public:
     ~ArchivoAIC();
     ArchivoAIC();
-    Imagen leerImagen(string nombreArchivo) /*override??*/ {};
-    void escribirImagen(Imagen& imagen, string nombreArchivo, string directorio){};
+    Imagen leerImagen(string nombreArchivo) override {};
+    void escribirImagen(Imagen& imagen, string nombreArchivo, string directorio) override {};
 
 private:
     fstream archivo;

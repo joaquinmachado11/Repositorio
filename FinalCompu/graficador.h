@@ -1,13 +1,18 @@
 #ifndef GRAFICADOR_H
 #define GRAFICADOR_H
 #include <imagen.h>
+#include <gestordearchivos.h>
 
 class Graficador
 {
-public:
+public: //(main) graficador.graficarImagen (int id)
     Graficador();
-    void graficarImagen(Imagen& imagen);
+    void graficarImagen(int id);
     void graficarHistograma();
+    void setGestorDeArchivos (GestorDeArchivos& gestorDeArchivos);
+
+private:
+    GestorDeArchivos *ptrGestorDeArchivos;
 };
 
 #endif // GRAFICADOR_H

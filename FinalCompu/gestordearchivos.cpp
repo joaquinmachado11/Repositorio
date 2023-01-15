@@ -8,8 +8,28 @@ GestorDeArchivos::GestorDeArchivos()
 Imagen GestorDeArchivos::generarImagen(int pID)
 {
     ID=pID;
-    reconocerFormato();
-    //archivo->leerImagen(espacioDeTrabajo.getListadoDeArchivos(ID));
+    Imagen im;
+    string extension = reconocerFormato();
+
+    if (extension == ".pbm" or  extension == ".pgm" or  extension == ".ppm" or  extension == ".pnm")
+    {
+        ptrArchivo = new ArchivoPNM;
+    }
+    else
+    {
+        if (extension == ".aic")
+        {
+            ptrArchivo = new ArchivoAIC;
+        }
+        else
+        {
+            (throw (string) "No se reconoce el archivo. ");
+        }
+    }
+
+    im = ptrArchivo->leerImagen(espacioDeTrabajo.getListadoDeArchivos(ID));
+    delete ptrArchivo;
+    return im;
 }
 
 void GestorDeArchivos::guardarImagen(string nombreImagen, Imagen &imagen)
@@ -17,11 +37,10 @@ void GestorDeArchivos::guardarImagen(string nombreImagen, Imagen &imagen)
 
 }
 
-void GestorDeArchivos::reconocerFormato() //lleva control de error
+string GestorDeArchivos::reconocerFormato()
 {
-    espacioDeTrabajo.getListadoDeArchivos(ID);//devuelve un string
-                                              //tomar las ultimas 3 letras y ver que objeto se crea
-                                              //crear el archivo correspondiente
+    string nombre = espacioDeTrabajo.getListadoDeArchivos(ID);
+    return nombre.substr(nombre.find_last_of('.'), nombre.size());
 }
 
 const string &GestorDeArchivos::getRuta() const

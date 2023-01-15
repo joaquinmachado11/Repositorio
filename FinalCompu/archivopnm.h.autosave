@@ -17,6 +17,9 @@ public:
 
 private:
     fstream archivo;
+    string nombreAr
+    void leerTexto(Imagen& pImagen);
+    void leerBinario(Imagen& pImagen);
 };
 
 #endif // ARCHIVOPNM_H
