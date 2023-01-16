@@ -7,7 +7,8 @@ EspacioDeTrabajo::EspacioDeTrabajo()
 
 void EspacioDeTrabajo::setListadoDeArchivos(string rutaDirectorio)
 {
-    listadoDeArchivos.clear();
+    if(!listadoDeArchivos.empty())
+        listadoDeArchivos.clear();
 
     DIR *dir = opendir(rutaDirectorio.c_str());
     if (dir != NULL)

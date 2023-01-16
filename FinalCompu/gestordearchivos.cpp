@@ -56,7 +56,7 @@ void GestorDeArchivos::setRuta(const string &newRuta)
 
 void GestorDeArchivos::mostrarArchivos()
 {
-    for (int i=0; i<espacioDeTrabajo.getListadoDeArchivos().size(); i++)
+    for (unsigned int i=0; i<espacioDeTrabajo.getListadoDeArchivos().size(); i++)
     {
         cout<<"Archivo "<<i+1<<": ";
         cout<<espacioDeTrabajo.getArchivo(i)<<endl;
@@ -71,5 +71,5 @@ const string &GestorDeArchivos::getRaiz() const
 void GestorDeArchivos::setRaiz(const string &newRaiz)
 {
     raiz = newRaiz;
-    espacioDeTrabajo.setListadoDeArchivos(raiz + ruta);
+    //espacioDeTrabajo.setListadoDeArchivos(raiz + ruta);
 }
