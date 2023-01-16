@@ -5,10 +5,9 @@ EspacioDeTrabajo::EspacioDeTrabajo()
 
 }
 
-void EspacioDeTrabajo::setListadoDeArchivos(string rutaDirectorio)
+vector<string> EspacioDeTrabajo::generarListadoDeArchivos(string rutaDirectorio)
 {
-    if(!listadoDeArchivos.empty())
-        listadoDeArchivos.clear();
+    vector <string> listaArchivos;
 
     DIR *dir = opendir(rutaDirectorio.c_str());
     if (dir != NULL)
@@ -19,19 +18,12 @@ void EspacioDeTrabajo::setListadoDeArchivos(string rutaDirectorio)
         {
             if( entry->d_name != pto and entry->d_name != ptopto )
             {
-                listadoDeArchivos.push_back(entry->d_name);
+                listaArchivos.push_back(entry->d_name);
             }
         }
         closedir(dir);
     }
+
+    return listaArchivos;
 }
 
-string EspacioDeTrabajo::getArchivo(int id)
-{
-    return listadoDeArchivos[id];
-}
-
-vector <string> EspacioDeTrabajo::getListadoDeArchivos()
-{
-    return listadoDeArchivos;
-}

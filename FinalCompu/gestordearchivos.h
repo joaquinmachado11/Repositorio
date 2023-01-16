@@ -20,12 +20,18 @@ public:
 
     void mostrarArchivos();
 
+    string getArchivo(int id);
+    void setListadoDeArchivos();
+    vector <string> getListadoDeArchivos();
+    unsigned int cantidadDeArchivos();
+
 private:
     EspacioDeTrabajo espacioDeTrabajo; //genera un vector que luego usara gestor de archivo para generar los objetos imagen
     string reconocerFormato();//reconoce si es pnm o aic
     string raiz, ruta;//info que pasara al espacio de trabajo para pedirle un vector con nombres de archivos
     Archivo *ptrArchivo;
     int ID;
+    vector <string> listadoDeArchivos;
 };
 
 #endif // GESTORDEARCHIVOS_H

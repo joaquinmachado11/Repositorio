@@ -11,12 +11,7 @@ class EspacioDeTrabajo
 {
 public:
     EspacioDeTrabajo();
-    void setListadoDeArchivos(string rutaDirectorio);
-    string getArchivo(int id);
-    vector <string> getListadoDeArchivos();
-
-private:
-    vector <string> listadoDeArchivos;
+    vector <string> generarListadoDeArchivos(string rutaDirectorio);
 };
 
 #endif // ESPACIODETRABAJO_H
