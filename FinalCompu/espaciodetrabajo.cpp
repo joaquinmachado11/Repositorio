@@ -7,6 +7,8 @@ EspacioDeTrabajo::EspacioDeTrabajo()
 
 void EspacioDeTrabajo::setListadoDeArchivos(string rutaDirectorio)
 {
+    listadoDeArchivos.clear();
+
     DIR *dir = opendir(rutaDirectorio.c_str());
     if (dir != NULL)
     {
@@ -23,7 +25,12 @@ void EspacioDeTrabajo::setListadoDeArchivos(string rutaDirectorio)
     }
 }
 
-string EspacioDeTrabajo::getListadoDeArchivos(int id)
+string EspacioDeTrabajo::getArchivo(int id)
 {
     return listadoDeArchivos[id];
+}
+
+vector <string> EspacioDeTrabajo::getListadoDeArchivos()
+{
+    return listadoDeArchivos;
 }

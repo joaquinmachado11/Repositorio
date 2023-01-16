@@ -1,6 +1,9 @@
 #include <QCoreApplication>
 #include <pixel.h>
 #include <iostream>
+#include <archivo.h>
+#include <gestordearchivos.h>
+#include <imagen.h>
 
 using namespace std;
 int main(int argc, char *argv[])
@@ -63,6 +66,17 @@ int main(int argc, char *argv[])
     else
         cout<<"Son distintos"<<endl;
 */}
+
+//pruebas archivo
+
+    GestorDeArchivos gestorArchivos;
+    gestorArchivos.setRaiz("C:\Desktop\Final compu\pei-2021-2022-entrega_autotest_01");
+    gestorArchivos.setRuta("\grupo_imagenes_1");
+
+    gestorArchivos.mostrarArchivos();
+
+
+
 
     return a.exec();
 }

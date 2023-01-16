@@ -18,6 +18,8 @@ public:
     const string &getRuta() const;
     void setRuta(const string &newRuta);
 
+    void mostrarArchivos();
+
 private:
     EspacioDeTrabajo espacioDeTrabajo; //genera un vector que luego usara gestor de archivo para generar los objetos imagen
     string reconocerFormato();//reconoce si es pnm o aic

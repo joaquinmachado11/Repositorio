@@ -7,7 +7,7 @@ GestorDeArchivos::GestorDeArchivos()
 
 Imagen GestorDeArchivos::generarImagen(int pID)
 {
-    ID=pID;
+    ID=pID-1;
     Imagen im;
     string extension = reconocerFormato();
 
@@ -27,7 +27,7 @@ Imagen GestorDeArchivos::generarImagen(int pID)
         }
     }
 
-    im = ptrArchivo->leerImagen(espacioDeTrabajo.getListadoDeArchivos(ID));
+    im = ptrArchivo->leerImagen(espacioDeTrabajo.getArchivo(ID));
     delete ptrArchivo;
     return im;
 }
@@ -39,7 +39,7 @@ void GestorDeArchivos::guardarImagen(string nombreImagen, Imagen &imagen)
 
 string GestorDeArchivos::reconocerFormato()
 {
-    string nombre = espacioDeTrabajo.getListadoDeArchivos(ID);
+    string nombre = espacioDeTrabajo.getArchivo(ID);
     return nombre.substr(nombre.find_last_of('.'), nombre.size());
 }
 
@@ -51,6 +51,16 @@ const string &GestorDeArchivos::getRuta() const
 void GestorDeArchivos::setRuta(const string &newRuta)
 {
     ruta = newRuta;
+    espacioDeTrabajo.setListadoDeArchivos(raiz + ruta);
+}
+
+void GestorDeArchivos::mostrarArchivos()
+{
+    for (int i=0; i<espacioDeTrabajo.getListadoDeArchivos().size(); i++)
+    {
+        cout<<"Archivo "<<i+1<<": ";
+        cout<<espacioDeTrabajo.getArchivo(i)<<endl;
+    }
 }
 
 const string &GestorDeArchivos::getRaiz() const
@@ -61,4 +71,5 @@ const string &GestorDeArchivos::getRaiz() const
 void GestorDeArchivos::setRaiz(const string &newRaiz)
 {
     raiz = newRaiz;
+    espacioDeTrabajo.setListadoDeArchivos(raiz + ruta);
 }

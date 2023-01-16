@@ -2,6 +2,11 @@
 #include "archivo.h"
 #include <stdlib.h>
 
+ArchivoPNM::~ArchivoPNM()
+{
+
+}
+
 ArchivoPNM::ArchivoPNM()
 {
 
@@ -16,42 +21,44 @@ Imagen ArchivoPNM::leerImagen(string pNombreArchivo)
 
     archivo.open(getNombreArchivo(), ios::in);
 
-    /*if (!archivo.is_open()) {
-        cerr << "Could not open the file - '"
-             << nombreArchivo << "'" << endl;
-        return EXIT_FAILURE;
-    }*/
-    archivo>>identificacion;    archivo.ignore();
-    imagen.setCodigo(identificacion);
-
-    archivo>>descripcion;       archivo.ignore();
-
-    archivo>>columnas;
-    imagen.setColumnas(columnas);//agregar ignorar los espacios
-
-    archivo>>filas;
-    imagen.setFilas(filas);
-
-    imagen.dimensionar();
-    archivo.close();
-
-    if (imagen.getCodigo()=="P1" or imagen.getCodigo()=="P2" or imagen.getCodigo()=="P3")
+    if (!archivo.is_open())
     {
-        leerTexto(imagen);
+        cout<<"Error al abrir el archivo."<<endl;
     }
     else
     {
-        if (imagen.getCodigo()=="P4" or imagen.getCodigo()=="P5" or imagen.getCodigo()=="P6")
+        archivo>>identificacion;    archivo.ignore();
+        imagen.setCodigo(identificacion);
+
+        getline(archivo, descripcion);
+
+        archivo>>columnas;
+        imagen.setColumnas(columnas);//agregar ignorar los espacios
+
+        archivo>>filas;
+        imagen.setFilas(filas);
+
+        imagen.dimensionar();
+        archivo.close();
+
+        if (imagen.getCodigo()=="P1" or imagen.getCodigo()=="P2" or imagen.getCodigo()=="P3")
         {
-            leerBinario(imagen);
+            leerTexto(imagen);
         }
         else
         {
-            //error
+            if (imagen.getCodigo()=="P4" or imagen.getCodigo()=="P5" or imagen.getCodigo()=="P6")
+            {
+                leerBinario(imagen);
+            }
+            else
+            {
+                //error
+            }
         }
-    }
 
-    return imagen;
+        return imagen;
+    }
 }
 
 const string &ArchivoPNM::getNombreArchivo() const
@@ -68,20 +75,63 @@ void ArchivoPNM::leerTexto(Imagen &pImagen)
 {
     archivo.open(getNombreArchivo(), ios::in);
 
-    /*if (!archivo.is_open()) {
-        cerr << "Could not open the file - '"
-             << nombreArchivo << "'" << endl;
-        return EXIT_FAILURE;
-    }*/
-
-    if (pImagen.getCodigo()=="P2" or pImagen.getCodigo()=="P3")
+    if (pImagen.getCodigo()!="P1")
     {
         int rangoDinamico;
         archivo>>rangoDinamico;
         pImagen.setRangoDinamico(rangoDinamico);
     }
+    else
+    {
+        pImagen.setRangoDinamico(1);
+    }
 
-    if (pImagen.getCodigo()=="P1") //monocromatico
+    float datoPixel;
+
+    switch (pImagen.getCodigo()[1])
+    {
+    case '1':
+        for (unsigned int f=0; f<pImagen.getFilas(); f++)
+        {
+            for (unsigned int c=0; c<pImagen.getColumnas(); c++)
+            {
+                archivo>>datoPixel; //agregar control de error
+                pImagen.getPixel(f,c).definirPixel(datoPixel,datoPixel,datoPixel);
+            }
+        }
+        break;
+
+    case '2':
+        for (unsigned int f=0; f<pImagen.getFilas(); f++)
+        {
+            for (unsigned int c=0; c<pImagen.getColumnas(); c++)
+            {
+                archivo>>datoPixel; //agregar control de error
+                pImagen.getPixel(f,c).definirPixel(datoPixel,datoPixel,datoPixel);
+            }
+        }
+        break;
+
+    case '3':
+        float datoPixel;
+        for (unsigned int f=0; f<pImagen.getFilas(); f++)
+        {
+            for (unsigned int c=0; c<pImagen.getColumnas(); c++)
+            {
+                archivo>>datoPixel; //agregar control de error
+                pImagen.getPixel(f,c).definirComponente(0,datoPixel);
+
+                archivo>>datoPixel;
+                pImagen.getPixel(f,c).definirComponente(1,datoPixel);
+
+                archivo>>datoPixel;
+                pImagen.getPixel(f,c).definirComponente(2,datoPixel);
+            }
+        }
+        break;
+    }
+
+    /*if (pImagen.getCodigo()=="P1") //monocromatico
     {
         float datoPixel;
 
@@ -127,7 +177,7 @@ void ArchivoPNM::leerTexto(Imagen &pImagen)
                 pImagen.getPixel(f,c).definirComponente(2,datoPixel);
             }
         }
-    }
+    }*/
 
     archivo.close();
 }
@@ -151,20 +201,96 @@ void ArchivoPNM::leerBinario(Imagen &pImagen)
         archivo.open(getNombreArchivo(), ios::in | ios::binary);
     }
 
-    if (pImagen.getCodigo()=="P4") //monocromatico
-    {
+    float datoPixel;
 
+    switch (pImagen.getCodigo()[1])
+    {
+    case '4':
+        for (unsigned int f=0; f<pImagen.getFilas(); f++)
+        {
+            for (unsigned int c=0; c<pImagen.getColumnas(); c++)
+            {
+                archivo.read((char * ) &datoPixel , sizeof(datoPixel));
+                pImagen.getPixel(f,c).definirPixel(datoPixel,datoPixel,datoPixel);
+            }
+        }
+        break;
+
+    case '5':
+        for (unsigned int f=0; f<pImagen.getFilas(); f++)
+        {
+            for (unsigned int c=0; c<pImagen.getColumnas(); c++)
+            {
+                archivo.read((char * ) &datoPixel , sizeof(datoPixel));
+                pImagen.getPixel(f,c).definirPixel(datoPixel,datoPixel,datoPixel);
+            }
+        }
+        break;
+    case '6':
+        for (unsigned int f=0; f<pImagen.getFilas(); f++)
+        {
+            for (unsigned int c=0; c<pImagen.getColumnas(); c++)
+            {
+                archivo.read((char * ) &datoPixel , sizeof(datoPixel));
+                pImagen.getPixel(f,c).definirComponente(0, datoPixel);
+
+                archivo.read((char * ) &datoPixel , sizeof(datoPixel));
+                pImagen.getPixel(f,c).definirComponente(1, datoPixel);
+
+                archivo.read((char * ) &datoPixel , sizeof(datoPixel));
+                pImagen.getPixel(f,c).definirComponente(2, datoPixel);
+            }
+        }
+        break;
+    }
+
+/*    if (pImagen.getCodigo()=="P4") //monocromatico
+    {
+        float datoPixel;
+
+        for (unsigned int f=0; f<pImagen.getFilas(); f++)
+        {
+            for (unsigned int c=0; c<pImagen.getColumnas(); c++)
+            {
+                archivo.read((char * ) &datoPixel , sizeof(datoPixel));
+                pImagen.getPixel(f,c).definirPixel(datoPixel,datoPixel,datoPixel);
+            }
+        }
     }
 
     if (pImagen.getCodigo()=="P5") //escala de grises
     {
+        float datoPixel;
 
+        for (unsigned int f=0; f<pImagen.getFilas(); f++)
+        {
+            for (unsigned int c=0; c<pImagen.getColumnas(); c++)
+            {
+                archivo.read((char * ) &datoPixel , sizeof(datoPixel));
+                pImagen.getPixel(f,c).definirPixel(datoPixel,datoPixel,datoPixel);
+            }
+        }
     }
 
     if (pImagen.getCodigo()=="P6") //rgb
     {
+        float datoPixel;
 
-    }
+        for (unsigned int f=0; f<pImagen.getFilas(); f++)
+        {
+            for (unsigned int c=0; c<pImagen.getColumnas(); c++)
+            {
+                archivo.read((char * ) &datoPixel , sizeof(datoPixel));
+                pImagen.getPixel(f,c).definirComponente(0, datoPixel);
 
+                archivo.read((char * ) &datoPixel , sizeof(datoPixel));
+                pImagen.getPixel(f,c).definirComponente(1, datoPixel);
 
+                archivo.read((char * ) &datoPixel , sizeof(datoPixel));
+                pImagen.getPixel(f,c).definirComponente(2, datoPixel);
+            }
+        }
+    }*/
+
+    archivo.close();
 }
