@@ -70,8 +70,8 @@ int main(int argc, char *argv[])
 //pruebas archivo
 
     GestorDeArchivos gestorArchivos;
-    gestorArchivos.setRaiz("../pei-2021-2022-entrega_autotest_01/");
-    gestorArchivos.setRuta("grupo_imagenes_2/");
+    gestorArchivos.setRaiz("Autotest/");
+    gestorArchivos.setRuta("../Repositorio/");
 
     gestorArchivos.mostrarArchivos();
 

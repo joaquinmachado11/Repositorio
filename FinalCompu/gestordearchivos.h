@@ -21,7 +21,6 @@ public:
     void mostrarArchivos();
 
     string getArchivo(int id);
-    void setListadoDeArchivos();
     vector <string> getListadoDeArchivos();
     unsigned int cantidadDeArchivos();
 

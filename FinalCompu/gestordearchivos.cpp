@@ -51,16 +51,17 @@ const string &GestorDeArchivos::getRuta() const
 void GestorDeArchivos::setRuta(const string &newRuta)
 {
     ruta = newRuta;
-    listadoDeArchivos=espacioDeTrabajo.generarListadoDeArchivos(raiz + ruta);
+    //listadoDeArchivos = espacioDeTrabajo.generarListadoDeArchivos(ruta + raiz);
 }
 
 void GestorDeArchivos::mostrarArchivos()
 {
-    cout<<"Cantidad total de archivos: "<<cantidadDeArchivos()<<endl;
-    for (unsigned int i=0; i<cantidadDeArchivos(); i++)
+    vector <string> lista = espacioDeTrabajo.generarListadoDeArchivos(ruta+raiz);
+    cout<<"Cantidad total de archivos: "<<lista.size()<<endl;
+    for (unsigned int i=0; i<lista.size(); i++)
     {
         cout<<"Archivo "<<i+1<<": ";
-        cout<<getArchivo(i)<<endl;
+        cout<<lista[i]<<endl;
     }
 }
 
@@ -72,7 +73,7 @@ const string &GestorDeArchivos::getRaiz() const
 void GestorDeArchivos::setRaiz(const string &newRaiz)
 {
     raiz = newRaiz;
-    listadoDeArchivos=espacioDeTrabajo.generarListadoDeArchivos(raiz + ruta);
+    //listadoDeArchivos=espacioDeTrabajo.generarListadoDeArchivos(ruta + raiz);
 }
 
 string GestorDeArchivos::getArchivo(int id)
