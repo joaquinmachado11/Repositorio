@@ -1,0 +1,17 @@
+debug/archivo.o
+debug/archivoaic.o
+debug/archivopnm.o
+debug/atajodetecladoyopciones.o
+debug/editor.o
+debug/espaciodetrabajo.o
+debug/filtro.o
+debug/gestordearchivos.o
+debug/graficador.o
+debug/imagen.o
+debug/interfaz.o
+debug/lut.o
+debug/main.o
+debug/mediana.o
+debug/pixel.o
+debug/procesadorestadistico.o
+debug/suavizado.o

@@ -5,9 +5,8 @@ GestorDeArchivos::GestorDeArchivos()
 
 }
 
-Imagen GestorDeArchivos::generarImagen(int pID)
+Imagen GestorDeArchivos::generarImagen()
 {
-    ID=pID-1;
     Imagen im;
     string extension = reconocerFormato();
 
@@ -27,7 +26,7 @@ Imagen GestorDeArchivos::generarImagen(int pID)
         }
     }
 
-    im = ptrArchivo->leerImagen(getArchivo(ID));
+    im = ptrArchivo->leerImagen(getUbicacionArchivo());
     delete ptrArchivo;
     return im;
 }
@@ -39,8 +38,18 @@ void GestorDeArchivos::guardarImagen(string nombreImagen, Imagen &imagen)
 
 string GestorDeArchivos::reconocerFormato()
 {
-    string nombre = getArchivo(ID);
+    string nombre = getNombreArchivo();
     return nombre.substr(nombre.find_last_of('.'), nombre.size());
+}
+
+int GestorDeArchivos::getID() const
+{
+    return ID;
+}
+
+void GestorDeArchivos::setID(int newID)
+{
+    ID = newID-1;
 }
 
 const string &GestorDeArchivos::getRuta() const
@@ -56,13 +65,59 @@ void GestorDeArchivos::setRuta(const string &newRuta)
 
 void GestorDeArchivos::mostrarArchivos()
 {
-    vector <string> lista = espacioDeTrabajo.generarListadoDeArchivos(ruta+raiz);
-    cout<<"Cantidad total de archivos: "<<lista.size()<<endl;
-    for (unsigned int i=0; i<lista.size(); i++)
+    generarListadoDeArchivos(ruta + raiz); //o raiz + ruta
+    cout<<"Cantidad total de archivos: "<<listadoDeArchivos.size()<<endl;
+    for (unsigned int i=0; i<listadoDeArchivos.size(); i++)
     {
         cout<<"Archivo "<<i+1<<": ";
-        cout<<lista[i]<<endl;
+        cout<<listadoDeArchivos[i]<<endl;
     }
+}
+
+void GestorDeArchivos::generarListadoDeArchivos(string rutaDirectorio)
+{
+    if (!listadoDeArchivos.empty())
+        listadoDeArchivos.clear();
+
+    vector<string> lista_de_archivos;
+    DIR *dir = opendir(rutaDirectorio.c_str());
+    if (dir != NULL)
+    {
+        string pto("."), ptopto("..");
+        struct dirent *entry;
+        while ((entry = readdir(dir)) != NULL)
+        {
+            if( entry->d_name != pto and entry->d_name != ptopto )
+            {
+                lista_de_archivos.push_back(entry->d_name);
+            }
+        }
+        closedir(dir);
+    }
+    listadoDeArchivos = lista_de_archivos;
+}
+
+void GestorDeArchivos::setListaArch(string pRuta)
+{
+    generarListadoDeArchivos(pRuta);
+    vector<string> Lista = listadoDeArchivos;
+    string extension;
+    string nombre;
+
+    for(unsigned int i=0 ; i<Lista.size() ; i++)
+    {
+        nombre = Lista[i];
+        extension = nombre.substr(nombre.find_last_of('.'), nombre.size());
+        if(extension == ".pbm" or  extension == ".pgm" or  extension == ".ppm" or  extension == ".pnm" or extension == ".aic")
+        {
+            listadoDeArchivos.push_back(nombre);
+        }
+    }
+}
+
+string GestorDeArchivos::getUbicacionArchivo()
+{
+    return ruta + raiz + getNombreArchivo();
 }
 
 const string &GestorDeArchivos::getRaiz() const
@@ -76,12 +131,12 @@ void GestorDeArchivos::setRaiz(const string &newRaiz)
     //listadoDeArchivos=espacioDeTrabajo.generarListadoDeArchivos(ruta + raiz);
 }
 
-string GestorDeArchivos::getArchivo(int id)
+string GestorDeArchivos::getNombreArchivo()
 {
-    return listadoDeArchivos[id];
+    return listadoDeArchivos[ID];
 }
 
-vector <string> GestorDeArchivos::getListadoDeArchivos()
+vector<string> &GestorDeArchivos::getListadoDeArchivos()
 {
     return listadoDeArchivos;
 }

@@ -11,11 +11,11 @@ class EspacioDeTrabajo
 {
 public:
     EspacioDeTrabajo();
-    vector <string> generarListadoDeArchivos(string rutaDirectorio);
+    /*vector <string> generarListadoDeArchivos(string rutaDirectorio);
     void setListaArch(string pRuta);
 
 private:
-    vector <string> listaArchivos;
+    vector <string> listaArchivos;*/
 };
 
 #endif // ESPACIODETRABAJO_H

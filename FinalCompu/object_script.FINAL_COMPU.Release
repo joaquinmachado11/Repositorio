@@ -1,0 +1,17 @@
+release/archivo.o
+release/archivoaic.o
+release/archivopnm.o
+release/atajodetecladoyopciones.o
+release/editor.o
+release/espaciodetrabajo.o
+release/filtro.o
+release/gestordearchivos.o
+release/graficador.o
+release/imagen.o
+release/interfaz.o
+release/lut.o
+release/main.o
+release/mediana.o
+release/pixel.o
+release/procesadorestadistico.o
+release/suavizado.o

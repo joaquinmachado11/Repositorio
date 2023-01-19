@@ -17,6 +17,7 @@ Imagen ArchivoPNM::leerImagen(string pNombreArchivo)
     setNombreArchivo(pNombreArchivo);
     Imagen imagen;
     string identificacion, descripcion;
+    char numeral;
     int filas, columnas;
 
     archivo.open(getNombreArchivo(), ios::in);
@@ -30,16 +31,21 @@ Imagen ArchivoPNM::leerImagen(string pNombreArchivo)
         archivo>>identificacion;    archivo.ignore();
         imagen.setCodigo(identificacion);
 
+        archivo>>numeral;
+        if (numeral!='#')
+            cout<<"Error. (corrupta)";
+
         getline(archivo, descripcion);
+        imagen.setDescripcion(descripcion);
 
         archivo>>columnas;
-        imagen.setColumnas(columnas);//agregar ignorar los espacios
+        imagen.setColumnas(columnas);
 
         archivo>>filas;
         imagen.setFilas(filas);
 
         imagen.dimensionar();
-        archivo.close();
+        //archivo.close();
 
         if (imagen.getCodigo()=="P1" or imagen.getCodigo()=="P2" or imagen.getCodigo()=="P3")
         {
@@ -73,7 +79,7 @@ void ArchivoPNM::setNombreArchivo(const string &newNombreArchivo)
 
 void ArchivoPNM::leerTexto(Imagen &pImagen)
 {
-    archivo.open(getNombreArchivo(), ios::in);
+    //archivo.open(getNombreArchivo(), ios::in);
 
     if (pImagen.getCodigo()!="P1")
     {
@@ -186,19 +192,13 @@ void ArchivoPNM::leerBinario(Imagen &pImagen)
 {
     if (pImagen.getCodigo()=="P5" or pImagen.getCodigo()=="P6")
     {
-        archivo.open(getNombreArchivo(), ios::in);
-
         int rangoDinamico;
         archivo>>rangoDinamico;
         pImagen.setRangoDinamico(rangoDinamico);
-
-        archivo.close();
-
-        archivo.open(getNombreArchivo(), ios::in | ios::binary);
     }
     else
     {
-        archivo.open(getNombreArchivo(), ios::in | ios::binary);
+        pImagen.setRangoDinamico(1);
     }
 
     float datoPixel;

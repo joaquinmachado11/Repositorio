@@ -68,12 +68,27 @@ int main(int argc, char *argv[])
 */}
 
 //pruebas archivo
-
     GestorDeArchivos gestorArchivos;
-    gestorArchivos.setRaiz("Autotest/");
-    gestorArchivos.setRuta("../Repositorio/");
+    gestorArchivos.setRuta("C:/Users/Usuario/Desktop/Final compu/Repositorio/FinalCompu/Autotest/");
+    gestorArchivos.setRaiz("imagenes_pruebaPBM/");
 
     gestorArchivos.mostrarArchivos();
+
+    int opcion;
+    cout<<"Elegir archivo a leer: "; cin>>opcion;
+    while (opcion != 99)
+    {
+        gestorArchivos.setID(opcion);
+        cout<<"Se selecciono el archivo: "<<gestorArchivos.getNombreArchivo()<<endl;
+        cout<<"Ubicacion del archivo: "<<gestorArchivos.getUbicacionArchivo()<<endl;
+        Imagen imagen = gestorArchivos.generarImagen();
+        cout<<"Codigo: "<<imagen.getCodigo()<<endl;
+        cout<<"Descripcion: "<<imagen.getDescripcion()<<endl;
+        cout<<"Filas: "<<imagen.getFilas()<<endl;
+        cout<<"Columnas: "<<imagen.getColumnas()<<endl;
+        cout<<"Rango dinamico: "<<imagen.getRangoDinamico()<<endl;
+        cout<<"Elegir otro archivo: "; cin >> opcion;
+    }
 
     return a.exec();
 }

@@ -10,6 +10,7 @@ class Imagen
 {
 public:
     Imagen();
+    ~Imagen();
 
     int getFilas() const;
     void setFilas(int newFilas);
@@ -28,11 +29,15 @@ public:
     const string &getCodigo() const;
     void setCodigo(const string &newCodigo);
 
+    void setDescripcion(const string &newDescripcion);
+    const string &getDescripcion() const;
+
 private:
     vector < vector < Pixel >> imagen;
     int filas;
     int columnas;
     int rangoDinamico;
+    string descripcion;
     string codigo;
 };
 

@@ -9,8 +9,12 @@ class GestorDeArchivos
 {
 public:
     GestorDeArchivos();
-    Imagen generarImagen(int pID);
+
+    Imagen generarImagen();
     void guardarImagen(string nombreImagen, Imagen& imagen);
+
+    int getID() const;
+    void setID(int newID);
 
     const string &getRaiz() const;
     void setRaiz(const string &newRaiz);
@@ -18,16 +22,19 @@ public:
     const string &getRuta() const;
     void setRuta(const string &newRuta);
 
+    void generarListadoDeArchivos(string rutaDirectorio);
+    void setListaArch(string pRuta);
+
+    string getUbicacionArchivo();
+    string getNombreArchivo();
+    vector <string> &getListadoDeArchivos();
+
+    unsigned int cantidadDeArchivos();
     void mostrarArchivos();
 
-    string getArchivo(int id);
-    vector <string> getListadoDeArchivos();
-    unsigned int cantidadDeArchivos();
-
 private:
-    EspacioDeTrabajo espacioDeTrabajo; //genera un vector que luego usara gestor de archivo para generar los objetos imagen
-    string reconocerFormato();//reconoce si es pnm o aic
-    string raiz, ruta;//info que pasara al espacio de trabajo para pedirle un vector con nombres de archivos
+    string reconocerFormato();          //reconoce si es pnm o aic
+    string raiz, ruta;                  //info que pasara al espacio de trabajo para pedirle un vector con nombres de archivos
     Archivo *ptrArchivo;
     int ID;
     vector <string> listadoDeArchivos;

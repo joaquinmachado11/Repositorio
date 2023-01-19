@@ -25,6 +25,11 @@ Imagen::Imagen()
 
 }
 
+Imagen::~Imagen()
+{
+
+}
+
 void Imagen::dimensionar()
 {
     imagen.resize(filas);
@@ -52,6 +57,16 @@ const string &Imagen::getCodigo() const
 void Imagen::setCodigo(const string &newCodigo)
 {
     codigo = newCodigo;
+}
+
+void Imagen::setDescripcion(const string &newDescripcion)
+{
+    descripcion = newDescripcion;
+}
+
+const string &Imagen::getDescripcion() const
+{
+    return descripcion;
 }
 
 int Imagen::getRangoDinamico() const

@@ -5,7 +5,7 @@ EspacioDeTrabajo::EspacioDeTrabajo()
 
 }
 
-vector<string> EspacioDeTrabajo::generarListadoDeArchivos(string rutaDirectorio)
+/*vector<string> EspacioDeTrabajo::generarListadoDeArchivos(string rutaDirectorio)
 {
     vector<string> lista_de_archivos;
     DIR *dir = opendir(rutaDirectorio.c_str());
@@ -23,9 +23,9 @@ vector<string> EspacioDeTrabajo::generarListadoDeArchivos(string rutaDirectorio)
         closedir(dir);
     }
     return lista_de_archivos;
-}
+}*/
 
-void EspacioDeTrabajo::setListaArch(string pRuta)
+/*void EspacioDeTrabajo::setListaArch(string pRuta)
 {
     vector<string> Lista = generarListadoDeArchivos(pRuta);
     string extension;
@@ -40,4 +40,4 @@ void EspacioDeTrabajo::setListaArch(string pRuta)
             listaArchivos.push_back(nombre);
         }
     }
-}
+}*/
