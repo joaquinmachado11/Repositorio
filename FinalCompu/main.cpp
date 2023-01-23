@@ -4,11 +4,12 @@
 #include <archivo.h>
 #include <gestordearchivos.h>
 #include <imagen.h>
+#include <graficador.h>
 
 using namespace std;
 int main(int argc, char *argv[])
 {
-    QCoreApplication a(argc, argv);
+    QApplication app(argc, argv);
 
 //pruebas para pixel
 {/*
@@ -68,6 +69,7 @@ int main(int argc, char *argv[])
 */}
 
 //pruebas archivo
+/*
     GestorDeArchivos gestorArchivos;
     gestorArchivos.setRuta("C:/Users/Usuario/Desktop/Final compu/Repositorio/FinalCompu/Autotest/");
     gestorArchivos.setRaiz("imagenes_pruebaPBM/");
@@ -87,8 +89,48 @@ int main(int argc, char *argv[])
         cout<<"Filas: "<<imagen.getFilas()<<endl;
         cout<<"Columnas: "<<imagen.getColumnas()<<endl;
         cout<<"Rango dinamico: "<<imagen.getRangoDinamico()<<endl;
+
+
+        Pixel pixelAUX;
+        for(int f=0; f<imagen.getFilas(); f++)
+        {
+            for(int c=0; c<imagen.getColumnas(); c++)
+            {
+                pixelAUX = imagen.getPixel(f,c);
+                cout<<pixelAUX.devolverComponente(0)<<" "
+                    <<pixelAUX.devolverComponente(1)<<" "
+                    <<pixelAUX.devolverComponente(2)<<"/";
+            }
+            cout<<endl;
+        }
+
         cout<<"Elegir otro archivo: "; cin >> opcion;
     }
+*/
 
-    return a.exec();
+
+//pruebas graficador
+
+    GestorDeArchivos gestorArchivos;
+    Graficador graficador(&gestorArchivos);
+    gestorArchivos.setRuta("C:/Users/Usuario/Desktop/Final compu/Repositorio/FinalCompu/Autotest/");
+    gestorArchivos.setRaiz("grupo_imagenes_1/");
+    gestorArchivos.setRaizGuardado("imagenes_guardadas/");
+
+    gestorArchivos.mostrarArchivos();
+
+    int opcion;
+    cout << "Elegir archivo a leer: "; cin >> opcion;
+    while (opcion!=99)
+    {
+        gestorArchivos.setID(opcion);
+        graficador.cargarImagen();
+        cout << "Se selecciono el archivo: " << gestorArchivos.getNombreArchivo() << endl;
+        cout << "Ubicacion del archivo: " << gestorArchivos.getUbicacionArchivo() << endl;
+        graficador.mostrar(800, 800, &app);
+
+        cout<<"Elija otra opcion: "; cin >> opcion;
+    }
+
+    return app.exec();
 }

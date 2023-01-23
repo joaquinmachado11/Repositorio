@@ -210,6 +210,7 @@ Makefile: FINAL_COMPU.pro C:/Qt/Qt5.12.12/5.12.12/mingw73_64/mkspecs/win32-g++/q
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/mkspecs/features/qt_config.prf \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/mkspecs/win32-g++/qmake.conf \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/mkspecs/features/exclusive_builds.prf \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/mkspecs/features/toolchain.prf \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/mkspecs/features/default_pre.prf \
@@ -217,15 +218,15 @@ Makefile: FINAL_COMPU.pro C:/Qt/Qt5.12.12/5.12.12/mingw73_64/mkspecs/win32-g++/q
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/mkspecs/features/resolve_config.prf \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/mkspecs/features/exclusive_builds_post.prf \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/mkspecs/features/default_post.prf \
-		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/mkspecs/features/win32/console.prf \
-		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/mkspecs/features/qml_debug.prf \
-		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/mkspecs/features/precompile_header.prf \
-		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/mkspecs/features/warn_on.prf \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/mkspecs/features/qt.prf \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/mkspecs/features/resources.prf \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/mkspecs/features/moc.prf \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/mkspecs/features/win32/opengl.prf \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/mkspecs/features/uic.prf \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/mkspecs/features/win32/console.prf \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/mkspecs/features/qml_debug.prf \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/mkspecs/features/precompile_header.prf \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/mkspecs/features/warn_on.prf \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/mkspecs/features/qmake_use.prf \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/mkspecs/features/file_copies.prf \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/mkspecs/features/testcase_targets.prf \
@@ -384,6 +385,7 @@ C:/Qt/Qt5.12.12/5.12.12/mingw73_64/mkspecs/features/qt_functions.prf:
 C:/Qt/Qt5.12.12/5.12.12/mingw73_64/mkspecs/features/qt_config.prf:
 C:/Qt/Qt5.12.12/5.12.12/mingw73_64/mkspecs/win32-g++/qmake.conf:
 C:/Qt/Qt5.12.12/5.12.12/mingw73_64/mkspecs/features/spec_post.prf:
+.qmake.stash:
 C:/Qt/Qt5.12.12/5.12.12/mingw73_64/mkspecs/features/exclusive_builds.prf:
 C:/Qt/Qt5.12.12/5.12.12/mingw73_64/mkspecs/features/toolchain.prf:
 C:/Qt/Qt5.12.12/5.12.12/mingw73_64/mkspecs/features/default_pre.prf:
@@ -391,15 +393,15 @@ C:/Qt/Qt5.12.12/5.12.12/mingw73_64/mkspecs/features/win32/default_pre.prf:
 C:/Qt/Qt5.12.12/5.12.12/mingw73_64/mkspecs/features/resolve_config.prf:
 C:/Qt/Qt5.12.12/5.12.12/mingw73_64/mkspecs/features/exclusive_builds_post.prf:
 C:/Qt/Qt5.12.12/5.12.12/mingw73_64/mkspecs/features/default_post.prf:
-C:/Qt/Qt5.12.12/5.12.12/mingw73_64/mkspecs/features/win32/console.prf:
-C:/Qt/Qt5.12.12/5.12.12/mingw73_64/mkspecs/features/qml_debug.prf:
-C:/Qt/Qt5.12.12/5.12.12/mingw73_64/mkspecs/features/precompile_header.prf:
-C:/Qt/Qt5.12.12/5.12.12/mingw73_64/mkspecs/features/warn_on.prf:
 C:/Qt/Qt5.12.12/5.12.12/mingw73_64/mkspecs/features/qt.prf:
 C:/Qt/Qt5.12.12/5.12.12/mingw73_64/mkspecs/features/resources.prf:
 C:/Qt/Qt5.12.12/5.12.12/mingw73_64/mkspecs/features/moc.prf:
 C:/Qt/Qt5.12.12/5.12.12/mingw73_64/mkspecs/features/win32/opengl.prf:
 C:/Qt/Qt5.12.12/5.12.12/mingw73_64/mkspecs/features/uic.prf:
+C:/Qt/Qt5.12.12/5.12.12/mingw73_64/mkspecs/features/win32/console.prf:
+C:/Qt/Qt5.12.12/5.12.12/mingw73_64/mkspecs/features/qml_debug.prf:
+C:/Qt/Qt5.12.12/5.12.12/mingw73_64/mkspecs/features/precompile_header.prf:
+C:/Qt/Qt5.12.12/5.12.12/mingw73_64/mkspecs/features/warn_on.prf:
 C:/Qt/Qt5.12.12/5.12.12/mingw73_64/mkspecs/features/qmake_use.prf:
 C:/Qt/Qt5.12.12/5.12.12/mingw73_64/mkspecs/features/file_copies.prf:
 C:/Qt/Qt5.12.12/5.12.12/mingw73_64/mkspecs/features/testcase_targets.prf:

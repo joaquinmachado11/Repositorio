@@ -25,6 +25,7 @@ Imagen ArchivoAIC::leerImagen(string pNombreArchivo)
 
     archivo>>identificacion;    archivo.ignore();
     imagen.setCodigo(identificacion);
+    //control de error para el codigo
 
     archivo>>numeral;
     if (numeral!='#')
@@ -44,18 +45,26 @@ Imagen ArchivoAIC::leerImagen(string pNombreArchivo)
     archivo>>rangoDin;
     imagen.setRangoDinamico(rangoDin);
 
+    archivo.ignore();
+
     int datoPixel, repeticiones;
     int contadorColumnas=0, contadorRepeticiones=0;
+
+    Pixel pixelAUX;
 
     for (int f=0; f<filas; f++)
     {
         do
         {
             archivo >> datoPixel >> repeticiones;
+            //control de error datoPixel y repeticiones>0
 
             while (contadorRepeticiones<repeticiones)
             {
-                imagen.getPixel(f, contadorColumnas).definirPixel(datoPixel,datoPixel,datoPixel);
+                pixelAUX = imagen.getPixel(f, contadorColumnas);
+                pixelAUX.definirPixel(datoPixel,datoPixel,datoPixel);
+                imagen.setPixel(f,contadorColumnas,pixelAUX);
+
                 contadorColumnas++;
                 contadorRepeticiones++;
             }

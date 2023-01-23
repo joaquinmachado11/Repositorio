@@ -22,7 +22,7 @@ Imagen GestorDeArchivos::generarImagen()
         }
         else
         {
-            (throw (string) "No se reconoce el archivo. ");
+            (throw (string) "No se reconoce el archivo.");
         }
     }
 
@@ -33,13 +33,33 @@ Imagen GestorDeArchivos::generarImagen()
 
 void GestorDeArchivos::guardarImagen(string nombreImagen, Imagen &imagen)
 {
+    if (imagen.getCodigo() == "P2C")
+    {
+        ptrArchivo = new ArchivoAIC;
+    }
+    else
+    {
+        ptrArchivo = new ArchivoPNM;
+    }
 
+    ptrArchivo->escribirImagen(imagen, nombreImagen, ruta + raizGuardado);
+    delete ptrArchivo;
 }
 
 string GestorDeArchivos::reconocerFormato()
 {
     string nombre = getNombreArchivo();
     return nombre.substr(nombre.find_last_of('.'), nombre.size());
+}
+
+const string &GestorDeArchivos::getRaizGuardado() const
+{
+    return raizGuardado;
+}
+
+void GestorDeArchivos::setRaizGuardado(const string &newRaizGuardado)
+{
+    raizGuardado = newRaizGuardado;
 }
 
 int GestorDeArchivos::getID() const
@@ -60,12 +80,10 @@ const string &GestorDeArchivos::getRuta() const
 void GestorDeArchivos::setRuta(const string &newRuta)
 {
     ruta = newRuta;
-    //listadoDeArchivos = espacioDeTrabajo.generarListadoDeArchivos(ruta + raiz);
 }
 
 void GestorDeArchivos::mostrarArchivos()
 {
-    generarListadoDeArchivos(ruta + raiz); //o raiz + ruta
     cout<<"Cantidad total de archivos: "<<listadoDeArchivos.size()<<endl;
     for (unsigned int i=0; i<listadoDeArchivos.size(); i++)
     {
@@ -97,24 +115,6 @@ void GestorDeArchivos::generarListadoDeArchivos(string rutaDirectorio)
     listadoDeArchivos = lista_de_archivos;
 }
 
-void GestorDeArchivos::setListaArch(string pRuta)
-{
-    generarListadoDeArchivos(pRuta);
-    vector<string> Lista = listadoDeArchivos;
-    string extension;
-    string nombre;
-
-    for(unsigned int i=0 ; i<Lista.size() ; i++)
-    {
-        nombre = Lista[i];
-        extension = nombre.substr(nombre.find_last_of('.'), nombre.size());
-        if(extension == ".pbm" or  extension == ".pgm" or  extension == ".ppm" or  extension == ".pnm" or extension == ".aic")
-        {
-            listadoDeArchivos.push_back(nombre);
-        }
-    }
-}
-
 string GestorDeArchivos::getUbicacionArchivo()
 {
     return ruta + raiz + getNombreArchivo();
@@ -128,7 +128,7 @@ const string &GestorDeArchivos::getRaiz() const
 void GestorDeArchivos::setRaiz(const string &newRaiz)
 {
     raiz = newRaiz;
-    //listadoDeArchivos=espacioDeTrabajo.generarListadoDeArchivos(ruta + raiz);
+    generarListadoDeArchivos( ruta + raiz );
 }
 
 string GestorDeArchivos::getNombreArchivo()

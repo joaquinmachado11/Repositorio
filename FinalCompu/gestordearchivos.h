@@ -19,11 +19,13 @@ public:
     const string &getRaiz() const;
     void setRaiz(const string &newRaiz);
 
+    const string &getRaizGuardado() const;
+    void setRaizGuardado(const string &newRaizGuardado);
+
     const string &getRuta() const;
     void setRuta(const string &newRuta);
 
     void generarListadoDeArchivos(string rutaDirectorio);
-    void setListaArch(string pRuta);
 
     string getUbicacionArchivo();
     string getNombreArchivo();
@@ -33,8 +35,8 @@ public:
     void mostrarArchivos();
 
 private:
-    string reconocerFormato();          //reconoce si es pnm o aic
-    string raiz, ruta;                  //info que pasara al espacio de trabajo para pedirle un vector con nombres de archivos
+    string reconocerFormato();                      //reconoce si es pnm o aic
+    string ruta, raiz, raizGuardado;                  //info que pasara al espacio de trabajo para pedirle un vector con nombres de archivos
     Archivo *ptrArchivo;
     int ID;
     vector <string> listadoDeArchivos;

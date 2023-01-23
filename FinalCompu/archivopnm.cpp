@@ -20,7 +20,7 @@ Imagen ArchivoPNM::leerImagen(string pNombreArchivo)
     char numeral;
     int filas, columnas;
 
-    archivo.open(getNombreArchivo(), ios::in);
+    archivo.open(getNombreArchivo(), ios::in | ios::binary);
 
     if (!archivo.is_open())
     {
@@ -30,6 +30,7 @@ Imagen ArchivoPNM::leerImagen(string pNombreArchivo)
     {
         archivo>>identificacion;    archivo.ignore();
         imagen.setCodigo(identificacion);
+        //control de error para el codigo
 
         archivo>>numeral;
         if (numeral!='#')
@@ -93,6 +94,7 @@ void ArchivoPNM::leerTexto(Imagen &pImagen)
     }
 
     float datoPixel;
+    Pixel pixelAUX;
 
     switch (pImagen.getCodigo()[1])
     {
@@ -101,8 +103,10 @@ void ArchivoPNM::leerTexto(Imagen &pImagen)
         {
             for (unsigned int c=0; c<pImagen.getColumnas(); c++)
             {
-                archivo>>datoPixel; //agregar control de error
-                pImagen.getPixel(f,c).definirPixel(datoPixel,datoPixel,datoPixel);
+                archivo>>datoPixel; //agregar control de error q sea menor a M
+                pixelAUX = pImagen.getPixel(f,c);
+                pixelAUX.definirPixel(datoPixel,datoPixel,datoPixel);
+                pImagen.setPixel(f, c, pixelAUX);
             }
         }
         break;
@@ -112,8 +116,10 @@ void ArchivoPNM::leerTexto(Imagen &pImagen)
         {
             for (unsigned int c=0; c<pImagen.getColumnas(); c++)
             {
-                archivo>>datoPixel; //agregar control de error
-                pImagen.getPixel(f,c).definirPixel(datoPixel,datoPixel,datoPixel);
+                archivo>>datoPixel; //agregar control de error q sea menor a M
+                pixelAUX = pImagen.getPixel(f,c);
+                pixelAUX.definirPixel(datoPixel,datoPixel,datoPixel);
+                pImagen.setPixel(f, c, pixelAUX);
             }
         }
         break;
@@ -124,14 +130,18 @@ void ArchivoPNM::leerTexto(Imagen &pImagen)
         {
             for (unsigned int c=0; c<pImagen.getColumnas(); c++)
             {
-                archivo>>datoPixel; //agregar control de error
-                pImagen.getPixel(f,c).definirComponente(0,datoPixel);
+                pixelAUX = pImagen.getPixel(f,c);
+
+                archivo>>datoPixel; //agregar control de error q sea menor a M
+                pixelAUX.definirComponente(0,datoPixel);
 
                 archivo>>datoPixel;
-                pImagen.getPixel(f,c).definirComponente(1,datoPixel);
+                pixelAUX.definirComponente(1,datoPixel);
 
                 archivo>>datoPixel;
-                pImagen.getPixel(f,c).definirComponente(2,datoPixel);
+                pixelAUX.definirComponente(2,datoPixel);
+
+                pImagen.setPixel(f, c, pixelAUX);
             }
         }
         break;
@@ -167,20 +177,22 @@ void ArchivoPNM::leerTexto(Imagen &pImagen)
 
     if (pImagen.getCodigo()=="P3") //RGB
     {
-        float datoPixel;
-
         for (unsigned int f=0; f<pImagen.getFilas(); f++)
         {
             for (unsigned int c=0; c<pImagen.getColumnas(); c++)
             {
-                archivo>>datoPixel; //agregar control de error
-                pImagen.getPixel(f,c).definirComponente(0,datoPixel);
+                pixelAUX = pImagen.getPixel(f,c);
+
+                archivo>>datoPixel; //agregar control de error q sea menor a M
+                pixelAUX.definirComponente(0,datoPixel);
 
                 archivo>>datoPixel;
-                pImagen.getPixel(f,c).definirComponente(1,datoPixel);
+                pixelAUX.definirComponente(1,datoPixel);
 
                 archivo>>datoPixel;
-                pImagen.getPixel(f,c).definirComponente(2,datoPixel);
+                pixelAUX.definirComponente(2,datoPixel);
+
+                pImagen.setPixel(f, c, pixelAUX);
             }
         }
     }*/
@@ -201,7 +213,8 @@ void ArchivoPNM::leerBinario(Imagen &pImagen)
         pImagen.setRangoDinamico(1);
     }
 
-    float datoPixel;
+    unsigned char datoPixel;
+    Pixel pixelAUX;
 
     switch (pImagen.getCodigo()[1])
     {
@@ -211,7 +224,10 @@ void ArchivoPNM::leerBinario(Imagen &pImagen)
             for (unsigned int c=0; c<pImagen.getColumnas(); c++)
             {
                 archivo.read((char * ) &datoPixel , sizeof(datoPixel));
-                pImagen.getPixel(f,c).definirPixel(datoPixel,datoPixel,datoPixel);
+                //agregar control de error, datoPixel <=M y >= 0
+                pixelAUX = pImagen.getPixel(f,c);
+                pixelAUX.definirPixel(datoPixel,datoPixel,datoPixel);
+                pImagen.setPixel(f, c, pixelAUX);
             }
         }
         break;
@@ -222,7 +238,10 @@ void ArchivoPNM::leerBinario(Imagen &pImagen)
             for (unsigned int c=0; c<pImagen.getColumnas(); c++)
             {
                 archivo.read((char * ) &datoPixel , sizeof(datoPixel));
-                pImagen.getPixel(f,c).definirPixel(datoPixel,datoPixel,datoPixel);
+                //agregar control de error, datoPixel <=M y >= 0
+                pixelAUX = pImagen.getPixel(f,c);
+                pixelAUX.definirPixel(datoPixel,datoPixel,datoPixel);
+                pImagen.setPixel(f, c, pixelAUX);
             }
         }
         break;
@@ -231,28 +250,33 @@ void ArchivoPNM::leerBinario(Imagen &pImagen)
         {
             for (unsigned int c=0; c<pImagen.getColumnas(); c++)
             {
-                archivo.read((char * ) &datoPixel , sizeof(datoPixel));
-                pImagen.getPixel(f,c).definirComponente(0, datoPixel);
+                pixelAUX = pImagen.getPixel(f,c);
 
                 archivo.read((char * ) &datoPixel , sizeof(datoPixel));
-                pImagen.getPixel(f,c).definirComponente(1, datoPixel);
+                //agregar control de error, datoPixel <=M y >= 0
+                pixelAUX.definirComponente(0, datoPixel);
 
                 archivo.read((char * ) &datoPixel , sizeof(datoPixel));
-                pImagen.getPixel(f,c).definirComponente(2, datoPixel);
+                pixelAUX.definirComponente(1, datoPixel);
+
+                archivo.read((char * ) &datoPixel , sizeof(datoPixel));
+                pixelAUX.definirComponente(2, datoPixel);
+
+                pImagen.setPixel(f, c, pixelAUX);
             }
         }
         break;
     }
 
-/*    if (pImagen.getCodigo()=="P4") //monocromatico
+/*
+    if (pImagen.getCodigo()=="P4") //monocromatico
     {
-        float datoPixel;
-
         for (unsigned int f=0; f<pImagen.getFilas(); f++)
         {
             for (unsigned int c=0; c<pImagen.getColumnas(); c++)
             {
                 archivo.read((char * ) &datoPixel , sizeof(datoPixel));
+                //agregar control de error, datoPixel <=M y >= 0
                 pImagen.getPixel(f,c).definirPixel(datoPixel,datoPixel,datoPixel);
             }
         }
@@ -260,13 +284,12 @@ void ArchivoPNM::leerBinario(Imagen &pImagen)
 
     if (pImagen.getCodigo()=="P5") //escala de grises
     {
-        float datoPixel;
-
         for (unsigned int f=0; f<pImagen.getFilas(); f++)
         {
             for (unsigned int c=0; c<pImagen.getColumnas(); c++)
             {
                 archivo.read((char * ) &datoPixel , sizeof(datoPixel));
+                //agregar control de error, datoPixel <=M y >= 0
                 pImagen.getPixel(f,c).definirPixel(datoPixel,datoPixel,datoPixel);
             }
         }
@@ -274,13 +297,12 @@ void ArchivoPNM::leerBinario(Imagen &pImagen)
 
     if (pImagen.getCodigo()=="P6") //rgb
     {
-        float datoPixel;
-
         for (unsigned int f=0; f<pImagen.getFilas(); f++)
         {
             for (unsigned int c=0; c<pImagen.getColumnas(); c++)
             {
                 archivo.read((char * ) &datoPixel , sizeof(datoPixel));
+                //agregar control de error, datoPixel <=M y >= 0
                 pImagen.getPixel(f,c).definirComponente(0, datoPixel);
 
                 archivo.read((char * ) &datoPixel , sizeof(datoPixel));
@@ -290,7 +312,8 @@ void ArchivoPNM::leerBinario(Imagen &pImagen)
                 pImagen.getPixel(f,c).definirComponente(2, datoPixel);
             }
         }
-    }*/
+    }
+*/
 
     archivo.close();
 }

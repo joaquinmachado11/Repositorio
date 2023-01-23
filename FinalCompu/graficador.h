@@ -1,20 +1,20 @@
 #ifndef GRAFICADOR_H
 #define GRAFICADOR_H
 #include <QOpenGLWindow>
+#include <QOpenGLWidget>
 #include <QOpenGLFunctions>
 #include <QApplication>
 #include <imagen.h>
 #include <gestordearchivos.h>
 
-class Graficador : public QOpenGLWindow, protected QOpenGLFunctions
+class Graficador : public QOpenGLWidget
 {
 public:
     Graficador(GestorDeArchivos *pGestorDeArchivos);
     ~Graficador();
 
-    void mostrar(int pAncho, int pAlto, QApplication* pPtrApp);
-
-    //void setGestorDeArchivos(*pGestorDeArchivos);
+    void mostrar(int pAncho, int pAlto, QApplication *pPtrApp);
+    void cargarImagen();
 
 protected:
     void initializeGL() override;
@@ -22,8 +22,12 @@ protected:
     void paintGL() override;
 
 private:
+    void dibujarImagen();
     GestorDeArchivos *ptrGestorDeArchivos;
     Imagen imagenAGraficar;
+    float escala; //mantiene las proporciones para cualquier tamaño de ventana
+    float desplx;
+    float desply;
 };
 
 #endif // GRAFICADOR_H
