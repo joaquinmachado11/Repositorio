@@ -8,6 +8,7 @@
 #include <imagen.h>
 #include <gestordearchivos.h>
 #include <editor.h>
+#include <algoritmopintor.h>
 
 class Graficador : public QOpenGLWidget
 {
@@ -35,6 +36,7 @@ private:
     float desplx;
     float desply;
     Editor editor;
+    AlgoritmoPintor pintor;
 };
 
 #endif // GRAFICADOR_H

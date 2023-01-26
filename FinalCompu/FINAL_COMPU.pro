@@ -11,15 +11,16 @@ CONFIG -= app_bundle
 #DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
+        algoritmopintor.cpp \
         archivo.cpp \
         archivoaic.cpp \
         archivopnm.cpp \
-        atajodetecladoyopciones.cpp \
         editor.cpp \
         espaciodetrabajo.cpp \
         filtro.cpp \
         gestordearchivos.cpp \
         graficador.cpp \
+        histograma.cpp \
         imagen.cpp \
         interfaz.cpp \
         lut.cpp \
@@ -36,15 +37,16 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
+    algoritmopintor.h \
     archivo.h \
     archivoaic.h \
     archivopnm.h \
-    atajodetecladoyopciones.h \
     editor.h \
     espaciodetrabajo.h \
     filtro.h \
     gestordearchivos.h \
     graficador.h \
+    histograma.h \
     imagen.h \
     interfaz.h \
     lut.h \

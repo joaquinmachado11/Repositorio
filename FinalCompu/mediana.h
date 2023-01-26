@@ -7,7 +7,7 @@ class Mediana : public Filtro
 {
 public:
     Mediana();
-    void aplicarFiltro(Imagen &pImagen) override;
+    void aplicarFiltro(Imagen &pImagen) override {};
 };
 
 #endif // MEDIANA_H

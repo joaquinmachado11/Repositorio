@@ -213,7 +213,7 @@ void ArchivoPNM::leerBinario(Imagen &pImagen)
         pImagen.setRangoDinamico(1);
     }
 
-    unsigned char datoPixel;
+    unsigned char datoPixel = 0;
     Pixel pixelAUX;
 
     switch (pImagen.getCodigo()[1])
@@ -245,7 +245,60 @@ void ArchivoPNM::leerBinario(Imagen &pImagen)
             }
         }
         break;
+
     case '6':
+        unsigned char r = 0, g = 0, b = 0;
+        for (unsigned int f=0; f<pImagen.getFilas(); f++)
+        {
+            for (unsigned int c=0; c<pImagen.getColumnas(); c++)
+            {
+                pixelAUX = pImagen.getPixel(f,c);
+
+                archivo.read((char * ) &r , sizeof(r));
+                archivo.read((char * ) &g , sizeof(g));
+                archivo.read((char * ) &b , sizeof(b));
+                //agregar control de error, datoPixel <=M y >= 0
+
+                pixelAUX.definirPixel(r,g,b);
+                pImagen.setPixel(f, c, pixelAUX);
+            }
+        }
+        break;
+    }
+
+/*
+    if (pImagen.getCodigo()=="P4") //monocromatico
+    {
+        for (unsigned int f=0; f<pImagen.getFilas(); f++)
+        {
+            for (unsigned int c=0; c<pImagen.getColumnas(); c++)
+            {
+                archivo.read((char * ) &datoPixel , sizeof(datoPixel));
+                //agregar control de error, datoPixel <=M y >= 0
+                pixelAUX = pImagen.getPixel(f,c);
+                pixelAUX.definirPixel(datoPixel,datoPixel,datoPixel);
+                pImagen.setPixel(f, c, pixelAUX);
+            }
+        }
+    }
+
+    if (pImagen.getCodigo()=="P5") //escala de grises
+    {
+        for (unsigned int f=0; f<pImagen.getFilas(); f++)
+        {
+            for (unsigned int c=0; c<pImagen.getColumnas(); c++)
+            {
+                archivo.read((char * ) &datoPixel , sizeof(datoPixel));
+                //agregar control de error, datoPixel <=M y >= 0
+                pixelAUX = pImagen.getPixel(f,c);
+                pixelAUX.definirPixel(datoPixel,datoPixel,datoPixel);
+                pImagen.setPixel(f, c, pixelAUX);
+            }
+        }
+    }
+
+    if (pImagen.getCodigo()=="P6") //rgb
+    {
         for (unsigned int f=0; f<pImagen.getFilas(); f++)
         {
             for (unsigned int c=0; c<pImagen.getColumnas(); c++)
@@ -263,53 +316,6 @@ void ArchivoPNM::leerBinario(Imagen &pImagen)
                 pixelAUX.definirComponente(2, datoPixel);
 
                 pImagen.setPixel(f, c, pixelAUX);
-            }
-        }
-        break;
-    }
-
-/*
-    if (pImagen.getCodigo()=="P4") //monocromatico
-    {
-        for (unsigned int f=0; f<pImagen.getFilas(); f++)
-        {
-            for (unsigned int c=0; c<pImagen.getColumnas(); c++)
-            {
-                archivo.read((char * ) &datoPixel , sizeof(datoPixel));
-                //agregar control de error, datoPixel <=M y >= 0
-                pImagen.getPixel(f,c).definirPixel(datoPixel,datoPixel,datoPixel);
-            }
-        }
-    }
-
-    if (pImagen.getCodigo()=="P5") //escala de grises
-    {
-        for (unsigned int f=0; f<pImagen.getFilas(); f++)
-        {
-            for (unsigned int c=0; c<pImagen.getColumnas(); c++)
-            {
-                archivo.read((char * ) &datoPixel , sizeof(datoPixel));
-                //agregar control de error, datoPixel <=M y >= 0
-                pImagen.getPixel(f,c).definirPixel(datoPixel,datoPixel,datoPixel);
-            }
-        }
-    }
-
-    if (pImagen.getCodigo()=="P6") //rgb
-    {
-        for (unsigned int f=0; f<pImagen.getFilas(); f++)
-        {
-            for (unsigned int c=0; c<pImagen.getColumnas(); c++)
-            {
-                archivo.read((char * ) &datoPixel , sizeof(datoPixel));
-                //agregar control de error, datoPixel <=M y >= 0
-                pImagen.getPixel(f,c).definirComponente(0, datoPixel);
-
-                archivo.read((char * ) &datoPixel , sizeof(datoPixel));
-                pImagen.getPixel(f,c).definirComponente(1, datoPixel);
-
-                archivo.read((char * ) &datoPixel , sizeof(datoPixel));
-                pImagen.getPixel(f,c).definirComponente(2, datoPixel);
             }
         }
     }

@@ -1,9 +1,9 @@
 #ifndef GESTORDEARCHIVOS_H
 #define GESTORDEARCHIVOS_H
-#include <espaciodetrabajo.h>
 #include <archivo.h>
 #include <archivoaic.h>
 #include <archivopnm.h>
+#include <dirent.h>
 
 class GestorDeArchivos
 {

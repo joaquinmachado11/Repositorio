@@ -6,7 +6,7 @@ class RealceDeBordes : public Filtro
 {
 public:
     RealceDeBordes();
-    void aplicarFiltro(Imagen &pImagen) override;
+    void aplicarFiltro(Imagen &pImagen) override{};
 };
 
 #endif // REALCEDEBORDES_H

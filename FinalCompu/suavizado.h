@@ -7,7 +7,7 @@ class Suavizado : public Filtro
 {
 public:
     Suavizado();
-    void aplicarFiltro(Imagen &pImagen) override;
+    void aplicarFiltro(Imagen &pImagen) override{};
 };
 
 #endif // SUAVIZADO_H

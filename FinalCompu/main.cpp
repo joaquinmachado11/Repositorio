@@ -6,7 +6,7 @@
 #include <imagen.h>
 #include <graficador.h>
 #include <procesadorestadistico.h>
-
+#include <interfaz.h>
 
 using namespace std;
 int main(int argc, char *argv[])
@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
 
 //pruebas para pixel
-{/*
+    {/*
     //ejecucion de constructor de pixel y definicion
     Pixel pixel1(1,1,1), pixel2(2,2,2);
     //pixel1.definirPixel(1,1,1);
@@ -71,7 +71,7 @@ int main(int argc, char *argv[])
 */}
 
 //pruebas archivo
-/*
+    /*
     GestorDeArchivos gestorArchivos;
     gestorArchivos.setRuta("C:/Users/Usuario/Desktop/Final compu/Repositorio/FinalCompu/Autotest/");
     gestorArchivos.setRaiz("imagenes_pruebaPBM/");
@@ -112,7 +112,7 @@ int main(int argc, char *argv[])
 
 
 //pruebas graficador
-/*
+    /*
     GestorDeArchivos gestorArchivos;
     Graficador graficador(&gestorArchivos);
     gestorArchivos.setRuta("C:/Users/Usuario/Desktop/Final compu/Repositorio/FinalCompu/Autotest/");
@@ -135,23 +135,20 @@ int main(int argc, char *argv[])
     }
 */
 
-//pruebas editor y procesador estadistico
+    //pruebas editor y procesador estadistico
     GestorDeArchivos gestorArchivos;
-
+    Interfaz interfaz (&gestorArchivos);
     Graficador graficador(&gestorArchivos);
+
     gestorArchivos.setRuta("C:/Users/Usuario/Desktop/Final compu/Repositorio/FinalCompu/Autotest/");
     gestorArchivos.setRaiz("grupo_imagenes_1/");
     gestorArchivos.setRaizGuardado("imagenes_guardadas/");
 
-    gestorArchivos.mostrarArchivos();
+    interfaz.mostrarArchivos();
+    interfaz.elegirArchivo();
 
-    int opcion;
-    cout << "Elegir archivo a leer: "; cin >> opcion;
-        gestorArchivos.setID(opcion-1);
-        graficador.cargarImagen();
-        cout << "Se selecciono el archivo: " << gestorArchivos.getNombreArchivo() << endl;
-        cout << "Ubicacion del archivo: " << gestorArchivos.getUbicacionArchivo() << endl;
-        graficador.mostrar(700, 700, &app);
+    graficador.cargarImagen();
+    graficador.mostrar(500, 500, &app);
 
     return app.exec();
 }

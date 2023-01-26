@@ -21,6 +21,7 @@ void Graficador::cargarImagen()
 {
     imagenAGraficar = ptrGestorDeArchivos->generarImagen();
     editor.setImagen(&imagenAGraficar);
+    pintor.setImagen(&imagenAGraficar);
 }
 
 void Graficador::initializeGL()
@@ -213,10 +214,24 @@ void Graficador::keyPressEvent(QKeyEvent *pPtrEvent)
 
 void Graficador::mousePressEvent(QMouseEvent *pPtrEvent)
 {
-    //alg pintor
+    bool clicIzq = pPtrEvent->button() == Qt::LeftButton;
+    bool ctrl = pPtrEvent->modifiers()&Qt::ControlModifier;
+
+    if (ctrl and clicIzq)
+    {
+        cout<< "Ctrl + click izq." << endl;
+        int pX = (pPtrEvent->x() - desplx) / escala;
+        int pY = (pPtrEvent->y() - desply) / escala;
+        pintor.aplicarAlgoritmo(pY, pX);
+        cout<<"Area detectada: " << pintor.getAreaDetectada() << endl;
+
+        repaint();
+
+        pintor.reiniciarArea();
+    }
 }
 
 void Graficador::mouseReleaseEvent(QMouseEvent *pPtrEvent)
 {
-    //alg pintor
+
 }

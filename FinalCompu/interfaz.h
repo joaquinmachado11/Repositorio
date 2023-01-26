@@ -1,16 +1,18 @@
 #ifndef INTERFAZ_H
 #define INTERFAZ_H
-#include <atajodetecladoyopciones.h>
+#include <gestordearchivos.h>
 
 
 class Interfaz
 {
 public:
-    Interfaz();
+    Interfaz(GestorDeArchivos *pGestor);
     void mostrarAtajos();
     void mostrarArchivos();
+    void elegirArchivo();
 
-
+private:
+    GestorDeArchivos *ptrGestorDeArchivos;
 };
 
 #endif // INTERFAZ_H
