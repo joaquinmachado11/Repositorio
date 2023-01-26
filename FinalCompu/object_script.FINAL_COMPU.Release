@@ -3,7 +3,6 @@ release/archivo.o
 release/archivoaic.o
 release/archivopnm.o
 release/editor.o
-release/espaciodetrabajo.o
 release/filtro.o
 release/gestordearchivos.o
 release/graficador.o

@@ -9,6 +9,8 @@
 #include <gestordearchivos.h>
 #include <editor.h>
 #include <algoritmopintor.h>
+#include <histograma.h>
+#include <filtro.h>
 
 class Graficador : public QOpenGLWidget
 {
@@ -26,7 +28,6 @@ protected:
 
     void keyPressEvent(QKeyEvent *pPtrEvent) override;
     void mousePressEvent(QMouseEvent *pPtrEvent) override;
-    void mouseReleaseEvent(QMouseEvent *pPtrEvent) override;
 
 private:
     void dibujarImagen();
@@ -36,7 +37,9 @@ private:
     float desplx;
     float desply;
     Editor editor;
+    Filtro *filtro;
     AlgoritmoPintor pintor;
+    Histograma histograma;
 };
 
 #endif // GRAFICADOR_H

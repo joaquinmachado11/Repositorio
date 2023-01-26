@@ -7,6 +7,7 @@
 #include <graficador.h>
 #include <procesadorestadistico.h>
 #include <interfaz.h>
+#include <histograma.h>
 
 using namespace std;
 int main(int argc, char *argv[])
@@ -135,13 +136,14 @@ int main(int argc, char *argv[])
     }
 */
 
-    //pruebas editor y procesador estadistico
+//pruebas editor y procesador estadistico
+
     GestorDeArchivos gestorArchivos;
     Interfaz interfaz (&gestorArchivos);
     Graficador graficador(&gestorArchivos);
 
     gestorArchivos.setRuta("C:/Users/Usuario/Desktop/Final compu/Repositorio/FinalCompu/Autotest/");
-    gestorArchivos.setRaiz("grupo_imagenes_1/");
+    gestorArchivos.setRaiz("grupo_imagenes_2/");
     gestorArchivos.setRaizGuardado("imagenes_guardadas/");
 
     interfaz.mostrarArchivos();

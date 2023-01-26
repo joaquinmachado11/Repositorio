@@ -16,7 +16,6 @@ SOURCES += \
         archivoaic.cpp \
         archivopnm.cpp \
         editor.cpp \
-        espaciodetrabajo.cpp \
         filtro.cpp \
         gestordearchivos.cpp \
         graficador.cpp \
@@ -42,7 +41,6 @@ HEADERS += \
     archivoaic.h \
     archivopnm.h \
     editor.h \
-    espaciodetrabajo.h \
     filtro.h \
     gestordearchivos.h \
     graficador.h \

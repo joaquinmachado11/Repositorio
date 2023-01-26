@@ -6,12 +6,16 @@
 #include <QApplication>
 #include <imagen.h>
 #include <gestordearchivos.h>
+#include <procesadorestadistico.h>
 
 class Histograma : public QOpenGLWidget
 {
 public:
-    Histograma(GestorDeArchivos *pGestorDeArchivos);
-    void mostrar(int pAncho, int pAlto, QApplication *pPtrApp);
+    Histograma();
+    void setImagen(Imagen *pImagen);
+
+    void mostrar();
+    void procesar();
 
 protected:
     void initializeGL() override;
@@ -19,8 +23,14 @@ protected:
     void paintGL() override;
 
 private:
-    Imagen imagenAProcesar;
-    GestorDeArchivos *ptrGestorDeArchivos;
+    Imagen *ptrImagen;
+    vector < vector <int> > datosRGB;
+    vector <int> datosMonocGrises;
+
+    void obtenerDatosRGB();
+    void obtenerDatosMonocGrises();
+    //ProcesadorEstadistico procesadorEstadistico; ??
+
 };
 
 #endif // HISTOGRAMA_H

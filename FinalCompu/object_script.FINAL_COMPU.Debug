@@ -3,7 +3,6 @@ debug/archivo.o
 debug/archivoaic.o
 debug/archivopnm.o
 debug/editor.o
-debug/espaciodetrabajo.o
 debug/filtro.o
 debug/gestordearchivos.o
 debug/graficador.o

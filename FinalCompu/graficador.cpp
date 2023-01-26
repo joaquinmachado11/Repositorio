@@ -21,7 +21,6 @@ void Graficador::cargarImagen()
 {
     imagenAGraficar = ptrGestorDeArchivos->generarImagen();
     editor.setImagen(&imagenAGraficar);
-    pintor.setImagen(&imagenAGraficar);
 }
 
 void Graficador::initializeGL()
@@ -123,14 +122,14 @@ void Graficador::keyPressEvent(QKeyEvent *pPtrEvent)
 {
     bool flechaDerecha = pPtrEvent->key() == Qt::Key_Right;
     bool flechaIzquierda = pPtrEvent->key() == Qt::Key_Left;
-    //bool S = pPtrEvent->key() == Qt::Key_S;
-    bool ctrlMas = pPtrEvent->modifiers()&Qt::ControlModifier && pPtrEvent->key() == Qt::Key_Plus;
-    bool ctrlMenos = pPtrEvent->modifiers()&Qt::ControlModifier && pPtrEvent->key() == Qt::Key_Minus;
+    bool S = pPtrEvent->key() == Qt::Key_S;
     bool N = pPtrEvent->key() == Qt::Key_N;
-    bool ctrlG = pPtrEvent->modifiers()&Qt::ControlModifier && pPtrEvent->key() == Qt::Key_G;
+    bool G = pPtrEvent->key() == Qt::Key_G;
+    bool H = pPtrEvent->key() == Qt::Key_H;
     bool mas = pPtrEvent->key() == Qt::Key_Plus;
     bool menos = pPtrEvent->key() == Qt::Key_Minus;
-    //bool ctrl = event->modifiers() & Qt::ControlModifier;
+
+    bool ctrl = pPtrEvent->modifiers() & Qt::ControlModifier;
 
     if (flechaDerecha)
     {
@@ -169,7 +168,7 @@ void Graficador::keyPressEvent(QKeyEvent *pPtrEvent)
         editor.aplicarSuavizado();
     }*/
 
-    if (ctrlG)
+    if (ctrl and G)
     {
         string nombreDeGuardado;
         cout << "Nombre con el que desea guardar el archivo: ";
@@ -187,13 +186,13 @@ void Graficador::keyPressEvent(QKeyEvent *pPtrEvent)
         editor.disminuirBrillo();
     }
 
-    if (ctrlMas)
+    if (ctrl and mas)
     {
         editor.aumentarContraste();
         cout << "Aumento de contraste." << endl;
     }
 
-    if (ctrlMenos)
+    if (ctrl and menos)
     {
         editor.disminuirContraste();
         cout << "Disminucion de contraste." << endl;
@@ -204,10 +203,13 @@ void Graficador::keyPressEvent(QKeyEvent *pPtrEvent)
         editor.negativo();
         cout << "Negativo de imagen. " << endl;
     }
-//    if ()
-//    {
 
-//    }
+    if (ctrl and H)
+    {
+        histograma.setImagen(&imagenAGraficar);
+        histograma.procesar();
+        //histograma.mostrar();
+    }
 
     repaint();
 }
@@ -219,6 +221,7 @@ void Graficador::mousePressEvent(QMouseEvent *pPtrEvent)
 
     if (ctrl and clicIzq)
     {
+        pintor.setImagen(&imagenAGraficar);
         cout<< "Ctrl + click izq." << endl;
         int pX = (pPtrEvent->x() - desplx) / escala;
         int pY = (pPtrEvent->y() - desply) / escala;
@@ -229,9 +232,4 @@ void Graficador::mousePressEvent(QMouseEvent *pPtrEvent)
 
         pintor.reiniciarArea();
     }
-}
-
-void Graficador::mouseReleaseEvent(QMouseEvent *pPtrEvent)
-{
-
 }
