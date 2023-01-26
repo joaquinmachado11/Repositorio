@@ -5,6 +5,8 @@
 #include <gestordearchivos.h>
 #include <imagen.h>
 #include <graficador.h>
+#include <procesadorestadistico.h>
+
 
 using namespace std;
 int main(int argc, char *argv[])
@@ -110,7 +112,7 @@ int main(int argc, char *argv[])
 
 
 //pruebas graficador
-
+/*
     GestorDeArchivos gestorArchivos;
     Graficador graficador(&gestorArchivos);
     gestorArchivos.setRuta("C:/Users/Usuario/Desktop/Final compu/Repositorio/FinalCompu/Autotest/");
@@ -131,6 +133,25 @@ int main(int argc, char *argv[])
 
         cout<<"Elija otra opcion: "; cin >> opcion;
     }
+*/
+
+//pruebas editor y procesador estadistico
+    GestorDeArchivos gestorArchivos;
+
+    Graficador graficador(&gestorArchivos);
+    gestorArchivos.setRuta("C:/Users/Usuario/Desktop/Final compu/Repositorio/FinalCompu/Autotest/");
+    gestorArchivos.setRaiz("grupo_imagenes_1/");
+    gestorArchivos.setRaizGuardado("imagenes_guardadas/");
+
+    gestorArchivos.mostrarArchivos();
+
+    int opcion;
+    cout << "Elegir archivo a leer: "; cin >> opcion;
+        gestorArchivos.setID(opcion-1);
+        graficador.cargarImagen();
+        cout << "Se selecciono el archivo: " << gestorArchivos.getNombreArchivo() << endl;
+        cout << "Ubicacion del archivo: " << gestorArchivos.getUbicacionArchivo() << endl;
+        graficador.mostrar(700, 700, &app);
 
     return app.exec();
 }

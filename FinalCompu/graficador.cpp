@@ -20,6 +20,7 @@ void Graficador::mostrar(int pAncho, int pAlto, QApplication *pPtrApp)
 void Graficador::cargarImagen()
 {
     imagenAGraficar = ptrGestorDeArchivos->generarImagen();
+    editor.setImagen(&imagenAGraficar);
 }
 
 void Graficador::initializeGL()
@@ -115,4 +116,107 @@ void Graficador::dibujarImagen()
     glEnd();
 
     glPopMatrix();
+}
+
+void Graficador::keyPressEvent(QKeyEvent *pPtrEvent)
+{
+    bool flechaDerecha = pPtrEvent->key() == Qt::Key_Right;
+    bool flechaIzquierda = pPtrEvent->key() == Qt::Key_Left;
+    //bool S = pPtrEvent->key() == Qt::Key_S;
+    bool ctrlMas = pPtrEvent->modifiers()&Qt::ControlModifier && pPtrEvent->key() == Qt::Key_Plus;
+    bool ctrlMenos = pPtrEvent->modifiers()&Qt::ControlModifier && pPtrEvent->key() == Qt::Key_Minus;
+    bool N = pPtrEvent->key() == Qt::Key_N;
+    bool ctrlG = pPtrEvent->modifiers()&Qt::ControlModifier && pPtrEvent->key() == Qt::Key_G;
+    bool mas = pPtrEvent->key() == Qt::Key_Plus;
+    bool menos = pPtrEvent->key() == Qt::Key_Minus;
+    //bool ctrl = event->modifiers() & Qt::ControlModifier;
+
+    if (flechaDerecha)
+    {
+        int nuevoID = ptrGestorDeArchivos->getID()+1;
+
+        if (nuevoID > ptrGestorDeArchivos->cantidadDeArchivos()-1)
+        {
+            ptrGestorDeArchivos->setID(0);
+        }
+        else
+        {
+            ptrGestorDeArchivos->setID(nuevoID);
+        }
+
+        cargarImagen();
+        cout << "Se abrio: " << ptrGestorDeArchivos->getNombreArchivo() <<endl;
+    }
+
+    if (flechaIzquierda)
+    {
+        int nuevoID = ptrGestorDeArchivos->getID()-1;
+        if (nuevoID < 0)
+        {
+            ptrGestorDeArchivos->setID(ptrGestorDeArchivos->cantidadDeArchivos()-1);
+        }
+        else
+        {
+            ptrGestorDeArchivos->setID(nuevoID);
+        }
+        cargarImagen();
+        cout << "Se abrio: " << ptrGestorDeArchivos->getNombreArchivo() <<endl;
+    }
+
+    /*if (S)
+    {
+        editor.aplicarSuavizado();
+    }*/
+
+    if (ctrlG)
+    {
+        string nombreDeGuardado;
+        cout << "Nombre con el que desea guardar el archivo: ";
+        cin >> nombreDeGuardado;
+        ptrGestorDeArchivos->guardarImagen(nombreDeGuardado, imagenAGraficar);
+    }
+
+    if (mas)
+    {
+        editor.aumentarBrillo();
+    }
+
+    if (menos)
+    {
+        editor.disminuirBrillo();
+    }
+
+    if (ctrlMas)
+    {
+        editor.aumentarContraste();
+        cout << "Aumento de contraste." << endl;
+    }
+
+    if (ctrlMenos)
+    {
+        editor.disminuirContraste();
+        cout << "Disminucion de contraste." << endl;
+    }
+
+    if (N)
+    {
+        editor.negativo();
+        cout << "Negativo de imagen. " << endl;
+    }
+//    if ()
+//    {
+
+//    }
+
+    repaint();
+}
+
+void Graficador::mousePressEvent(QMouseEvent *pPtrEvent)
+{
+    //alg pintor
+}
+
+void Graficador::mouseReleaseEvent(QMouseEvent *pPtrEvent)
+{
+    //alg pintor
 }

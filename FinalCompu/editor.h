@@ -4,29 +4,35 @@
 #include <lut.h>
 #include <filtro.h>
 #include <suavizado.h>
+#include <procesadorestadistico.h>
 
-class Editor
+class Editor //procesadorDePunto
 {
 public:
     Editor();
-    void aplicarLUT(Imagen& imagen);
+    void setImagen (Imagen *pImagen);
 
-    void aumentarBrillo(Imagen& imagen);
-    void disminuirBrillo(Imagen& imagen);
+    void aumentarBrillo();
+    void disminuirBrillo();
 
-    void aumentarContraste(Imagen& imagen);
-    void disminuirContraste(Imagen& imagen);
+    void aumentarContraste();
+    void disminuirContraste();
 
-    //algoritmo pintor
+    void negativo();
 
-    void aplicarFiltro(Imagen& imagen);
-    void aplicarSuavizado(Imagen& imagen);
-
+    void ecualizar(); // metodo con los datos del histograma
 
 private:
-    LUT lut;
-    Filtro filtro;
-    Suavizado suavizado;
+    Imagen *ptrImagen;
+    ProcesadorEstadistico procesadorEstadistico;
 };
 
 #endif // EDITOR_H
+
+/*
+    Procesaimento de punto serian:
+ - Brillo
+ - Negativo
+ - Contraste
+ - Ecualizar
+*/

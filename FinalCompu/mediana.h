@@ -1,12 +1,13 @@
 #ifndef MEDIANA_H
 #define MEDIANA_H
 #include <imagen.h>
+#include <filtro.h>
 
-class Mediana
+class Mediana : public Filtro
 {
 public:
     Mediana();
-    void aplicarMediana(Imagen& imagen);
+    void aplicarFiltro(Imagen &pImagen) override;
 };
 
 #endif // MEDIANA_H

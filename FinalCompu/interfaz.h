@@ -1,11 +1,16 @@
 #ifndef INTERFAZ_H
 #define INTERFAZ_H
+#include <atajodetecladoyopciones.h>
 
 
 class Interfaz
 {
 public:
     Interfaz();
+    void mostrarAtajos();
+    void mostrarArchivos();
+
+
 };
 
 #endif // INTERFAZ_H

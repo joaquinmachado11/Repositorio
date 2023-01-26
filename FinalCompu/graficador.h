@@ -3,9 +3,11 @@
 #include <QOpenGLWindow>
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions>
+#include <QKeyEvent>
 #include <QApplication>
 #include <imagen.h>
 #include <gestordearchivos.h>
+#include <editor.h>
 
 class Graficador : public QOpenGLWidget
 {
@@ -21,6 +23,10 @@ protected:
     void resizeGL(int w, int h) override;
     void paintGL() override;
 
+    void keyPressEvent(QKeyEvent *pPtrEvent) override;
+    void mousePressEvent(QMouseEvent *pPtrEvent) override;
+    void mouseReleaseEvent(QMouseEvent *pPtrEvent) override;
+
 private:
     void dibujarImagen();
     GestorDeArchivos *ptrGestorDeArchivos;
@@ -28,6 +34,7 @@ private:
     float escala; //mantiene las proporciones para cualquier tamaño de ventana
     float desplx;
     float desply;
+    Editor editor;
 };
 
 #endif // GRAFICADOR_H

@@ -69,7 +69,7 @@ int GestorDeArchivos::getID() const
 
 void GestorDeArchivos::setID(int newID)
 {
-    ID = newID-1;
+    ID = newID;
 }
 
 const string &GestorDeArchivos::getRuta() const

@@ -2,11 +2,18 @@
 #define FILTRO_H
 #include <imagen.h>
 
-class Filtro
+class Filtro //filtradoEspacial
 {
 public:
     Filtro();
-    //void aplicarFiltro(Imagen);
+    virtual void aplicarFiltro(Imagen &pImagen) = 0;
 };
 
 #endif // FILTRO_H
+
+/*
+filtrado espacial serian:
+ - Pasabajos o suavizado
+ - Pasaaltos o realce de bordes
+ - Mediana
+*/
