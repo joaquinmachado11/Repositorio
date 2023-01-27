@@ -1,6 +1,6 @@
 #include "pixel.h"
 
-Pixel::Pixel(float componente0, float componente1, float componente2)
+Pixel::Pixel(int componente0, int componente1, int componente2)
 {
     pixel.resize(3);
     definirPixel(componente0,componente1,componente2);
@@ -11,12 +11,12 @@ Pixel::Pixel()
     pixel.resize(3);
 }
 
-vector<float> Pixel::devolverPixel()
+vector<int> Pixel::devolverPixel()
 {
     return pixel;
 }
 
-void Pixel::definirPixel(float componente0, float componente1, float componente2)
+void Pixel::definirPixel(int componente0, int componente1, int componente2)
 {
     pixel[0]=componente0;
     pixel[1]=componente1;
@@ -28,7 +28,7 @@ float Pixel::devolverComponente(int componente)
     return pixel[componente];
 }
 
-void Pixel::definirComponente(int componente, float valor)
+void Pixel::definirComponente(int componente, int valor)
 {
     if (componente<3)
     {
@@ -36,16 +36,16 @@ void Pixel::definirComponente(int componente, float valor)
     }
 }
 
-float Pixel::getComponente0()
+int Pixel::getComponente0()
 {
     return pixel[0];
 }
 
-float Pixel::getComponente1()
+int Pixel::getComponente1()
 {
     return pixel[1];
 }
-float Pixel::getComponente2()
+int Pixel::getComponente2()
 {
     return pixel[2];
 }

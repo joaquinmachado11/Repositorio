@@ -15,6 +15,7 @@ public:
     void setImagen(Imagen *pImagen);
 
     void mostrar();
+    void datosEstadisticos();
     void procesar();
 
 protected:
@@ -26,11 +27,7 @@ private:
     Imagen *ptrImagen;
     vector < vector <int> > datosRGB;
     vector <int> datosMonocGrises;
-
-    void obtenerDatosRGB();
-    void obtenerDatosMonocGrises();
-    //ProcesadorEstadistico procesadorEstadistico; ??
-
+    ProcesadorEstadistico procesadorEstadistico;
 };
 
 #endif // HISTOGRAMA_H

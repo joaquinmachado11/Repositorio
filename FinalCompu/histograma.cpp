@@ -10,10 +10,46 @@ void Histograma::setImagen(Imagen *pImagen)
     ptrImagen = pImagen;
 }
 
-void Histograma::mostrar()
+void Histograma::datosEstadisticos()
 {
-    resize(1200,600);
-    show();
+    procesadorEstadistico.setPtrImagen(ptrImagen);
+    string codigo = ptrImagen->getCodigo();
+    Pixel min, max;
+    vector <float> prom,desvio;
+
+    min = procesadorEstadistico.minimo();
+    max = procesadorEstadistico.maximo();
+    prom = procesadorEstadistico.promedio();
+    desvio = procesadorEstadistico.desvioEstandar();
+
+    if (codigo[1] == '3' or codigo[1] == '6')
+    {
+        cout << "Minima intensidad R: " << min.devolverComponente(0) << endl;
+        cout << "Minima intensidad G: " << min.devolverComponente(1) << endl;
+        cout << "Minima intensidad B: " << min.devolverComponente(2) << endl;
+
+        cout << "Maxima intensidad R: " << max.devolverComponente(0) << endl;
+        cout << "Maxima intensidad G: " << max.devolverComponente(1) << endl;
+        cout << "Maxima intensidad B: " << max.devolverComponente(2) << endl;
+
+        cout << "Promedio R: " << prom[0] << endl;
+        cout << "Promedio G: " << prom[1] << endl;
+        cout << "Promedio B: " << prom[2] << endl;
+
+        cout << "Desvio R: " << desvio[0] << endl;
+        cout << "Desvio G: " << desvio[1] << endl;
+        cout << "Desvio B: " << desvio[2] << endl;
+
+        procesadorEstadistico.modaRGB(datosRGB);
+    }
+    else
+    {
+         cout << "Minima intensidad: " << min.devolverComponente(0) << endl;
+         cout << "Maxima intensidad: " << max.devolverComponente(0) << endl;
+         cout << "Promedio: " << prom[0] << endl;
+         cout << "Desvio: " << desvio[0] << endl;
+         procesadorEstadistico.modaGrises(datosMonocGrises);
+    }
 }
 
 void Histograma::procesar()
@@ -23,16 +59,16 @@ void Histograma::procesar()
     if (codigo == "P3" or codigo == "P6")
     {
         datosRGB.resize(3, vector<int>(ptrImagen->getRangoDinamico()+1, 0));
-        obtenerDatosRGB();
+        datosRGB = procesadorEstadistico.obtenerDatosPixelesRGB();
     }
     else
     {
         datosMonocGrises.resize(ptrImagen->getRangoDinamico()+1, 0);
-        obtenerDatosMonocGrises();
+        datosMonocGrises = procesadorEstadistico.obtenerDatosPixelesMonocGrises();
     }
 }
-
-void Histograma::obtenerDatosRGB()
+/*
+void Histograma::obtenerDatosPixelesRGB()
 {
     Pixel pixelAux;
     int valor_r,valor_g,valor_b;
@@ -54,7 +90,7 @@ void Histograma::obtenerDatosRGB()
     }
 }
 
-void Histograma::obtenerDatosMonocGrises()
+void Histograma::obtenerDatosPixelesMonocGrises()
 {
     Pixel pixelAux;
     int valor;
@@ -68,7 +104,7 @@ void Histograma::obtenerDatosMonocGrises()
         }
     }
 }
-
+*/
 void Histograma::initializeGL()
 {
     glClearColor(1,1,1,1);
@@ -104,5 +140,10 @@ void Histograma::paintGL()
     glColor3f(0, 0, 0);
 }
 
+void Histograma::mostrar()
+{
+    resize(1200,600);
+    show();
+}
 
 

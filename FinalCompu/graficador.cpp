@@ -206,8 +206,10 @@ void Graficador::keyPressEvent(QKeyEvent *pPtrEvent)
 
     if (ctrl and H)
     {
+        cout << "Ctrl + H --> HISTOGRAMA";
         histograma.setImagen(&imagenAGraficar);
-        histograma.procesar();
+        histograma.procesar(); //hay un error en procesar
+        histograma.datosEstadisticos();
         //histograma.mostrar();
     }
 

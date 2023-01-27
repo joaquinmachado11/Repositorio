@@ -93,7 +93,7 @@ void ArchivoPNM::leerTexto(Imagen &pImagen)
         pImagen.setRangoDinamico(1);
     }
 
-    float datoPixel;
+    int datoPixel;
     Pixel pixelAUX;
 
     switch (pImagen.getCodigo()[1])
@@ -125,7 +125,6 @@ void ArchivoPNM::leerTexto(Imagen &pImagen)
         break;
 
     case '3':
-        float datoPixel;
         for (unsigned int f=0; f<pImagen.getFilas(); f++)
         {
             for (unsigned int c=0; c<pImagen.getColumnas(); c++)

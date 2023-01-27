@@ -9,15 +9,15 @@ class Pixel
 {
 public:
     Pixel();
-    Pixel(float componente0, float componente1, float componente2);
-    vector <float> devolverPixel();    
-    void definirPixel(float componente0, float componente1, float componente2);
+    Pixel(int componente0, int componente1, int componente2);
+    vector <int> devolverPixel();
+    void definirPixel(int componente0, int componente1, int componente2);
     float devolverComponente (int componente);
-    void definirComponente (int componente, float valor);
+    void definirComponente (int componente, int valor);
 
-    float getComponente0();
-    float getComponente1();
-    float getComponente2();
+    int getComponente0();
+    int getComponente1();
+    int getComponente2();
 
     Pixel& operator++();
     Pixel& operator--();
@@ -25,9 +25,8 @@ public:
     Pixel operator-(Pixel &Pixel2); // si se crea un nuevo pixel hay q crear un constructor al que se le pase una nueva terna
     bool operator==(Pixel &Pixel2);
 
-
 private:
-    vector <float> pixel;
+    vector <int> pixel;
 };
 
 #endif // PIXEL_H

@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
 
 //pruebas para pixel
-    {/*
+    /*
     //ejecucion de constructor de pixel y definicion
     Pixel pixel1(1,1,1), pixel2(2,2,2);
     //pixel1.definirPixel(1,1,1);
@@ -63,13 +63,12 @@ int main(int argc, char *argv[])
     else
         cout<<"Son distintos"<<endl;
 
-    pixel1.definirPixel(1,1,1);
-    pixel2.definirPixel(1,1,1);
+    pixel1=pixel2;
     if (pixel1==pixel2)
         cout<<"Son iguales"<<endl;
     else
         cout<<"Son distintos"<<endl;
-*/}
+*/
 
 //pruebas archivo
     /*
@@ -143,7 +142,7 @@ int main(int argc, char *argv[])
     Graficador graficador(&gestorArchivos);
 
     gestorArchivos.setRuta("C:/Users/Usuario/Desktop/Final compu/Repositorio/FinalCompu/Autotest/");
-    gestorArchivos.setRaiz("grupo_imagenes_2/");
+    gestorArchivos.setRaiz("grupo_imagenes_1/");
     gestorArchivos.setRaizGuardado("imagenes_guardadas/");
 
     interfaz.mostrarArchivos();
@@ -151,6 +150,7 @@ int main(int argc, char *argv[])
 
     graficador.cargarImagen();
     graficador.mostrar(500, 500, &app);
+
 
     return app.exec();
 }

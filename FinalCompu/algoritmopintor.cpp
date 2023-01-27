@@ -13,12 +13,6 @@ void AlgoritmoPintor::setImagen(Imagen *pImagen)
     columnas = ptrImagen->getColumnas();
     areaDetectada = 0;
 
-//    mascara.resize(filas);
-//    for (unsigned int i=0; i<filas; i++)
-//    {
-//        mascara[i].resize(columnas, false);
-//    }
-
     mascara.resize(filas, vector<bool>(columnas,false));
 }
 
