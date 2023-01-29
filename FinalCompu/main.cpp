@@ -154,3 +154,8 @@ int main(int argc, char *argv[])
 
     return app.exec();
 }
+/*
+imagenes_pruebaPBM
+grupo_imagenes_1
+grupo_imagenes_2
+*/

@@ -6,6 +6,7 @@ class Filtro //filtradoEspacial
 {
 public:
     Filtro();
+    ~Filtro();
     virtual void aplicarFiltro(Imagen &pImagen) = 0;
 };
 

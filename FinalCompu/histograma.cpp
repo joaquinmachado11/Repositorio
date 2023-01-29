@@ -59,12 +59,10 @@ void Histograma::procesar()
 
     if (codigo == "P3" or codigo == "P6")
     {
-        //datosRGB.resize(3, vector<int>(ptrImagen->getRangoDinamico()+1, 0));
         datosRGB = procesadorEstadistico.obtenerDatosPixelesRGB();
     }
     else
     {
-        //datosMonocGrises.resize(ptrImagen->getRangoDinamico()+1, 0);
         datosMonocGrises = procesadorEstadistico.obtenerDatosPixelesMonocGrises();
     }
 }
@@ -95,13 +93,70 @@ void Histograma::paintGL()
     resizeGL(width(),height());
     glClear(GL_COLOR_BUFFER_BIT);
 
-    //float escalaX = (float)width()/((float)rango + 1);
+    float escalaX = (float)width()/((float)ptrImagen->getRangoDinamico() + 1);
 
-    glPushMatrix();
+    int mayorFrecuencia = procesadorEstadistico.getMayorFrecuencia();
+    float escalaY = (float)height()/((float)mayorFrecuencia);
 
-    glBegin(GL_QUADS);
+    if (ptrImagen->getCodigo() == "P1" or ptrImagen->getCodigo() == "P4")
+    {
+        glLineWidth(20.0f);
+        glBegin(GL_LINES);
+        glPushMatrix();
+        glColor3f(0, 0, 0);
 
-    glColor3f(0, 0, 0);
+        for (int v = 0; v < ptrImagen->getRangoDinamico()+1; v++)
+        {
+            glVertex3f(v*escalaX + (float)width()/3, 0, 0);
+            glVertex3f(v*escalaX + (float)width()/3, datosMonocGrises[v]*escalaY,0);
+        }
+    }
+
+    if (ptrImagen->getCodigo() == "P2" or ptrImagen->getCodigo() == "P5" or ptrImagen->getCodigo() == "P2C")
+    {
+        glLineWidth(1.5f);
+        glBegin(GL_LINES);
+
+        glPushMatrix();
+        glColor4f(0.5, 0.5, 0.5, 0.5f);
+
+        for (int v = 0; v < ptrImagen->getRangoDinamico()+1; v++)
+        {
+            glVertex3f(v*escalaX, 0, 0);
+            glVertex3f(v*escalaX, datosMonocGrises[v]*escalaY,0);
+        }
+    }
+
+    if (ptrImagen->getCodigo() == "P3" or ptrImagen->getCodigo() == "P6")
+    {
+        glLineWidth(1.4f);
+        glBegin(GL_LINES);
+
+        glPushMatrix();
+
+        for (int v = 0; v < ptrImagen->getRangoDinamico()+1; v++)
+        {
+            glColor3f(1,0,0); //RED
+            glVertex3f((v-0.2)*escalaX, 0, 0);
+            glVertex3f((v-0.2)*escalaX, datosRGB[0][v]*escalaY,0);
+        }
+
+        for (int v = 0; v < ptrImagen->getRangoDinamico()+1; v++)
+        {
+            glColor3f(0,1,0); //GREEN
+            glVertex3f((v+0.2)*escalaX, 0, 0);
+            glVertex3f((v+0.2)*escalaX, datosRGB[1][v]*escalaY,0);
+        }
+
+        for (int v = 0; v < ptrImagen->getRangoDinamico()+1; v++)
+        {
+            glColor3f(0,0,1); //BLUE
+            glVertex3f(v*escalaX, 0, 0);
+            glVertex3f(v*escalaX, datosRGB[2][v]*escalaY,0);
+        }
+    }
+    glEnd();
+    glPopMatrix();
 }
 
 void Histograma::mostrar()

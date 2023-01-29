@@ -147,6 +147,7 @@ void ProcesadorEstadistico::modaGrises(vector<int> &datosDeFrecuencia)
         }
     }
 
+    mayorFrecuencia = frecuenciaMax;
     cout << "El valor de mayor frecuencia es " << posDeMaximaFrecuencia << ", se repite " << frecuenciaMax << " veces." <<endl;
 }
 
@@ -154,6 +155,7 @@ void ProcesadorEstadistico::modaRGB(vector<vector<int> > &datosDeFrecuencia)
 {
     int frecuenciaMax = 0;
     int posDeMaximaFrecuencia;
+    mayorFrecuencia = 0;
 
     vector < tuple <int,int> > datosModa; //tuple<posMaxFrec><frecuenciaMax>
     datosModa.resize(3);
@@ -172,6 +174,12 @@ void ProcesadorEstadistico::modaRGB(vector<vector<int> > &datosDeFrecuencia)
         datosModa[componente] = make_tuple (posDeMaximaFrecuencia, frecuenciaMax);
 
         frecuenciaMax = 0;
+    }
+
+    for (int i = 0; i<3; i++)
+    {
+       if (get<0>(datosModa[i]) > mayorFrecuencia)
+           mayorFrecuencia = get<1>(datosModa[i]);
     }
 
     cout << "El valor de mayor frecuencia R es " << get<0>(datosModa[0]) << ", se repite " << get<1>(datosModa[0]) << " veces." <<endl;
@@ -272,4 +280,10 @@ vector<int> ProcesadorEstadistico::obtenerDatosPixelesMonocGrises()
 
     return datos;
 }
+
+int ProcesadorEstadistico::getMayorFrecuencia() const
+{
+    return mayorFrecuencia;
+}
+
 

@@ -4,3 +4,8 @@ Filtro::Filtro()
 {
 
 }
+
+Filtro::~Filtro()
+{
+
+}

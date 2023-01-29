@@ -24,8 +24,13 @@ public:
     vector <vector <int>> obtenerDatosPixelesRGB(); //cambiar nombre a algo relacionado con frecuencia
     vector <int> obtenerDatosPixelesMonocGrises();
 
+    int getMayorFrecuencia() const;
+
 private:
     Imagen *ptrImagen;
+    int mayorFrecuencia;
+
+
 };
 
 #endif // PROCESADORESTADISTICO_H

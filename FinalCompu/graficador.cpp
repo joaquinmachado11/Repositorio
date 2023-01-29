@@ -163,10 +163,17 @@ void Graficador::keyPressEvent(QKeyEvent *pPtrEvent)
         cout << "Se abrio: " << ptrGestorDeArchivos->getNombreArchivo() <<endl;
     }
 
-    /*if (S)
+    if (S)
     {
-        editor.aplicarSuavizado();
-    }*/
+        filtro = new Suavizado;
+
+        if(filtro != NULL)
+        {
+            filtro->aplicarFiltro(imagenAGraficar);
+        }
+
+        delete filtro;
+    }
 
     if (ctrl and G)
     {
@@ -210,7 +217,7 @@ void Graficador::keyPressEvent(QKeyEvent *pPtrEvent)
         histograma.setImagen(&imagenAGraficar);
         histograma.procesar();
         histograma.datosEstadisticos();
-        //histograma.mostrar();
+        histograma.mostrar();
     }
 
     repaint();
