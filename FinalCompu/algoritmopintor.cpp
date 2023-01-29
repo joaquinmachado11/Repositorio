@@ -11,50 +11,46 @@ void AlgoritmoPintor::setImagen(Imagen *pImagen)
 
     filas = ptrImagen->getFilas();
     columnas = ptrImagen->getColumnas();
-    areaDetectada = 0;
 
+    mascara.clear();
     mascara.resize(filas, vector<bool>(columnas,false));
 }
 
 void AlgoritmoPintor::aplicarAlgoritmo(int posY, int posX)
 {
+    areaDetectada = 0;
     profundidad = 0;
-    pixelABuscar = ptrImagen->getPixel(posX, posY);
+
+    if (ptrImagen->getCodigo() == "P1" or ptrImagen->getCodigo() == "P4")
+    {
+        tolerancia = 0;
+    }
+    else
+    {
+        tolerancia = 10;
+    }
+
+    pixelABuscar = ptrImagen->getPixel(posY, posX);
     detectarArea(posY, posX);
     pintarArea();
 }
 
 void AlgoritmoPintor::detectarArea(int posY, int posX)
 {
+    // posY == filas
+    // posX == columnas
     profundidad++;
     if (profundidad < 5000 and estaEnLaImagen(posY, posX))
     {
-        Pixel pixelAux = ptrImagen->getPixel(posX, posY);
-        if (pixelABuscar == pixelAux and mascara[posY][posX] == false)
+        Pixel pixelAux = ptrImagen->getPixel(posY, posX);
+        if (mascara[posY][posX] == false and dentroDeTolerancia(pixelAux))
         {
             areaDetectada++;
-            mascara[posY][posX] ==  true;
-//            for (unsigned int i=0; i<8; i++)
-//            {
-//                detectarArea(posX+movimiento[i].x, posY+movimiento[i].y);
-//            }
-            /*detectarArea(posX-1, posY  );
-            detectarArea(posX-1, posY+1);
-            detectarArea(posX  , posY+1);
-            detectarArea(posX+1, posY+1);
-            detectarArea(posX+1, posY  );
-            detectarArea(posX+1, posY-1);
-            detectarArea(posX  , posY-1);
-            detectarArea(posX-1, posY-1);*/
-
-            detectarArea(posY-1, posX  );
-            detectarArea(posY-1, posX+1);
-            detectarArea(posY  , posX+1);
-            detectarArea(posY+1, posX+1);
-            detectarArea(posY+1, posX  );
-            detectarArea(posY+1, posX-1);
-            detectarArea(posY  , posX-1);
-            detectarArea(posY-1, posX-1);
+            mascara[posY][posX] =  true;
+            for (unsigned int i=0; i<8; i++)
+            {
+                detectarArea(posY+movimiento[i].y, posX+movimiento[i].x);
+            }
         }
     }
     profundidad--;
@@ -81,11 +77,20 @@ int AlgoritmoPintor::getAreaDetectada() const
 void AlgoritmoPintor::reiniciarArea()
 {
     areaDetectada = 0;
-    //mascara.clear();
 }
 
 bool AlgoritmoPintor::estaEnLaImagen(int y, int x)
 {
-    return (x < filas and y < columnas and
-            x >= 0 and y >= 0);
+    return (y < filas and x < columnas and
+            y >= 0    and x >= 0);
+}
+
+bool AlgoritmoPintor::dentroDeTolerancia(Pixel &pixAComparar)
+{
+    int dif0, dif1, dif2;
+    dif0 = sqrt((pixelABuscar.devolverComponente(0) - pixAComparar.devolverComponente(0)) * (pixelABuscar.devolverComponente(0) - pixAComparar.devolverComponente(0)));
+    dif1 = sqrt((pixelABuscar.devolverComponente(1) - pixAComparar.devolverComponente(1)) * (pixelABuscar.devolverComponente(1) - pixAComparar.devolverComponente(1)));
+    dif2 = sqrt((pixelABuscar.devolverComponente(2) - pixAComparar.devolverComponente(2)) * (pixelABuscar.devolverComponente(2) - pixAComparar.devolverComponente(2)));
+
+    return (dif0 <= tolerancia and dif1 <= tolerancia and dif2 <= tolerancia);
 }

@@ -185,6 +185,7 @@ vector<float> ProcesadorEstadistico::desvioEstandar()
     vector <float> prom = promedio();
     Pixel pixelAux;
     vector <float> desvio;
+    desvio.resize(3);
 
     if (ptrImagen->getCodigo() == "P3" or ptrImagen->getCodigo() == "P6")
     {
@@ -216,7 +217,9 @@ vector<float> ProcesadorEstadistico::desvioEstandar()
                 sumaDeDiferencias += (pixelAux.devolverComponente(0)-prom[0])*(pixelAux.devolverComponente(0)-prom[0]);
             }
         }
-        desvio[0] = desvio[1] = desvio[2] = sqrt(sumaDeDiferencias/(float)totalDePixeles);
+        desvio[0] = sqrt(sumaDeDiferencias/(float)totalDePixeles);
+        desvio[1] = sqrt(sumaDeDiferencias/(float)totalDePixeles);
+        desvio[2] = sqrt(sumaDeDiferencias/(float)totalDePixeles);
     }
     return desvio;
 }

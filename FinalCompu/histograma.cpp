@@ -55,56 +55,20 @@ void Histograma::datosEstadisticos()
 void Histograma::procesar()
 {
     string codigo = ptrImagen->getCodigo();
+    procesadorEstadistico.setPtrImagen(ptrImagen);
 
     if (codigo == "P3" or codigo == "P6")
     {
-        datosRGB.resize(3, vector<int>(ptrImagen->getRangoDinamico()+1, 0));
+        //datosRGB.resize(3, vector<int>(ptrImagen->getRangoDinamico()+1, 0));
         datosRGB = procesadorEstadistico.obtenerDatosPixelesRGB();
     }
     else
     {
-        datosMonocGrises.resize(ptrImagen->getRangoDinamico()+1, 0);
+        //datosMonocGrises.resize(ptrImagen->getRangoDinamico()+1, 0);
         datosMonocGrises = procesadorEstadistico.obtenerDatosPixelesMonocGrises();
     }
 }
-/*
-void Histograma::obtenerDatosPixelesRGB()
-{
-    Pixel pixelAux;
-    int valor_r,valor_g,valor_b;
-    for (int f=0; f<ptrImagen->getFilas(); f++)
-    {
-        for (int c=0; c<ptrImagen->getColumnas(); c++)
-        {
-            pixelAux = ptrImagen->getPixel(f,c);
 
-            valor_r = pixelAux.devolverComponente(0);
-            datosRGB[0][valor_r]++;
-
-            valor_g = pixelAux.devolverComponente(1);
-            datosRGB[1][valor_g]++;
-
-            valor_b = pixelAux.devolverComponente(2);
-            datosRGB[2][valor_b]++;
-        }
-    }
-}
-
-void Histograma::obtenerDatosPixelesMonocGrises()
-{
-    Pixel pixelAux;
-    int valor;
-    for (int f=0; f<ptrImagen->getFilas(); f++)
-    {
-        for (int c=0; c<ptrImagen->getColumnas(); c++)
-        {
-            pixelAux = ptrImagen->getPixel(f,c);
-            valor = pixelAux.devolverComponente(0);
-            datosMonocGrises[valor]++;
-        }
-    }
-}
-*/
 void Histograma::initializeGL()
 {
     glClearColor(1,1,1,1);
