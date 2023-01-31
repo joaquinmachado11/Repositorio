@@ -79,8 +79,8 @@ void Histograma::resizeGL(int w, int h)
     glLoadIdentity();
 
     float xmin, xmax, ymin, ymax, zmin, zmax;
-    xmin = -1;   xmax = w+1; //cuando modifico estos parámetros cambio lo que se proyecta
-    ymin = -1;   ymax = h+1; //en el tamaño de la ventana(no cambio la cantidad de pixeles)
+    xmin = -30;   xmax = w+30; //cuando modifico estos parámetros cambio lo que se proyecta
+    ymin = -30;   ymax = h+30; //en el tamaño de la ventana(no cambio la cantidad de pixeles)
     zmin = -1;   zmax = 1;
 
     glOrtho(xmin, xmax, ymin, ymax, zmin, zmax);
@@ -129,7 +129,7 @@ void Histograma::paintGL()
 
     if (ptrImagen->getCodigo() == "P3" or ptrImagen->getCodigo() == "P6")
     {
-        glLineWidth(1.4f);
+        glLineWidth(1.2f);
         glBegin(GL_LINES);
 
         glPushMatrix();

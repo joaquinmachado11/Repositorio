@@ -145,11 +145,18 @@ int main(int argc, char *argv[])
     gestorArchivos.setRaiz("grupo_imagenes_1/");
     gestorArchivos.setRaizGuardado("imagenes_guardadas/");
 
+    gestorArchivos.setRutaLUT("C:/Users/Usuario/Desktop/Final compu/Repositorio/FinalCompu/Autotest/");
+    gestorArchivos.setRaizLUT("ij_luts/");
+
     interfaz.mostrarArchivos();
     interfaz.elegirArchivo();
 
     graficador.cargarImagen();
+    interfaz.mostrarAtajos();
+    interfaz.mostrarLUTS();
+
     graficador.mostrar(500, 500, &app);
+
 
 
     return app.exec();

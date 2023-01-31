@@ -13,7 +13,7 @@ ArchivoAIC::ArchivoAIC()
 
 Imagen ArchivoAIC::leerImagen(string pNombreArchivo)
 {
-    archivo.open(pNombreArchivo, ios::in);
+    archivo.open(pNombreArchivo, ios::in | ios::trunc);
     Imagen imagen;
     string identificacion, descripcion;
     int filas, columnas;
@@ -85,5 +85,52 @@ Imagen ArchivoAIC::leerImagen(string pNombreArchivo)
 
 void ArchivoAIC::escribirImagen(Imagen &imagen, string pNombreArchivo, string directorio)
 {
+    int intensidad;
+    int repeticiones = 0;
+    bool dejarDeContar = false;
 
+    int filas = imagen.getFilas();
+    int columnas = imagen.getColumnas();
+
+    archivo.open(directorio + pNombreArchivo + ".aic", ios::out | ios::trunc);
+
+    if (!archivo.is_open())
+        cout << "No se pudo guardar el archivo." << endl;
+    else
+    {
+        archivo << imagen.getCodigo() << endl;
+        archivo << "#"<<imagen.getDescripcion()<<endl;
+        archivo << columnas << " " << filas <<endl;
+        archivo << imagen.getRangoDinamico() << endl;
+
+        for (int f=0; f<filas; f++)
+        {
+            for (int c=0; c<columnas; c++)
+            {
+                intensidad = imagen.getPixel(f,c).devolverComponente(0);
+                repeticiones++;
+
+                if (intensidad != imagen.getPixel(f,c+1).devolverComponente(0) and imagen.estaEnLaImagen(f,c+1))
+                {
+                    dejarDeContar = true;
+                    archivo << intensidad << " " << repeticiones << " ";
+                    repeticiones = 0;
+                }
+
+                if (c == columnas-1)
+                {
+                    dejarDeContar = true;
+                    archivo << intensidad << " " << repeticiones<< " ";
+                    repeticiones = 0;
+                }
+
+                if (repeticiones == 0)
+                {
+                    dejarDeContar = false;
+                }
+            }
+        }
+    }
+
+    archivo.close();
 }

@@ -1,4 +1,5 @@
 #include "procesadorestadistico.h"
+#include <bits/stdc++.h>
 
 ProcesadorEstadistico::ProcesadorEstadistico()
 {
@@ -49,6 +50,42 @@ vector <float> ProcesadorEstadistico::promedio()
         prom[0] = prom[1] = prom[2] = suma/(float)totalDePixeles;
     }
     return prom;
+}
+
+Pixel ProcesadorEstadistico::mediana(vector<Pixel> datos)
+{
+    Pixel med;
+
+    vector <int> datosR, datosG, datosB;
+
+    for (int i = 0; i<datos.size(); i++)
+    {
+        datosR.push_back(datos[i].devolverComponente(0));
+        datosG.push_back(datos[i].devolverComponente(1));
+        datosB.push_back(datos[i].devolverComponente(2));
+    }
+
+    sort(datosR.begin(), datosR.end());
+    sort(datosG.begin(), datosG.end());
+    sort(datosB.begin(), datosB.end());
+
+    int longitud = datos.size();
+    if (longitud%2 != 0)
+    {
+        med.definirPixel(datosR[(longitud+1)/2], datosG[(longitud+1)/2], datosB[(longitud+1)/2]);
+    }
+    else
+    {
+        int medianaR, medianaG, medianaB;
+
+        medianaR = (datosR[longitud/2]+datosR[(longitud/2)+1])/2;
+        medianaG = (datosG[longitud/2]+datosG[(longitud/2)+1])/2;
+        medianaB = (datosB[longitud/2]+datosB[(longitud/2)+1])/2;
+
+        med.definirPixel(medianaR, medianaG, medianaB);
+    }
+
+    return med;
 }
 
 Pixel ProcesadorEstadistico::minimo()

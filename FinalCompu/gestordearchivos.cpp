@@ -2,7 +2,7 @@
 
 GestorDeArchivos::GestorDeArchivos()
 {
-
+    raizGuardado = "Ultima imagen/";
 }
 
 Imagen GestorDeArchivos::generarImagen()
@@ -46,10 +46,76 @@ void GestorDeArchivos::guardarImagen(string nombreImagen, Imagen &imagen)
     delete ptrArchivo;
 }
 
+vector<Pixel> GestorDeArchivos::generarTablaLUT(int id)
+{
+    archivoLUT.open(getUbicacionLUT(id), ios::in);
+
+    if (!archivoLUT.is_open())
+    {
+        cout<<"Error al abrir la LUT."<<endl;
+    }
+    else
+    {
+        Pixel pixelAux;
+        vector <Pixel> tabla;
+        tabla.resize(256);
+
+        string primer_linea;
+        int index, red, green, blue;
+
+        getline(archivoLUT, primer_linea);
+
+        for (unsigned int m=0; m<tabla.size(); m++)
+        {
+            archivoLUT >> index >> red >> green >> blue;
+            pixelAux.definirPixel(red, green, blue);
+            tabla[index] = pixelAux;
+        }
+
+        return tabla;
+    }
+}
+
 string GestorDeArchivos::reconocerFormato()
 {
     string nombre = getNombreArchivo();
     return nombre.substr(nombre.find_last_of('.'), nombre.size());
+}
+
+const string &GestorDeArchivos::getRaizLUT() const
+{
+    return raizLUT;
+}
+
+void GestorDeArchivos::setRaizLUT(const string &newRaizLUT)
+{
+    raizLUT = newRaizLUT;
+    generarListadoDeLUTS( rutaLUT + raizLUT );
+}
+
+void GestorDeArchivos::almacenarUltimaImagen(Imagen& imagen)
+{
+    if (imagen.getCodigo() == "P2C")
+    {
+        ptrArchivo = new ArchivoAIC;
+    }
+    else
+    {
+        ptrArchivo = new ArchivoPNM;
+    }
+
+    ptrArchivo->escribirImagen(imagen, "ultima_imagen", ruta + raizUltimaImagen);
+    delete ptrArchivo;
+}
+
+const string &GestorDeArchivos::getRutaLUT() const
+{
+    return rutaLUT;
+}
+
+void GestorDeArchivos::setRutaLUT(const string &newRutaLUT)
+{
+    rutaLUT = newRutaLUT;
 }
 
 const string &GestorDeArchivos::getRaizGuardado() const
@@ -82,16 +148,6 @@ void GestorDeArchivos::setRuta(const string &newRuta)
     ruta = newRuta;
 }
 
-void GestorDeArchivos::mostrarArchivos()
-{
-    cout<<"Cantidad total de archivos: "<<listadoDeArchivos.size()<<endl;
-    for (unsigned int i=0; i<listadoDeArchivos.size(); i++)
-    {
-        cout<<"Archivo "<<i+1<<": ";
-        cout<<listadoDeArchivos[i]<<endl;
-    }
-}
-
 void GestorDeArchivos::generarListadoDeArchivos(string rutaDirectorio)
 {
     if (!listadoDeArchivos.empty())
@@ -113,6 +169,29 @@ void GestorDeArchivos::generarListadoDeArchivos(string rutaDirectorio)
         closedir(dir);
     }
     listadoDeArchivos = lista_de_archivos;
+}
+
+void GestorDeArchivos::generarListadoDeLUTS(string rutaDirectorioLUTS)
+{
+    if (!listadoDeLUTS.empty())
+        listadoDeLUTS.clear();
+
+    vector<string> lista_de_luts;
+    DIR *dir = opendir(rutaDirectorioLUTS.c_str());
+    if (dir != NULL)
+    {
+        string pto("."), ptopto("..");
+        struct dirent *entry;
+        while ((entry = readdir(dir)) != NULL)
+        {
+            if( entry->d_name != pto and entry->d_name != ptopto )
+            {
+                lista_de_luts.push_back(entry->d_name);
+            }
+        }
+        closedir(dir);
+    }
+    listadoDeLUTS = lista_de_luts;
 }
 
 string GestorDeArchivos::getUbicacionArchivo()
@@ -139,6 +218,21 @@ string GestorDeArchivos::getNombreArchivo()
 vector<string> &GestorDeArchivos::getListadoDeArchivos()
 {
     return listadoDeArchivos;
+}
+
+string GestorDeArchivos::getUbicacionLUT(int id_lut)
+{
+    return rutaLUT + raizLUT + getNombreLUT(id_lut);
+}
+
+string GestorDeArchivos::getNombreLUT(int id_lut)
+{
+    return listadoDeLUTS[id_lut];
+}
+
+vector<string> &GestorDeArchivos::getListadoDeLUTS()
+{
+    return listadoDeLUTS;
 }
 
 unsigned int GestorDeArchivos::cantidadDeArchivos()

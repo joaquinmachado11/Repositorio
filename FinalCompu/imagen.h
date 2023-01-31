@@ -23,6 +23,8 @@ public:
 
     void dimensionar();
 
+    bool estaEnLaImagen(int f, int c);
+
     Pixel getPixel(int fila, int columna); //ver si esta bien escrito
     void setPixel (int fila, int columna, Pixel pixel);
 
@@ -31,6 +33,8 @@ public:
 
     void setDescripcion(const string &newDescripcion);
     const string &getDescripcion() const;
+
+    void definirCodigoDeGuardado(int opcion);
 
 private:
     vector < vector < Pixel >> imagen;

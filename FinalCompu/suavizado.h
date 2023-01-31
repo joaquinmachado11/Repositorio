@@ -7,7 +7,11 @@ class Suavizado : public Filtro
 {
 public:
     Suavizado();
-    void aplicarFiltro(Imagen &pImagen) override{};
+    ~Suavizado() override;
+    void aplicarFiltro(Imagen &pImagen) override;
+
+private:
+    vector < float > kernel3p3;
 };
 
 #endif // SUAVIZADO_H

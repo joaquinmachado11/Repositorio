@@ -12,6 +12,7 @@ public:
     void setPtrImagen(Imagen *pImagen);
 
     vector<float> promedio();
+    Pixel mediana(vector <Pixel> datos);
 
     Pixel minimo();
     Pixel maximo();

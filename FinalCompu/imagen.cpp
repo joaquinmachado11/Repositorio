@@ -39,6 +39,12 @@ void Imagen::dimensionar()
     }
 }
 
+bool Imagen::estaEnLaImagen(int f, int c)
+{
+    return (f < filas    and f >= 0 and
+            c < columnas and c >= 0);
+}
+
 Pixel Imagen::getPixel(int fila, int columna)
 {
     return imagen[fila][columna];
@@ -46,7 +52,7 @@ Pixel Imagen::getPixel(int fila, int columna)
 
 void Imagen::setPixel(int fila, int columna, Pixel pixel)
 {
-    imagen[fila][columna]=pixel;
+    imagen[fila][columna] = pixel;
 }
 
 const string &Imagen::getCodigo() const
@@ -67,6 +73,43 @@ void Imagen::setDescripcion(const string &newDescripcion)
 const string &Imagen::getDescripcion() const
 {
     return descripcion;
+}
+
+void Imagen::definirCodigoDeGuardado(int opcion)
+{
+    string nuevoCodigo;
+
+    if (opcion == 1 and (codigo == "P4" or codigo == "P5" or codigo == "P6"))
+        nuevoCodigo = codigo;
+
+    if (opcion == 2 and (codigo == "P1" or codigo == "P2" or codigo == "P3"))
+        nuevoCodigo = codigo;
+
+
+    if (opcion == 1 and codigo == "P1")
+        nuevoCodigo = "P4";
+
+    if (opcion == 1 and codigo == "P2")
+        nuevoCodigo = "P5";
+
+    if (opcion == 1 and codigo == "P3")
+        nuevoCodigo = "P6";
+
+
+    if (opcion == 2 and codigo == "P4")
+        nuevoCodigo = "P1";
+
+    if (opcion == 2 and codigo == "P5")
+        nuevoCodigo = "P2";
+
+    if (opcion == 2 and codigo == "P6")
+        nuevoCodigo = "P3";
+
+
+    if (opcion == 3 and (codigo != "P3" and codigo != "P6"))
+        nuevoCodigo = "P2C";
+
+    codigo = nuevoCodigo;
 }
 
 int Imagen::getRangoDinamico() const

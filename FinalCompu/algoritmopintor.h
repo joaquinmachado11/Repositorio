@@ -27,13 +27,12 @@ private:
     int tolerancia;
     Pixel pixelABuscar;
 
-    bool estaEnLaImagen(int x, int y);
     bool dentroDeTolerancia(Pixel &pixAComparar);
 };
 
-struct Posicion
+struct Vecindad
 { int y, x; };
-const vector < Posicion > movimiento=
+const vector < Vecindad > movimiento=
 {{-1,0},{-1,1},{0,1},{1,1},{1,0},{1,-1},{0,-1},{-1,-1}};
 
 #endif // ALGORITMOPINTOR_H

@@ -60,12 +60,166 @@ Imagen ArchivoPNM::leerImagen(string pNombreArchivo)
             }
             else
             {
-                //error
+                cout << "Archivo corrupto." << endl;
             }
         }
 
         return imagen;
     }
+}
+
+void ArchivoPNM::escribirImagen(Imagen &imagen, string pNombreArchivo, string directorio)
+{
+    string codigo = imagen.getCodigo();
+    string extension = definirExtension(codigo);
+
+    archivo.open(directorio + pNombreArchivo + extension, ios:: out | ios::binary | ios::trunc); //ios::noreplace
+
+    if (!archivo.is_open())
+    {
+        cout << "Error al guardar la imagen." <<endl;
+    }
+    else
+    {
+        archivo << codigo << endl;
+        archivo << "#" << imagen.getDescripcion() << endl;
+        archivo << imagen.getColumnas() << " " << imagen.getFilas() << endl;
+
+        if (codigo != "P1" and codigo != "P4")
+            archivo << imagen.getRangoDinamico() << endl;
+
+        switch (codigo[1])
+        {
+        case '1':
+            escribirP1(imagen);
+            break;
+        case '2':
+            escribirP2(imagen);
+            break;
+        case '3':
+            escribirP3(imagen);
+            break;
+        case '4':
+            escribirP4(imagen);
+            break;
+        case '5':
+            escribirP5(imagen);
+            break;
+        case '6':
+            escribirP6(imagen);
+            break;
+        }
+    }
+
+    archivo.close();
+}
+
+void ArchivoPNM::escribirP1(Imagen &imagen)
+{
+    int intensidad;
+
+    for (int f= 0; f< imagen.getFilas(); f++)
+    {
+        for (int c=0; c<imagen.getColumnas(); c++)
+        {
+            intensidad = imagen.getPixel(f,c).devolverComponente(0);
+            archivo << intensidad << " ";
+        }
+    }
+}
+
+void ArchivoPNM::escribirP2(Imagen &imagen)
+{
+    int intensidad;
+
+    for (int f= 0; f< imagen.getFilas(); f++)
+    {
+        for (int c=0; c<imagen.getColumnas(); c++)
+        {
+           intensidad = imagen.getPixel(f,c).devolverComponente(0);
+           archivo << intensidad << " ";
+        }
+    }
+}
+
+void ArchivoPNM::escribirP3(Imagen &imagen)
+{
+    int intensidadR, intensidadG, intensidadB;
+    Pixel pixelAux;
+
+    for (int f= 0; f< imagen.getFilas(); f++)
+    {
+        for (int c=0; c<imagen.getColumnas(); c++)
+        {
+            pixelAux = imagen.getPixel(f,c);
+            intensidadR = pixelAux.devolverComponente(0);
+            intensidadG = pixelAux.devolverComponente(1);
+            intensidadB = pixelAux.devolverComponente(2);
+
+            archivo << intensidadR << " " << intensidadG << " " << intensidadB << " ";
+        }
+    }
+}
+
+void ArchivoPNM::escribirP4(Imagen &imagen)
+{
+    unsigned char intensidad;
+
+    for (int f= 0; f< imagen.getFilas(); f++)
+    {
+        for (int c=0; c<imagen.getColumnas(); c++)
+        {
+            intensidad = imagen.getPixel(f,c).devolverComponente(0);
+            archivo.write((char*) &intensidad, sizeof (intensidad));
+        }
+    }
+}
+
+void ArchivoPNM::escribirP5(Imagen &imagen)
+{
+    unsigned char intensidad;
+
+    for (int f= 0; f< imagen.getFilas(); f++)
+    {
+        for (int c=0; c<imagen.getColumnas(); c++)
+        {
+            intensidad = imagen.getPixel(f,c).devolverComponente(0);
+            archivo.write((char*) &intensidad, sizeof (intensidad));
+        }
+    }
+}
+
+void ArchivoPNM::escribirP6(Imagen &imagen)
+{
+    unsigned char r,g,b;
+    Pixel pixelAux;
+
+    for (int f= 0; f< imagen.getFilas(); f++)
+    {
+        for (int c=0; c<imagen.getColumnas(); c++)
+        {
+            pixelAux = imagen.getPixel(f,c);
+            r = pixelAux.devolverComponente(0);
+            g = pixelAux.devolverComponente(1);
+            b = pixelAux.devolverComponente(2);
+
+            archivo.write((char*) &r, sizeof (r));
+            archivo.write((char*) &g, sizeof (g));
+            archivo.write((char*) &b, sizeof (b));
+        }
+    }
+}
+
+string ArchivoPNM::definirExtension(string cod)
+{
+    if (cod == "P1" or cod == "P4")
+        return ".pbm";
+
+    if (cod == "P2" or cod == "P5")
+        return ".pgm";
+
+    if (cod == "P3" or cod == "P6")
+        return ".ppm";
 }
 
 const string &ArchivoPNM::getNombreArchivo() const
@@ -322,3 +476,4 @@ void ArchivoPNM::leerBinario(Imagen &pImagen)
 
     archivo.close();
 }
+

@@ -13,7 +13,7 @@ public:
     ~ArchivoPNM();
     ArchivoPNM();
     Imagen leerImagen(string pNombreArchivo) override;
-    void escribirImagen(Imagen& imagen, string pNombreArchivo, string directorio) override {};
+    void escribirImagen(Imagen& imagen, string pNombreArchivo, string directorio) override;
 
     const string &getNombreArchivo() const;
     void setNombreArchivo(const string &newNombreArchivo);
@@ -24,6 +24,15 @@ private:
 
     void leerTexto(Imagen& pImagen);
     void leerBinario(Imagen& pImagen);
+
+    void escribirP1(Imagen& imagen);
+    void escribirP2(Imagen& imagen);
+    void escribirP3(Imagen& imagen);
+    void escribirP4(Imagen& imagen);
+    void escribirP5(Imagen& imagen);
+    void escribirP6(Imagen& imagen);
+
+    string definirExtension(string cod);
 };
 
 #endif // ARCHIVOPNM_H

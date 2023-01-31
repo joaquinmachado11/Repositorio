@@ -129,9 +129,9 @@ void Editor::negativo()
         {
             pixelAux = ptrImagen->getPixel(f,c);
 
-            pixelAux.definirComponente(0, M-pixelAux.getComponente0());
-            pixelAux.definirComponente(1, M-pixelAux.getComponente1());
-            pixelAux.definirComponente(2, M-pixelAux.getComponente2());
+            pixelAux.definirComponente(0, M-pixelAux.devolverComponente(0));
+            pixelAux.definirComponente(1, M-pixelAux.devolverComponente(1));
+            pixelAux.definirComponente(2, M-pixelAux.devolverComponente(2));
 
             ptrImagen->setPixel(f, c, pixelAux);
         }

@@ -3,6 +3,7 @@
 Graficador::Graficador(GestorDeArchivos *pGestorDeArchivos)
 {
     ptrGestorDeArchivos = pGestorDeArchivos;
+    lut.setGestor(pGestorDeArchivos);
 }
 
 Graficador::~Graficador()
@@ -124,10 +125,14 @@ void Graficador::keyPressEvent(QKeyEvent *pPtrEvent)
     bool flechaIzquierda = pPtrEvent->key() == Qt::Key_Left;
     bool S = pPtrEvent->key() == Qt::Key_S;
     bool N = pPtrEvent->key() == Qt::Key_N;
+    bool R = pPtrEvent->key() == Qt::Key_R;
+    bool M = pPtrEvent->key() == Qt::Key_M;
     bool G = pPtrEvent->key() == Qt::Key_G;
     bool H = pPtrEvent->key() == Qt::Key_H;
+    bool L = pPtrEvent->key() == Qt::Key_L;
     bool mas = pPtrEvent->key() == Qt::Key_Plus;
     bool menos = pPtrEvent->key() == Qt::Key_Minus;
+    bool uno = pPtrEvent->key() == Qt::Key_1;
 
     bool ctrl = pPtrEvent->modifiers() & Qt::ControlModifier;
 
@@ -167,6 +172,36 @@ void Graficador::keyPressEvent(QKeyEvent *pPtrEvent)
     {
         filtro = new Suavizado;
 
+        cout << "S --> Suavizado. "<<endl;
+
+        if(filtro != NULL)
+        {
+            filtro->aplicarFiltro(imagenAGraficar);
+        }
+
+        delete filtro;
+    }
+
+    if (R)
+    {
+        filtro = new RealceDeBordes;
+
+        cout << "R --> Realce de bordes. "<<endl;
+
+        if(filtro != NULL)
+        {
+            filtro->aplicarFiltro(imagenAGraficar);
+        }
+
+        delete filtro;
+    }
+
+    if (M)
+    {
+        filtro = new Mediana;
+
+        cout << "M --> Mediana. "<<endl;
+
         if(filtro != NULL)
         {
             filtro->aplicarFiltro(imagenAGraficar);
@@ -180,6 +215,20 @@ void Graficador::keyPressEvent(QKeyEvent *pPtrEvent)
         string nombreDeGuardado;
         cout << "Nombre con el que desea guardar el archivo: ";
         cin >> nombreDeGuardado;
+
+        int opc;
+
+        cout << "Seleccione como desea guardarlo: \n";
+        cout << "\t1) Binario. " << endl;
+        cout << "\t2) Texto. " << endl;
+        if (imagenAGraficar.getCodigo() != "P3" and imagenAGraficar.getCodigo() != "P6")
+            cout << "\t3) Comprimido. " << endl;
+
+        cout << "Seleccione opcion: ";
+        cin >> opc;
+
+        imagenAGraficar.definirCodigoDeGuardado(opc);
+
         ptrGestorDeArchivos->guardarImagen(nombreDeGuardado, imagenAGraficar);
     }
 
@@ -218,6 +267,21 @@ void Graficador::keyPressEvent(QKeyEvent *pPtrEvent)
         histograma.procesar();
         histograma.datosEstadisticos();
         histograma.mostrar();
+    }
+
+    if (uno)
+    {
+        if (imagenAGraficar.getCodigo() == "P5" or imagenAGraficar.getCodigo() == "P2" or imagenAGraficar.getCodigo() == "P2C")
+        {
+            cout << "1 --> LUT 1." <<endl;
+            cout << ptrGestorDeArchivos->getUbicacionLUT(0) <<endl;
+            lut.aplicarLUT(1, imagenAGraficar);
+        }
+
+        else
+        {
+            cout << "No es posible aplicar LUT a este tipo de imagen. " << endl;
+        }
     }
 
     repaint();

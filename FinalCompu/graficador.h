@@ -11,6 +11,8 @@
 #include <algoritmopintor.h>
 #include <histograma.h>
 #include <filtro.h>
+#include <realcedebordes.h>
+#include <mediana.h>
 
 class Graficador : public QOpenGLWidget
 {
@@ -40,6 +42,7 @@ private:
     Filtro *filtro;
     AlgoritmoPintor pintor;
     Histograma histograma;
+    LUT lut;
 };
 
 #endif // GRAFICADOR_H

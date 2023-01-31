@@ -40,7 +40,7 @@ void AlgoritmoPintor::detectarArea(int posY, int posX)
     // posY == filas
     // posX == columnas
     profundidad++;
-    if (profundidad < 5000 and estaEnLaImagen(posY, posX))
+    if (profundidad < 5000 and ptrImagen->estaEnLaImagen(posY, posX))
     {
         Pixel pixelAux = ptrImagen->getPixel(posY, posX);
         if (mascara[posY][posX] == false and dentroDeTolerancia(pixelAux))
@@ -77,12 +77,6 @@ int AlgoritmoPintor::getAreaDetectada() const
 void AlgoritmoPintor::reiniciarArea()
 {
     areaDetectada = 0;
-}
-
-bool AlgoritmoPintor::estaEnLaImagen(int y, int x)
-{
-    return (y < filas and x < columnas and
-            y >= 0    and x >= 0);
 }
 
 bool AlgoritmoPintor::dentroDeTolerancia(Pixel &pixAComparar)

@@ -10,6 +10,7 @@ public:
     void mostrarAtajos();
     void mostrarArchivos();
     void elegirArchivo();
+    void mostrarLUTS();
 
 private:
     GestorDeArchivos *ptrGestorDeArchivos;
