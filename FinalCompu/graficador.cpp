@@ -125,6 +125,7 @@ void Graficador::keyPressEvent(QKeyEvent *pPtrEvent)
     bool flechaDerecha = pPtrEvent->key() == Qt::Key_Right;
     bool flechaIzquierda = pPtrEvent->key() == Qt::Key_Left;
     bool A = pPtrEvent->key() == Qt::Key_A;
+    bool B = pPtrEvent->key() == Qt::Key_B;
     bool S = pPtrEvent->key() == Qt::Key_S;
     bool N = pPtrEvent->key() == Qt::Key_N;
     bool R = pPtrEvent->key() == Qt::Key_R;
@@ -155,7 +156,7 @@ void Graficador::keyPressEvent(QKeyEvent *pPtrEvent)
         }
 
         cargarImagen();
-        cout << "Se abrio: " << ptrGestorDeArchivos->getNombreArchivo() << endl;
+        cout << "Se abrio: " << ptrGestorDeArchivos->getNombreArchivo() << endl << endl;
     }
 
     if (flechaIzquierda)
@@ -170,14 +171,14 @@ void Graficador::keyPressEvent(QKeyEvent *pPtrEvent)
             ptrGestorDeArchivos->setID(nuevoID);
         }
         cargarImagen();
-        cout << "Se abrio: " << ptrGestorDeArchivos->getNombreArchivo() <<endl;
+        cout << "Se abrio: " << ptrGestorDeArchivos->getNombreArchivo() <<endl << endl;
     }
 
     if (S)
     {
         filtro = new Suavizado;
 
-        cout << "S --> Suavizado. "<<endl;
+        cout << "S --> Suavizado. "<<endl << endl;
 
         if(filtro != NULL)
         {
@@ -191,7 +192,7 @@ void Graficador::keyPressEvent(QKeyEvent *pPtrEvent)
     {
         filtro = new RealceDeBordes;
 
-        cout << "R --> Realce de bordes. "<<endl;
+        cout << "R --> Realce de bordes. "<<endl << endl;
 
         if(filtro != NULL)
         {
@@ -205,7 +206,7 @@ void Graficador::keyPressEvent(QKeyEvent *pPtrEvent)
     {
         filtro = new Mediana;
 
-        cout << "M --> Mediana. "<<endl;
+        cout << "M --> Mediana. "<<endl << endl;
 
         if(filtro != NULL)
         {
@@ -217,25 +218,18 @@ void Graficador::keyPressEvent(QKeyEvent *pPtrEvent)
 
     if (ctrl and G)
     {
-        string nombreDeGuardado = ptrInterfaz->definirNombreDeGuardado();
-//        cout << "Nombre con el que desea guardar el archivo: ";
-//        cin >> nombreDeGuardado;
+        string codigo = imagenAGraficar.getCodigo();
 
-        cout << "Seleccione como desea guardarlo: \n";
-        cout << "\t1) Binario. " << endl;
-        cout << "\t2) Texto. " << endl;
-        if (imagenAGraficar.getCodigo() != "P3" and imagenAGraficar.getCodigo() != "P6")
-            cout << "\t3) Comprimido. " << endl;
+        string nombreDeGuardado = ptrInterfaz->definirNombreDeGuardado();
+        ptrInterfaz->mostrarOpcionesDeGuardado(codigo);
 
         int opc = ptrInterfaz->definirOpcion();
-        cout << "Seleccione opcion: ";
-        cin >> opc;
 
         imagenAGraficar.definirCodigoDeGuardado(opc);
 
         ptrGestorDeArchivos->guardarImagen(nombreDeGuardado, imagenAGraficar);
 
-        cout <<  "Imagen guardada. " << endl;
+        cout <<  "Imagen guardada. " << endl << endl;
     }
 
     if (mas)
@@ -251,13 +245,28 @@ void Graficador::keyPressEvent(QKeyEvent *pPtrEvent)
     if (A)
     {
         editor.ajustarContraste();
-        cout << "Ajuste de contraste." << endl;
+        cout << "Ajuste de contraste." << endl << endl;
+    }
+
+    if (B)
+    {
+        if (imagenAGraficar.getCodigo() == "P2" or imagenAGraficar.getCodigo() == "P5")
+        {
+            int umbral = ptrInterfaz->definirUmbralBinarizado();
+
+            editor.binarizar(umbral);
+        }
+        else
+        {
+            ptrInterfaz->opcNoPermitida();
+            cout << endl << endl;
+        }
     }
 
     if (N)
     {
         editor.negativo();
-        cout << "Negativo de imagen. " << endl;
+        cout << "Negativo de imagen. " << endl << endl;
     }
 
     if (ctrl and H)
@@ -267,17 +276,19 @@ void Graficador::keyPressEvent(QKeyEvent *pPtrEvent)
         histograma.procesar();
         histograma.datosEstadisticos();
         histograma.mostrar();
+        cout << endl << endl;
     }
 
     if (ctrl and Z)
     {
-        cout << "ctrl + Z --> Recuperar imagen." << endl;
         imagenAGraficar = ptrGestorDeArchivos->generarImagen();
+
+        cout << "ctrl + Z --> Limpiar imagen." << endl << endl;
     }
 
     if (ctrl and X)
     {
-        cout << "ctrl + X --> Ultima imagen abierta en la ejecucion de programa anterior." << endl;
+        cout << "ctrl + X --> Ultima imagen abierta en la ejecucion de programa anterior." << endl << endl;
         imagenAGraficar = ptrGestorDeArchivos->generarUltimaImagen();
     }
 
@@ -285,30 +296,31 @@ void Graficador::keyPressEvent(QKeyEvent *pPtrEvent)
     {
         if (imagenAGraficar.getCodigo() == "P5" or imagenAGraficar.getCodigo() == "P2" or imagenAGraficar.getCodigo() == "P2C")
         {
-            //interactuar con interfaz para pedir la opcion
-//            int opcion;
-//            cout << "Seleccione una LUT: ";
-//            cin >> opcion;
-            cout << ptrGestorDeArchivos->getUbicacionLUT(23-1) <<endl;
-            lut.aplicarLUT(23, imagenAGraficar);
+            ptrInterfaz->mostrarLUTS();
+            int opc = ptrInterfaz->definirOpcion();
+
+            lut.aplicarLUT(opc, imagenAGraficar);
+            cout << "Se aplico " << ptrGestorDeArchivos->getNombreLUT(opc-1) <<endl<<endl;
         }
 
         else
         {
-            cout << "No es posible aplicar LUT a este tipo de imagen. " << endl;
+            ptrInterfaz->opcNoPermitida();
+            cout << endl << endl;
         }
     }
 
     if (esc)//esc
     {
         ptrGestorDeArchivos->almacenarUltimaImagen(imagenAGraficar);
-        cout << "Fin del programa." << endl;
+        cout << "Fin del programa." << endl << endl;
         exit(0);
     }
 
     repaint();
 
     ptrInterfaz->mostrarAtajos();
+    cout<<endl<<endl;
 }
 
 void Graficador::mousePressEvent(QMouseEvent *pPtrEvent)
@@ -323,9 +335,12 @@ void Graficador::mousePressEvent(QMouseEvent *pPtrEvent)
         int pX = (pPtrEvent->x() - desplx) / escala;
         int pY = (pPtrEvent->y() - desply) / escala;
         pintor.aplicarAlgoritmo(pY, pX);
-        cout<<"Area detectada: " << pintor.getAreaDetectada() << endl;
+        cout<<"Area detectada: " << pintor.getAreaDetectada() << endl << endl;
 
         repaint();
+
+        ptrInterfaz->mostrarAtajos();
+        cout << endl << endl;
 
         pintor.reiniciarArea();
     }

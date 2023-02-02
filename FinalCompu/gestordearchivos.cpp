@@ -2,7 +2,7 @@
 
 GestorDeArchivos::GestorDeArchivos()
 {
-    raizGuardado = "ultima imagen/";
+    raizUltimaImagen = "ultimaimagen/";
 }
 
 Imagen GestorDeArchivos::generarImagen()
@@ -95,7 +95,7 @@ void GestorDeArchivos::setRaizLUT(const string &newRaizLUT)
 Imagen GestorDeArchivos::generarUltimaImagen()
 {
     Imagen im;
-    string extension = reconocerFormato(getNombreUltArchivo());
+    string extension = reconocerFormato(getNombreUltArchivo()); //en este lugar hay error
 
     if (extension == ".pbm" or  extension == ".pgm" or  extension == ".ppm" or  extension == ".pnm")
     {
@@ -131,10 +131,10 @@ void GestorDeArchivos::almacenarUltimaImagen(Imagen& imagen)
 
     string nombre = "ultima_imagen";
 
-    remove("C:/Users/Usuario/Desktop/Final compu/Repositorio/FinalCompu/Autotest/ultima imagen/ultima_imagen.aic");
-    remove("C:/Users/Usuario/Desktop/Final compu/Repositorio/FinalCompu/Autotest/ultima imagen/ultima_imagen.ppm");
-    remove("C:/Users/Usuario/Desktop/Final compu/Repositorio/FinalCompu/Autotest/ultima imagen/ultima_imagen.pgm");
-    remove("C:/Users/Usuario/Desktop/Final compu/Repositorio/FinalCompu/Autotest/ultima imagen/ultima_imagen.pbm");
+    remove("C:/Users/Usuario/Desktop/Final compu/Repositorio/FinalCompu/Autotest/ultimaimagen/ultima_imagen.aic");
+    remove("C:/Users/Usuario/Desktop/Final compu/Repositorio/FinalCompu/Autotest/ultimaimagen/ultima_imagen.ppm");
+    remove("C:/Users/Usuario/Desktop/Final compu/Repositorio/FinalCompu/Autotest/ultimaimagen/ultima_imagen.pgm");
+    remove("C:/Users/Usuario/Desktop/Final compu/Repositorio/FinalCompu/Autotest/ultimaimagen/ultima_imagen.pbm");
 
     ptrArchivo->escribirImagen(imagen, nombre, ruta + raizUltimaImagen);
     delete ptrArchivo;

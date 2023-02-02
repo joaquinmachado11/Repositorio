@@ -145,10 +145,10 @@ int main(int argc, char *argv[])
 
     GestorDeArchivos gestorArchivos;
     Interfaz interfaz (&gestorArchivos);
-    Graficador graficador(&gestorArchivos);
+    Graficador graficador(&gestorArchivos, &interfaz);
 
     gestorArchivos.setRuta("C:/Users/Usuario/Desktop/Final compu/Repositorio/FinalCompu/Autotest/");
-    gestorArchivos.setRaiz(grupo1);
+    gestorArchivos.setRaiz(grupoPBM_AIC);
     gestorArchivos.setRaizGuardado(guardadas);
 
     gestorArchivos.setRutaLUT("C:/Users/Usuario/Desktop/Final compu/Repositorio/FinalCompu/Autotest/");

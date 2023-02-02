@@ -19,7 +19,7 @@ public:
 
     void negativo();
 
-    void ecualizar(); // metodo con los datos del histograma
+    void binarizar(int valorUmbral); // metodo con los datos del histograma
 
 private:
     Imagen *ptrImagen;

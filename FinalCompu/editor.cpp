@@ -138,12 +138,29 @@ void Editor::negativo()
     }
 }
 
-void Editor::ecualizar()
+void Editor::binarizar(int valorUmbral)
 {
-    string codigo = ptrImagen->getCodigo();
+    int intensidad;
+    Pixel nuevoPixel;
 
-    if (codigo == "P2" or codigo == "P5")
+    for (int f = 0; f<ptrImagen->getFilas(); f++)
     {
+        for (int c = 0; c<ptrImagen->getColumnas(); c++)
+        {
+            intensidad = ptrImagen->getPixel(f,c).devolverComponente(0);
 
+            if (intensidad <= valorUmbral)
+            {
+                nuevoPixel.definirPixel(0,0,0);
+            }
+            else
+            {
+                nuevoPixel.definirPixel(1,1,1);
+            }
+
+            ptrImagen->setPixel(f,c,nuevoPixel);
+        }
     }
+
+    ptrImagen->setRangoDinamico(1);
 }

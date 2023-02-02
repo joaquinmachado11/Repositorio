@@ -12,8 +12,10 @@ public:
     void elegirArchivo();
     void mostrarLUTS();
     string definirNombreDeGuardado();
-    int definirOpcionDeGuardado();
+    void mostrarOpcionesDeGuardado(string cod);
     int definirOpcion();
+    int definirUmbralBinarizado();
+    void opcNoPermitida();
 
 private:
     GestorDeArchivos *ptrGestorDeArchivos;

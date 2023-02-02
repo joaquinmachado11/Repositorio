@@ -40,7 +40,7 @@ void AlgoritmoPintor::detectarArea(int posY, int posX)
     // posY == filas
     // posX == columnas
     profundidad++;
-    if (profundidad < 5000 and ptrImagen->estaEnLaImagen(posY, posX))
+    if (profundidad < 50000 and ptrImagen->estaEnLaImagen(posY, posX))
     {
         Pixel pixelAux = ptrImagen->getPixel(posY, posX);
         if (mascara[posY][posX] == false and dentroDeTolerancia(pixelAux))

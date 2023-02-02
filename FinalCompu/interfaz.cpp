@@ -15,6 +15,7 @@ void Interfaz::mostrarAtajos()
     cout << "M --> Mediana." << endl;
     cout << "R --> Realce de bordes." << endl;
     cout << "L --> Aplicar LUT." << endl;
+    cout << "ctrl + clickIzq --> Algoritmo de pintor." << endl;
     cout << "ctrl + H --> Histograma." << endl;
     cout << "ctrl + G --> Guardar imagen." << endl;
     cout << "ctrl + Z --> Limpiar imagen." << endl;
@@ -70,15 +71,41 @@ void Interfaz::mostrarLUTS()
 
 string Interfaz::definirNombreDeGuardado()
 {
+    string nombre;
+    cout << "Ingrese el nombre con el que desea guardar la imagen: ";
+    cin >> nombre;
 
+    return nombre;
 }
 
-int Interfaz::definirOpcionDeGuardado()
+void Interfaz::mostrarOpcionesDeGuardado(string cod)
 {
-
+    cout << "Seleccione como desea guardarlo: \n";
+    cout << "\t1) Binario. " << endl;
+    cout << "\t2) Texto. " << endl;
+    if (cod != "P3" and cod != "P6")
+        cout << "\t3) Comprimido. " << endl;
 }
 
 int Interfaz::definirOpcion()
 {
+    int opc;
+    cout << "Seleccione una opcion: ";
+    cin >> opc;
 
+    return opc;
+}
+
+int Interfaz::definirUmbralBinarizado()
+{
+    int umbral;
+    cout << "Ingresar valor umbral: ";
+    cin >> umbral;
+
+    return umbral;
+}
+
+void Interfaz::opcNoPermitida()
+{
+    cout << "No se permite esta opcion en este tipo de imagen.";
 }
