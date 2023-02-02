@@ -13,11 +13,12 @@
 #include <filtro.h>
 #include <realcedebordes.h>
 #include <mediana.h>
+#include <interfaz.h>
 
 class Graficador : public QOpenGLWidget
 {
 public:
-    Graficador(GestorDeArchivos *pGestorDeArchivos);
+    Graficador(GestorDeArchivos *pGestorDeArchivos, Interfaz *pInterfaz);
     ~Graficador();
 
     void mostrar(int pAncho, int pAlto, QApplication *pPtrApp);
@@ -34,6 +35,7 @@ protected:
 private:
     void dibujarImagen();
     GestorDeArchivos *ptrGestorDeArchivos;
+    Interfaz *ptrInterfaz;
     Imagen imagenAGraficar;
     float escala; //mantiene las proporciones para cualquier tamaño de ventana
     float desplx;

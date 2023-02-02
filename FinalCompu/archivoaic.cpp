@@ -13,7 +13,7 @@ ArchivoAIC::ArchivoAIC()
 
 Imagen ArchivoAIC::leerImagen(string pNombreArchivo)
 {
-    archivo.open(pNombreArchivo, ios::in | ios::trunc);
+    archivo.open(pNombreArchivo, ios::in );
     Imagen imagen;
     string identificacion, descripcion;
     int filas, columnas;
@@ -85,9 +85,21 @@ Imagen ArchivoAIC::leerImagen(string pNombreArchivo)
 
 void ArchivoAIC::escribirImagen(Imagen &imagen, string pNombreArchivo, string directorio)
 {
-    int intensidad;
+    int intensidad, intensidadSiguiente;
     int repeticiones = 0;
-    bool dejarDeContar = false;
+    bool dejarDeContar;
+    Pixel pixelAux;
+    ProcesadorEstadistico procesador;
+    procesador.setPtrImagen(&imagen);
+
+//    Pixel max = procesador.maximo();
+//    int M = 0;
+//    for (int i=0; i<3; i++)
+//    {
+//        if (max.devolverComponente(i)>M)
+//            M = max.devolverComponente(i);
+//    }
+//    imagen.setRangoDinamico(M);
 
     int filas = imagen.getFilas();
     int columnas = imagen.getColumnas();
@@ -98,7 +110,7 @@ void ArchivoAIC::escribirImagen(Imagen &imagen, string pNombreArchivo, string di
         cout << "No se pudo guardar el archivo." << endl;
     else
     {
-        archivo << imagen.getCodigo() << endl;
+        archivo << "P2C" << endl;
         archivo << "#"<<imagen.getDescripcion()<<endl;
         archivo << columnas << " " << filas <<endl;
         archivo << imagen.getRangoDinamico() << endl;
@@ -107,14 +119,21 @@ void ArchivoAIC::escribirImagen(Imagen &imagen, string pNombreArchivo, string di
         {
             for (int c=0; c<columnas; c++)
             {
-                intensidad = imagen.getPixel(f,c).devolverComponente(0);
+                pixelAux = imagen.getPixel(f,c);
+                intensidad = pixelAux.devolverComponente(0);
                 repeticiones++;
 
-                if (intensidad != imagen.getPixel(f,c+1).devolverComponente(0) and imagen.estaEnLaImagen(f,c+1))
+                if (imagen.estaEnLaImagen(f,c+1))
                 {
-                    dejarDeContar = true;
-                    archivo << intensidad << " " << repeticiones << " ";
-                    repeticiones = 0;
+                    pixelAux = imagen.getPixel(f,c+1);
+                    intensidadSiguiente = pixelAux.devolverComponente(0);
+
+                    if (intensidad != intensidadSiguiente)
+                    {
+                        dejarDeContar = true;
+                        archivo << intensidad << " " << repeticiones << " ";
+                        repeticiones = 0;
+                    }
                 }
 
                 if (c == columnas-1)

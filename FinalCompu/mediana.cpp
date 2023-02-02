@@ -12,6 +12,7 @@ Mediana::~Mediana()
 
 void Mediana::aplicarFiltro(Imagen &pImagen)
 {
+    Imagen nuevaImagen = pImagen;
     procesador.setPtrImagen(&pImagen);
     vector<Pixel> datos;
     Pixel pixelAux;
@@ -30,7 +31,10 @@ void Mediana::aplicarFiltro(Imagen &pImagen)
                 }
             }
             nuevoPixel = procesador.mediana(datos);
-            pImagen.setPixel(fila, columna, nuevoPixel);
+            nuevaImagen.setPixel(fila, columna, nuevoPixel);
+            datos.clear();
         }
     }
+
+    pImagen = nuevaImagen;
 }

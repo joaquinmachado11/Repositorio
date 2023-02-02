@@ -15,8 +15,7 @@ public:
     void aumentarBrillo();
     void disminuirBrillo();
 
-    void aumentarContraste();
-    void disminuirContraste();
+    void ajustarContraste();
 
     void negativo();
 

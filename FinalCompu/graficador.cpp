@@ -1,8 +1,9 @@
 #include "graficador.h"
 
-Graficador::Graficador(GestorDeArchivos *pGestorDeArchivos)
+Graficador::Graficador(GestorDeArchivos *pGestorDeArchivos, Interfaz *pInterfaz)
 {
     ptrGestorDeArchivos = pGestorDeArchivos;
+    ptrInterfaz = pInterfaz;
     lut.setGestor(pGestorDeArchivos);
 }
 
@@ -123,17 +124,21 @@ void Graficador::keyPressEvent(QKeyEvent *pPtrEvent)
 {
     bool flechaDerecha = pPtrEvent->key() == Qt::Key_Right;
     bool flechaIzquierda = pPtrEvent->key() == Qt::Key_Left;
+    bool A = pPtrEvent->key() == Qt::Key_A;
     bool S = pPtrEvent->key() == Qt::Key_S;
     bool N = pPtrEvent->key() == Qt::Key_N;
     bool R = pPtrEvent->key() == Qt::Key_R;
     bool M = pPtrEvent->key() == Qt::Key_M;
     bool G = pPtrEvent->key() == Qt::Key_G;
     bool H = pPtrEvent->key() == Qt::Key_H;
+    bool Z = pPtrEvent->key() == Qt::Key_Z;
+    bool X = pPtrEvent->key() == Qt::Key_X;
     bool L = pPtrEvent->key() == Qt::Key_L;
+
     bool mas = pPtrEvent->key() == Qt::Key_Plus;
     bool menos = pPtrEvent->key() == Qt::Key_Minus;
-    bool uno = pPtrEvent->key() == Qt::Key_1;
 
+    bool esc = pPtrEvent->key() == Qt::Key_Escape;
     bool ctrl = pPtrEvent->modifiers() & Qt::ControlModifier;
 
     if (flechaDerecha)
@@ -150,7 +155,7 @@ void Graficador::keyPressEvent(QKeyEvent *pPtrEvent)
         }
 
         cargarImagen();
-        cout << "Se abrio: " << ptrGestorDeArchivos->getNombreArchivo() <<endl;
+        cout << "Se abrio: " << ptrGestorDeArchivos->getNombreArchivo() << endl;
     }
 
     if (flechaIzquierda)
@@ -212,11 +217,9 @@ void Graficador::keyPressEvent(QKeyEvent *pPtrEvent)
 
     if (ctrl and G)
     {
-        string nombreDeGuardado;
-        cout << "Nombre con el que desea guardar el archivo: ";
-        cin >> nombreDeGuardado;
-
-        int opc;
+        string nombreDeGuardado = ptrInterfaz->definirNombreDeGuardado();
+//        cout << "Nombre con el que desea guardar el archivo: ";
+//        cin >> nombreDeGuardado;
 
         cout << "Seleccione como desea guardarlo: \n";
         cout << "\t1) Binario. " << endl;
@@ -224,12 +227,15 @@ void Graficador::keyPressEvent(QKeyEvent *pPtrEvent)
         if (imagenAGraficar.getCodigo() != "P3" and imagenAGraficar.getCodigo() != "P6")
             cout << "\t3) Comprimido. " << endl;
 
+        int opc = ptrInterfaz->definirOpcion();
         cout << "Seleccione opcion: ";
         cin >> opc;
 
         imagenAGraficar.definirCodigoDeGuardado(opc);
 
         ptrGestorDeArchivos->guardarImagen(nombreDeGuardado, imagenAGraficar);
+
+        cout <<  "Imagen guardada. " << endl;
     }
 
     if (mas)
@@ -242,16 +248,10 @@ void Graficador::keyPressEvent(QKeyEvent *pPtrEvent)
         editor.disminuirBrillo();
     }
 
-    if (ctrl and mas)
+    if (A)
     {
-        editor.aumentarContraste();
-        cout << "Aumento de contraste." << endl;
-    }
-
-    if (ctrl and menos)
-    {
-        editor.disminuirContraste();
-        cout << "Disminucion de contraste." << endl;
+        editor.ajustarContraste();
+        cout << "Ajuste de contraste." << endl;
     }
 
     if (N)
@@ -269,13 +269,28 @@ void Graficador::keyPressEvent(QKeyEvent *pPtrEvent)
         histograma.mostrar();
     }
 
-    if (uno)
+    if (ctrl and Z)
+    {
+        cout << "ctrl + Z --> Recuperar imagen." << endl;
+        imagenAGraficar = ptrGestorDeArchivos->generarImagen();
+    }
+
+    if (ctrl and X)
+    {
+        cout << "ctrl + X --> Ultima imagen abierta en la ejecucion de programa anterior." << endl;
+        imagenAGraficar = ptrGestorDeArchivos->generarUltimaImagen();
+    }
+
+    if (L)
     {
         if (imagenAGraficar.getCodigo() == "P5" or imagenAGraficar.getCodigo() == "P2" or imagenAGraficar.getCodigo() == "P2C")
         {
-            cout << "1 --> LUT 1." <<endl;
-            cout << ptrGestorDeArchivos->getUbicacionLUT(0) <<endl;
-            lut.aplicarLUT(1, imagenAGraficar);
+            //interactuar con interfaz para pedir la opcion
+//            int opcion;
+//            cout << "Seleccione una LUT: ";
+//            cin >> opcion;
+            cout << ptrGestorDeArchivos->getUbicacionLUT(23-1) <<endl;
+            lut.aplicarLUT(23, imagenAGraficar);
         }
 
         else
@@ -284,7 +299,16 @@ void Graficador::keyPressEvent(QKeyEvent *pPtrEvent)
         }
     }
 
+    if (esc)//esc
+    {
+        ptrGestorDeArchivos->almacenarUltimaImagen(imagenAGraficar);
+        cout << "Fin del programa." << endl;
+        exit(0);
+    }
+
     repaint();
+
+    ptrInterfaz->mostrarAtajos();
 }
 
 void Graficador::mousePressEvent(QMouseEvent *pPtrEvent)

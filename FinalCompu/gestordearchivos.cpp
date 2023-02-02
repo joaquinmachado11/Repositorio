@@ -2,13 +2,13 @@
 
 GestorDeArchivos::GestorDeArchivos()
 {
-    raizGuardado = "Ultima imagen/";
+    raizGuardado = "ultima imagen/";
 }
 
 Imagen GestorDeArchivos::generarImagen()
 {
     Imagen im;
-    string extension = reconocerFormato();
+    string extension = reconocerFormato(getNombreArchivo());
 
     if (extension == ".pbm" or  extension == ".pgm" or  extension == ".ppm" or  extension == ".pnm")
     {
@@ -76,10 +76,9 @@ vector<Pixel> GestorDeArchivos::generarTablaLUT(int id)
     }
 }
 
-string GestorDeArchivos::reconocerFormato()
+string GestorDeArchivos::reconocerFormato(string pNombre)
 {
-    string nombre = getNombreArchivo();
-    return nombre.substr(nombre.find_last_of('.'), nombre.size());
+    return pNombre.substr(pNombre.find_last_of('.'), pNombre.size());
 }
 
 const string &GestorDeArchivos::getRaizLUT() const
@@ -93,6 +92,32 @@ void GestorDeArchivos::setRaizLUT(const string &newRaizLUT)
     generarListadoDeLUTS( rutaLUT + raizLUT );
 }
 
+Imagen GestorDeArchivos::generarUltimaImagen()
+{
+    Imagen im;
+    string extension = reconocerFormato(getNombreUltArchivo());
+
+    if (extension == ".pbm" or  extension == ".pgm" or  extension == ".ppm" or  extension == ".pnm")
+    {
+        ptrArchivo = new ArchivoPNM;
+    }
+    else
+    {
+        if (extension == ".aic")
+        {
+            ptrArchivo = new ArchivoAIC;
+        }
+        else
+        {
+            (throw (string) "No se pudo abrir la ultima imagen.");
+        }
+    }
+
+    im = ptrArchivo->leerImagen(ruta + raizUltimaImagen + "ultima_imagen" + extension);
+    delete ptrArchivo;
+    return im;
+}
+
 void GestorDeArchivos::almacenarUltimaImagen(Imagen& imagen)
 {
     if (imagen.getCodigo() == "P2C")
@@ -104,8 +129,38 @@ void GestorDeArchivos::almacenarUltimaImagen(Imagen& imagen)
         ptrArchivo = new ArchivoPNM;
     }
 
-    ptrArchivo->escribirImagen(imagen, "ultima_imagen", ruta + raizUltimaImagen);
+    string nombre = "ultima_imagen";
+
+    remove("C:/Users/Usuario/Desktop/Final compu/Repositorio/FinalCompu/Autotest/ultima imagen/ultima_imagen.aic");
+    remove("C:/Users/Usuario/Desktop/Final compu/Repositorio/FinalCompu/Autotest/ultima imagen/ultima_imagen.ppm");
+    remove("C:/Users/Usuario/Desktop/Final compu/Repositorio/FinalCompu/Autotest/ultima imagen/ultima_imagen.pgm");
+    remove("C:/Users/Usuario/Desktop/Final compu/Repositorio/FinalCompu/Autotest/ultima imagen/ultima_imagen.pbm");
+
+    ptrArchivo->escribirImagen(imagen, nombre, ruta + raizUltimaImagen);
     delete ptrArchivo;
+}
+
+string GestorDeArchivos::getNombreUltArchivo() //CONSULTAR
+{
+    string nombre;
+
+    DIR *dir = opendir((ruta + raizUltimaImagen).c_str());
+    if (dir != NULL)
+    {
+        string pto("."), ptopto("..");
+        struct dirent *entry;
+        if ((entry = readdir(dir)) != NULL)
+        {
+            if( entry->d_name != pto and entry->d_name != ptopto )
+            {
+                nombre = entry->d_name;
+            }
+        }
+
+        closedir(dir);
+    }
+
+    return nombre;
 }
 
 const string &GestorDeArchivos::getRutaLUT() const

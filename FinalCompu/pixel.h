@@ -22,10 +22,11 @@ public:
     Pixel operator-(Pixel &Pixel2); // si se crea un nuevo pixel hay q crear un constructor al que se le pase una nueva terna
     Pixel& operator+=(Pixel Pixel2);
     Pixel& operator*(float factor);
-    Pixel& operator*(int factor);
+    //Pixel& operator*(int factor);
     bool operator==(Pixel &Pixel2);
 
 private:
+    void verificarLimites();
     vector <int> pixel;
 };
 

@@ -20,7 +20,7 @@ void LUT::aplicarLUT(int opcion, Imagen &pImagen)
 
     for (int f=0; f<pImagen.getFilas(); f++)
     {
-        for (int c=0; pImagen.getColumnas(); c++)
+        for (int c=0; c<pImagen.getColumnas(); c++)
         {
             pixelAux = pImagen.getPixel(f,c);
             intensidad = pixelAux.devolverComponente(0);

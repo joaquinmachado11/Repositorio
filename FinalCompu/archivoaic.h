@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <imagen.h>
+#include <procesadorestadistico.h>
 
 using namespace std;
 

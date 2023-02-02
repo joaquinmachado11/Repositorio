@@ -399,8 +399,9 @@ void ArchivoPNM::leerBinario(Imagen &pImagen)
         }
         break;
 
-    case '6':
-        unsigned char r = 0, g = 0, b = 0;
+    case '6': //error en los colores
+        unsigned char r , g , b;
+        r = g = b = 0;
         for (unsigned int f=0; f<pImagen.getFilas(); f++)
         {
             for (unsigned int c=0; c<pImagen.getColumnas(); c++)
@@ -412,7 +413,10 @@ void ArchivoPNM::leerBinario(Imagen &pImagen)
                 archivo.read((char * ) &b , sizeof(b));
                 //agregar control de error, datoPixel <=M y >= 0
 
-                pixelAUX.definirPixel(r,g,b);
+                //pixelAUX.definirPixel(r,g,b);
+                pixelAUX.definirComponente(0, r);
+                pixelAUX.definirComponente(1, g);
+                pixelAUX.definirComponente(2, b);
                 pImagen.setPixel(f, c, pixelAUX);
             }
         }

@@ -53,7 +53,7 @@ void Editor::disminuirBrillo()
     }
 }
 
-void Editor::aumentarContraste()
+void Editor::ajustarContraste()
 {
     procesadorEstadistico.setPtrImagen(ptrImagen);
     int M = ptrImagen->getRangoDinamico();
@@ -83,7 +83,7 @@ void Editor::aumentarContraste()
         }
     }
 }
-
+/*
 void Editor::disminuirContraste()
 {
     procesadorEstadistico.setPtrImagen(ptrImagen);
@@ -117,7 +117,7 @@ void Editor::disminuirContraste()
         }
     }
 }
-
+*/
 void Editor::negativo()
 {
     int M = ptrImagen->getRangoDinamico();

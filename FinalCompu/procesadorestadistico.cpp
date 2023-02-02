@@ -85,6 +85,10 @@ Pixel ProcesadorEstadistico::mediana(vector<Pixel> datos)
         med.definirPixel(medianaR, medianaG, medianaB);
     }
 
+    datosR.clear();
+    datosG.clear();
+    datosB.clear();
+
     return med;
 }
 

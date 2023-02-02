@@ -3,6 +3,7 @@
 Pixel::Pixel(int componente0, int componente1, int componente2)
 {
     pixel.resize(3);
+
     definirPixel(componente0,componente1,componente2);
 }
 
@@ -26,6 +27,8 @@ void Pixel::definirPixel(int componente0, int componente1, int componente2)
     pixel[0] = componente0;
     pixel[1] = componente1;
     pixel[2] = componente2;
+
+    verificarLimites();
 }
 
 float Pixel::devolverComponente(int componente)
@@ -35,10 +38,9 @@ float Pixel::devolverComponente(int componente)
 
 void Pixel::definirComponente(int componente, int valor)
 {
-    if (componente<3)
-    {
-        pixel[componente] = valor;
-    }
+    pixel[componente] = valor;
+
+    verificarLimites();
 }
 
 Pixel &Pixel::operator++()
@@ -46,6 +48,9 @@ Pixel &Pixel::operator++()
     pixel[0]++;
     pixel[1]++;
     pixel[2]++;
+
+    verificarLimites();
+
     return *this;
 }
 
@@ -54,67 +59,100 @@ Pixel &Pixel::operator--()
     pixel[0]--;
     pixel[1]--;
     pixel[2]--;
+
+    verificarLimites();
+
     return *this;
 }
 
 Pixel Pixel::operator+(Pixel Pixel2)
 {
-    return Pixel(pixel[0]+ Pixel2.devolverPixel()[0],
-                 pixel[1]+ Pixel2.devolverPixel()[1],
-                 pixel[2]+ Pixel2.devolverPixel()[2]);
+    Pixel aux(pixel[0]+ Pixel2.devolverPixel()[0],
+            pixel[1]+ Pixel2.devolverPixel()[1],
+            pixel[2]+ Pixel2.devolverPixel()[2]);
+
+    aux.verificarLimites();
+
+    return aux;
 
 }
 
 Pixel Pixel::operator-(Pixel &Pixel2)
 {
-    pixel[0]=pixel[0] - Pixel2.devolverComponente(0);
-    pixel[1]=pixel[1] - Pixel2.devolverComponente(1);
-    pixel[2]=pixel[2] - Pixel2.devolverComponente(2);
-    return *this;
+    Pixel aux(pixel[0] - Pixel2.devolverPixel()[0],
+            pixel[1] - Pixel2.devolverPixel()[1],
+            pixel[2] - Pixel2.devolverPixel()[2]);
+
+    aux.verificarLimites();
+
+    return aux;
 }
 
 Pixel &Pixel::operator+=(Pixel Pixel2)
 {
-//    Pixel aux;
+    //    Pixel aux;
 
-//    aux.definirComponente(0, pixel[0]+Pixel2.devolverComponente(0));
-//    aux.definirComponente(1, pixel[1]+Pixel2.devolverComponente(1));
-//    aux.definirComponente(2, pixel[2]+Pixel2.devolverComponente(2));
+    //    aux.definirComponente(0, pixel[0]+Pixel2.devolverComponente(0));
+    //    aux.definirComponente(1, pixel[1]+Pixel2.devolverComponente(1));
+    //    aux.definirComponente(2, pixel[2]+Pixel2.devolverComponente(2));
 
-//    return aux;
+    //    return aux;
 
     pixel[0] = pixel[0] + Pixel2.devolverComponente(0);
-    pixel[1] = pixel[1]+Pixel2.devolverComponente(1);
-    pixel[2] = pixel[2]+Pixel2.devolverComponente(2);
+    pixel[1] = pixel[1] + Pixel2.devolverComponente(1);
+    pixel[2] = pixel[2] + Pixel2.devolverComponente(2);
+
+    verificarLimites();
+
     return *this;
 }
 
 Pixel& Pixel::operator*(float factor)
 {
-//    Pixel aux;
+    //    Pixel aux;
 
-//    aux.definirComponente(0, pixel[0]*factor);
-//    aux.definirComponente(1, pixel[1]*factor);
-//    aux.definirComponente(2, pixel[2]*factor);
+    //    aux.definirComponente(0, pixel[0]*factor);
+    //    aux.definirComponente(1, pixel[1]*factor);
+    //    aux.definirComponente(2, pixel[2]*factor);
 
-//    return aux;
+    //    return aux;
 
     pixel[0] = pixel[0] * factor;
     pixel[1] = pixel[1] * factor;
     pixel[2] = pixel[2] * factor;
+
+    verificarLimites();
+
     return *this;
 }
 
-Pixel& Pixel::operator*(int factor)
-{
-    pixel[0] = pixel[0] * factor;
-    pixel[1] = pixel[1] * factor;
-    pixel[2] = pixel[2] * factor;
-    return *this;
-}
+//Pixel& Pixel::operator*(int factor)
+//{
+//    pixel[0] = pixel[0] * factor;
+//    pixel[1] = pixel[1] * factor;
+//    pixel[2] = pixel[2] * factor;
+//    return *this;
+//}
 
 bool Pixel::operator ==(Pixel &Pixel2)
 {   return (pixel[0]==Pixel2.devolverComponente(0) and
             pixel[1]==Pixel2.devolverComponente(1) and
             pixel[2]==Pixel2.devolverComponente(2));
+}
+
+void Pixel::verificarLimites()
+{
+    if (pixel[0] > 255)
+        pixel[0] = 255;
+    if (pixel[1] > 255)
+        pixel[1] = 255;
+    if (pixel[2] > 255)
+        pixel[2] = 255;
+
+    if (pixel[0] < 0)
+        pixel[0] = 0;
+    if (pixel[1] < 0)
+        pixel[1] = 0;
+    if (pixel[2] < 0)
+        pixel[2] = 0;
 }

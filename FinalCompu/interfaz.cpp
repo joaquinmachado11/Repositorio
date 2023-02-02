@@ -7,11 +7,19 @@ Interfaz::Interfaz(GestorDeArchivos *pGestor)
 
 void Interfaz::mostrarAtajos()
 {
-    cout << "N --> Negativo." << endl;
-    cout << "S --> Suavizado." << endl;
     cout << "+ --> Aumentar brillo." << endl;
     cout << "- --> Disminuir brillo." << endl;
+    cout << "A --> Ajustar contraste." << endl;
+    cout << "N --> Negativo." << endl;
+    cout << "S --> Suavizado." << endl;
     cout << "M --> Mediana." << endl;
+    cout << "R --> Realce de bordes." << endl;
+    cout << "L --> Aplicar LUT." << endl;
+    cout << "ctrl + H --> Histograma." << endl;
+    cout << "ctrl + G --> Guardar imagen." << endl;
+    cout << "ctrl + Z --> Limpiar imagen." << endl;
+    cout << "ctrl + X --> Ultima imagen abierta en la ejecucion de programa anterior." << endl;
+    cout << "esc --> Finalizar el programa." << endl;
 }
 
 void Interfaz::mostrarArchivos()
@@ -58,4 +66,19 @@ void Interfaz::mostrarLUTS()
         cout<<nombreLUT<<endl;
     }
     cout << endl;
+}
+
+string Interfaz::definirNombreDeGuardado()
+{
+
+}
+
+int Interfaz::definirOpcionDeGuardado()
+{
+
+}
+
+int Interfaz::definirOpcion()
+{
+
 }

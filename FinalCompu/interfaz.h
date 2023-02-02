@@ -11,6 +11,9 @@ public:
     void mostrarArchivos();
     void elegirArchivo();
     void mostrarLUTS();
+    string definirNombreDeGuardado();
+    int definirOpcionDeGuardado();
+    int definirOpcion();
 
 private:
     GestorDeArchivos *ptrGestorDeArchivos;

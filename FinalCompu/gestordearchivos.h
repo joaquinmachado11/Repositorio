@@ -46,10 +46,13 @@ public:
     const string &getRaizLUT() const;
     void setRaizLUT(const string &newRaizLUT);
 
+    Imagen generarUltimaImagen();
     void almacenarUltimaImagen(Imagen& imagen);
 
+    string getNombreUltArchivo();
+
 private:
-    string reconocerFormato(); //reconoce si es pnm o aic
+    string reconocerFormato(string pNombre); //reconoce si es pnm o aic
     string ruta, raiz, raizGuardado, raizUltimaImagen; //info que pasara al espacio de trabajo para pedirle un vector con nombres de archivos
     string rutaLUT, raizLUT;
     Archivo *ptrArchivo;

@@ -12,9 +12,10 @@ RealceDeBordes::~RealceDeBordes()
 
 void RealceDeBordes::aplicarFiltro(Imagen &pImagen)
 {
+    Imagen nuevaImagen = pImagen;
     Pixel pixelAux;
     Pixel nuevoPixel;
-/*
+
     for (int fila = 0; fila<pImagen.getFilas(); fila++)
     {
         for (int columna = 0; columna<pImagen.getColumnas(); columna++)
@@ -30,10 +31,13 @@ void RealceDeBordes::aplicarFiltro(Imagen &pImagen)
                 }
             }
 
-            pImagen.setPixel(fila, columna, nuevoPixel);
+            nuevaImagen.setPixel(fila, columna, nuevoPixel);
         }
-    }*/
+    }
 
+    pImagen = nuevaImagen;
+
+/*
     int auxR=0, auxG=0, auxB=0;
     for (int fila = 0; fila<pImagen.getFilas(); fila++)
     {
@@ -102,8 +106,8 @@ void RealceDeBordes::aplicarFiltro(Imagen &pImagen)
             }
 
             pixelAux.definirPixel(auxR, auxG, auxB);
-            pImagen.setPixel(fila,columna, pixelAux);
+            nuevaImagen.setPixel(fila,columna, pixelAux);
         }
     }
-
+*/
 }

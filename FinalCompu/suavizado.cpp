@@ -12,6 +12,7 @@ Suavizado::~Suavizado()
 
 void Suavizado::aplicarFiltro(Imagen &pImagen)
 {
+    Imagen nuevaImagen = pImagen;
     Pixel pixelAux;
     Pixel nuevoPixel;
 
@@ -29,8 +30,10 @@ void Suavizado::aplicarFiltro(Imagen &pImagen)
                 }
             }
 
-            pImagen.setPixel(fila, columna, nuevoPixel);
+            nuevaImagen.setPixel(fila, columna, nuevoPixel);
         }
     }
+
+    pImagen = nuevaImagen;
 }
 

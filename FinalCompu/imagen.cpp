@@ -32,11 +32,13 @@ Imagen::~Imagen()
 
 void Imagen::dimensionar()
 {
-    imagen.resize(filas);
-    for (unsigned int i=0; i<filas; i++)
-    {
-        imagen[i].resize(columnas);
-    }
+//    imagen.resize(filas);
+//    for (unsigned int i=0; i<filas; i++)
+//    {
+//        imagen[i].resize(columnas);
+//    }
+
+    imagen.resize(filas, vector <Pixel>(columnas));
 }
 
 bool Imagen::estaEnLaImagen(int f, int c)

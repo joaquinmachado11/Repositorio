@@ -14,6 +14,12 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
+    string grupo1, grupo2, grupoPBM_AIC, guardadas;
+    grupoPBM_AIC = "imagenes_pruebaPBM/";
+    grupo1 = "grupo_imagenes_1/";
+    grupo2 = "grupo_imagenes_2/";
+    guardadas = "imagenes_guardadas/";
+
 //pruebas para pixel
     /*
     //ejecucion de constructor de pixel y definicion
@@ -142,8 +148,8 @@ int main(int argc, char *argv[])
     Graficador graficador(&gestorArchivos);
 
     gestorArchivos.setRuta("C:/Users/Usuario/Desktop/Final compu/Repositorio/FinalCompu/Autotest/");
-    gestorArchivos.setRaiz("grupo_imagenes_1/");
-    gestorArchivos.setRaizGuardado("imagenes_guardadas/");
+    gestorArchivos.setRaiz(grupo1);
+    gestorArchivos.setRaizGuardado(guardadas);
 
     gestorArchivos.setRutaLUT("C:/Users/Usuario/Desktop/Final compu/Repositorio/FinalCompu/Autotest/");
     gestorArchivos.setRaizLUT("ij_luts/");
@@ -152,12 +158,32 @@ int main(int argc, char *argv[])
     interfaz.elegirArchivo();
 
     graficador.cargarImagen();
-    interfaz.mostrarAtajos();
-    interfaz.mostrarLUTS();
 
     graficador.mostrar(500, 500, &app);
 
 
+//prueba LUT
+    /*
+    GestorDeArchivos gestorArchivos;
+    Interfaz interfaz (&gestorArchivos);
+    Graficador graficador(&gestorArchivos);
+
+    gestorArchivos.setRuta("C:/Users/Usuario/Desktop/Final compu/Repositorio/FinalCompu/Autotest/");
+    gestorArchivos.setRaiz(grupo1);
+    gestorArchivos.setRaizGuardado(guardadas);
+
+    gestorArchivos.setRutaLUT("C:/Users/Usuario/Desktop/Final compu/Repositorio/FinalCompu/Autotest/");
+    gestorArchivos.setRaizLUT("ij_luts/");
+
+    vector <Pixel> tabla = gestorArchivos.generarTablaLUT(0);
+
+    for (int i=0; i< tabla.size(); i++)
+    {
+        cout << tabla[i].devolverComponente(0) << " "
+             << tabla[i].devolverComponente(1) << " "
+             << tabla[i].devolverComponente(2) << " " << endl;
+    }
+    */
 
     return app.exec();
 }
