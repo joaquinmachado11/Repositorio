@@ -6,6 +6,11 @@
 #include <suavizado.h>
 #include <procesadorestadistico.h>
 
+/**
+ * @brief Procesamiento de punto de los pixeles de la imagen
+ * @author Machado Joaquin
+ */
+
 class Editor //procesadorDePunto
 {
 public:

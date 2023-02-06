@@ -21,7 +21,7 @@ void AlgoritmoPintor::aplicarAlgoritmo(int posY, int posX)
     areaDetectada = 0;
     profundidad = 0;
 
-    if (ptrImagen->getCodigo() == "P1" or ptrImagen->getCodigo() == "P4")
+    if (ptrImagen->getCodigo() == "P1" or ptrImagen->getCodigo() == "P4") //ver esto al binarizar
     {
         tolerancia = 0;
     }
@@ -72,11 +72,6 @@ void AlgoritmoPintor::pintarArea() //255,128,0
 int AlgoritmoPintor::getAreaDetectada() const
 {
     return areaDetectada;
-}
-
-void AlgoritmoPintor::reiniciarArea()
-{
-    areaDetectada = 0;
 }
 
 bool AlgoritmoPintor::dentroDeTolerancia(Pixel &pixAComparar)

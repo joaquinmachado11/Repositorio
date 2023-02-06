@@ -2,6 +2,11 @@
 #define FILTRO_H
 #include <imagen.h>
 
+/**
+ * @brief Filtrado espacial de los pixeles de la imagen
+ * @author Machado Joaquin
+ */
+
 class Filtro //filtradoEspacial
 {
 public:

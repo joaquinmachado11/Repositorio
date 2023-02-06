@@ -14,13 +14,12 @@ ArchivoPNM::ArchivoPNM()
 
 Imagen ArchivoPNM::leerImagen(string pNombreArchivo)
 {
-    setNombreArchivo(pNombreArchivo);
     Imagen imagen;
     string identificacion, descripcion;
     char numeral;
     int filas, columnas;
 
-    archivo.open(getNombreArchivo(), ios::in | ios::binary);
+    archivo.open(pNombreArchivo, ios::in | ios::binary);
 
     if (!archivo.is_open())
     {
@@ -220,16 +219,6 @@ string ArchivoPNM::definirExtension(string cod)
 
     if (cod == "P3" or cod == "P6")
         return ".ppm";
-}
-
-const string &ArchivoPNM::getNombreArchivo() const
-{
-    return nombreArchivo;
-}
-
-void ArchivoPNM::setNombreArchivo(const string &newNombreArchivo)
-{
-    nombreArchivo = newNombreArchivo;
 }
 
 void ArchivoPNM::leerTexto(Imagen &pImagen)

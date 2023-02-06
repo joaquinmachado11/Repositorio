@@ -3,6 +3,11 @@
 #include <imagen.h>
 #include <filtro.h>
 
+/**
+ * @brief Aplica el filtro de suavizado.
+ * @author Machado Joaquin
+ */
+
 class Suavizado : public Filtro
 {
 public:

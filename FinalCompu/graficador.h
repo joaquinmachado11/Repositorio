@@ -15,6 +15,11 @@
 #include <mediana.h>
 #include <interfaz.h>
 
+/**
+ * @brief Grafica imagenes quedando a la espera de eventos
+ * @author Machado Joaquin
+ */
+
 class Graficador : public QOpenGLWidget
 {
 public:

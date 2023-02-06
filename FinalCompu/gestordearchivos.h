@@ -5,6 +5,11 @@
 #include <archivopnm.h>
 #include <dirent.h>
 
+/**
+ * @brief Conoce listas de archivos, para generar tablas LUT o imagenes.
+ * @author Machado Joaquin
+ */
+
 class GestorDeArchivos
 {
 public:

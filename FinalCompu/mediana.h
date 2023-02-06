@@ -4,6 +4,11 @@
 #include <filtro.h>
 #include <procesadorestadistico.h>
 
+/**
+ * @brief Aplica el filtro de mediana.
+ * @author Machado Joaquin
+ */
+
 class Mediana : public Filtro
 {
 public:

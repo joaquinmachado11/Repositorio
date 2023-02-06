@@ -342,6 +342,6 @@ void Graficador::mousePressEvent(QMouseEvent *pPtrEvent)
         ptrInterfaz->mostrarAtajos();
         cout << endl << endl;
 
-        pintor.reiniciarArea();
+
     }
 }

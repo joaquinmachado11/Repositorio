@@ -12,7 +12,6 @@ void LUT::setGestor(GestorDeArchivos *pGestor)
 
 void LUT::aplicarLUT(int opcion, Imagen &pImagen)
 {
-    //setTablaLUT(opcion-1);
     tablaLUT = ptrGestorDeArchivos->generarTablaLUT(opcion-1);
 
     Pixel pixelAux;
@@ -29,9 +28,4 @@ void LUT::aplicarLUT(int opcion, Imagen &pImagen)
             pImagen.setPixel(f,c,pixelAux);
         }
     }
-}
-
-void LUT::setTablaLUT(int id)
-{
-   tablaLUT = ptrGestorDeArchivos->generarTablaLUT(id);
 }

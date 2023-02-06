@@ -3,6 +3,11 @@
 #include <filtro.h>
 #include <imagen.h>
 
+/**
+ * @brief Aplica el filtro de realce de bordes.
+ * @author Machado Joaquin
+ */
+
 class RealceDeBordes : public Filtro
 {
 public:

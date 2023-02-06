@@ -2,6 +2,10 @@
 #define INTERFAZ_H
 #include <gestordearchivos.h>
 
+/**
+ * @brief Muestra los textos por consola, permite que el usuario interactue con el graficador
+ * @author Machado Joaquin
+ */
 
 class Interfaz
 {

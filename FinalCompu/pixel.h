@@ -5,6 +5,11 @@
 
 using namespace std;
 
+/**
+ * @brief Guarda informacion de los pixel de la imagen, permite operaciones entre ellos.
+ * @author Machado Joaquin
+ */
+
 class Pixel
 {
 public:
