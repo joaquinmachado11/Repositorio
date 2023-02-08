@@ -27,7 +27,8 @@ Imagen ArchivoPNM::leerImagen(string pNombreArchivo)
     }
     else
     {
-        archivo>>identificacion;    archivo.ignore();
+        archivo>>identificacion; archivo.ignore();
+        //getline(archivo, identificacion, '\n');
         imagen.setCodigo(identificacion);
         //control de error para el codigo
 
@@ -160,7 +161,8 @@ void ArchivoPNM::escribirP3(Imagen &imagen)
     }
 }
 
-void ArchivoPNM::escribirP4(Imagen &imagen)
+void ArchivoPNM::
+escribirP4(Imagen &imagen)
 {
     unsigned char intensidad;
 
@@ -354,6 +356,9 @@ void ArchivoPNM::leerBinario(Imagen &pImagen)
     {
         pImagen.setRangoDinamico(1);
     }
+
+    string aux;
+    getline(archivo, aux, '\n');
 
     unsigned char datoPixel = 0;
     Pixel pixelAUX;

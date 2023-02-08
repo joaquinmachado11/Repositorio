@@ -11,15 +11,29 @@ class Interfaz
 {
 public:
     Interfaz(GestorDeArchivos *pGestor);
+
     void mostrarAtajos();
     void mostrarArchivos();
-    void elegirArchivo();
-    void mostrarLUTS();
-    string definirNombreDeGuardado();
     void mostrarOpcionesDeGuardado(string cod);
+    void mostrarLUTS();
+
+    void elegirArchivo();
+
+    string definirNombreDeGuardado();
     int definirOpcion();
     int definirUmbralBinarizado();
+
     void opcNoPermitida();
+    int opcionesDeCarpetas();
+
+    bool preguntarSiSeguir();
+    void finPrograma();
+    void limpiar();
+    void seAbrio(string pNombre);
+    void seAplico (string nombreLUT);
+    void areaDetectada (int area);
+
+    void informarAtajo (char atajo);
 
 private:
     GestorDeArchivos *ptrGestorDeArchivos;
@@ -27,8 +41,6 @@ private:
 
 #endif // INTERFAZ_H
 /*
-Contiene los atajos de teclado
 Muestra en pantalla las opciones
 Informa los atajos de teclado
-Recibe la indicacion para abrir un archivo
 */

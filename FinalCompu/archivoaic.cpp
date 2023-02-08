@@ -21,66 +21,83 @@ Imagen ArchivoAIC::leerImagen(string pNombreArchivo)
     char numeral;
 
     if (!archivo.is_open())
-        cout<<"Error.";
-
-    archivo>>identificacion;    archivo.ignore();
-    imagen.setCodigo(identificacion);
-    //control de error para el codigo
-
-    archivo>>numeral;
-    if (numeral!='#')
-        cout<<"Error. (corrupta)";
-
-    getline(archivo, descripcion);
-    imagen.setDescripcion(descripcion);
-
-    archivo>>columnas;
-    imagen.setColumnas(columnas);//agregar ignorar los espacios
-
-    archivo>>filas;
-    imagen.setFilas(filas);
-
-    imagen.dimensionar();
-
-    archivo>>rangoDin;
-    imagen.setRangoDinamico(rangoDin);
-
-    archivo.ignore();
-
-    int datoPixel, repeticiones;
-    int contadorColumnas=0, contadorRepeticiones=0;
-
-    Pixel pixelAUX;
-
-    for (int f=0; f<filas; f++)
+        cout << "No se pudo abrir el archivo. " << endl;
+    else
     {
-        do
+        try
         {
-            archivo >> datoPixel >> repeticiones;
-            //control de error datoPixel y repeticiones>0
+            archivo>>identificacion;    archivo.ignore();
+            imagen.setCodigo(identificacion);
+            if (identificacion!="P2C")
+                throw (excepcion);
 
-            while (contadorRepeticiones<repeticiones)
+            archivo>>numeral;
+            if (numeral != '#')
+                throw (excepcion);
+
+            getline(archivo, descripcion);
+            imagen.setDescripcion(descripcion);
+
+            archivo>>columnas;
+            imagen.setColumnas(columnas);
+            if (columnas <= 0)
+                throw (excepcion);
+
+            archivo>>filas;
+            imagen.setFilas(filas);
+            if (filas <= 0)
+                throw (excepcion);
+
+            imagen.dimensionar();
+
+            archivo>>rangoDin;
+            imagen.setRangoDinamico(rangoDin);
+            if (filas <= 0)
+                throw (excepcion);
+
+            archivo.ignore();
+
+            int datoPixel, repeticiones;
+            int contadorColumnas=0, contadorRepeticiones=0;
+
+            Pixel pixelAUX;
+
+            for (int f=0; f<filas; f++)
             {
-                pixelAUX = imagen.getPixel(f, contadorColumnas);
-                pixelAUX.definirPixel(datoPixel,datoPixel,datoPixel);
-                imagen.setPixel(f,contadorColumnas,pixelAUX);
+                do
+                {
+                    archivo >> datoPixel >> repeticiones;
+                    if (datoPixel < 0 or repeticiones <= 0)
+                        throw (excepcion);
 
-                contadorColumnas++;
-                contadorRepeticiones++;
+                    while (contadorRepeticiones<repeticiones)
+                    {
+                        pixelAUX = imagen.getPixel(f, contadorColumnas);
+                        pixelAUX.definirPixel(datoPixel,datoPixel,datoPixel);
+                        imagen.setPixel(f,contadorColumnas,pixelAUX);
+
+                        contadorColumnas++;
+                        contadorRepeticiones++;
+                    }
+                    contadorRepeticiones=0;
+
+                    if (contadorColumnas>columnas)
+                        throw (excepcion);
+                    if (archivo.eof() and (f<filas or contadorColumnas<columnas))
+                        throw (excepcion);
+
+                } while (contadorColumnas<columnas);
+
+                contadorColumnas=0;
             }
-            contadorRepeticiones=0;
+        }
+        catch (ExcepcionArchivoCorrupto)
+        {
 
-            if (contadorColumnas>columnas)
-                cout<<"Error.";
-            if (archivo.eof() and (f<filas or contadorColumnas<columnas))
-                cout<<"Error.";
+        }
 
-        } while (contadorColumnas<columnas);
-
-        contadorColumnas=0;
+        return imagen;
     }
-
-    return imagen;
 }
 
 void ArchivoAIC::escribirImagen(Imagen &imagen, string pNombreArchivo, string directorio)
@@ -92,14 +109,14 @@ void ArchivoAIC::escribirImagen(Imagen &imagen, string pNombreArchivo, string di
     ProcesadorEstadistico procesador;
     procesador.setPtrImagen(&imagen);
 
-//    Pixel max = procesador.maximo();
-//    int M = 0;
-//    for (int i=0; i<3; i++)
-//    {
-//        if (max.devolverComponente(i)>M)
-//            M = max.devolverComponente(i);
-//    }
-//    imagen.setRangoDinamico(M);
+    //    Pixel max = procesador.maximo();
+    //    int M = 0;
+    //    for (int i=0; i<3; i++)
+    //    {
+    //        if (max.devolverComponente(i)>M)
+    //            M = max.devolverComponente(i);
+    //    }
+    //    imagen.setRangoDinamico(M);
 
     int filas = imagen.getFilas();
     int columnas = imagen.getColumnas();

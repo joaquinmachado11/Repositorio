@@ -14,14 +14,19 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
-    string grupo1, grupo2, grupoPBM_AIC, guardadas;
+    system("chcp 65001");
+    system("CLS");
+
+    string grupo1, grupo2, grupo3, corruptas, grupoPBM_AIC, guardadas;
     grupoPBM_AIC = "imagenes_pruebaPBM/";
     grupo1 = "grupo_imagenes_1/";
     grupo2 = "grupo_imagenes_2/";
+    grupo3 = "ij_image_samples/";
+    corruptas = "grupo_imagenes_3_corruptas/";
     guardadas = "imagenes_guardadas/";
 
-//pruebas para pixel
-    /*
+    //pruebas para pixel
+    /*R
     //ejecucion de constructor de pixel y definicion
     Pixel pixel1(1,1,1), pixel2(2,2,2);
     //pixel1.definirPixel(1,1,1);
@@ -76,7 +81,8 @@ int main(int argc, char *argv[])
         cout<<"Son distintos"<<endl;
 */
 
-//pruebas archivo
+
+    //pruebas archivo
     /*
     GestorDeArchivos gestorArchivos;
     gestorArchivos.setRuta("C:/Users/Usuario/Desktop/Final compu/Repositorio/FinalCompu/Autotest/");
@@ -117,7 +123,7 @@ int main(int argc, char *argv[])
 */
 
 
-//pruebas graficador
+    //pruebas graficador
     /*
     GestorDeArchivos gestorArchivos;
     Graficador graficador(&gestorArchivos);
@@ -141,28 +147,70 @@ int main(int argc, char *argv[])
     }
 */
 
-//pruebas editor y procesador estadistico
+    //pruebas editor y procesador estadistico
 
     GestorDeArchivos gestorArchivos;
     Interfaz interfaz (&gestorArchivos);
     Graficador graficador(&gestorArchivos, &interfaz);
 
-    gestorArchivos.setRuta("C:/Users/Usuario/Desktop/Final compu/Repositorio/FinalCompu/Autotest/");
-    gestorArchivos.setRaiz(grupoPBM_AIC);
+    gestorArchivos.setRutaLUT("C:/Users/USER/Desktop/Final compu/Repositorio/FinalCompu/Autotest/");
+    gestorArchivos.setRaizLUT("ij_luts/");
+    gestorArchivos.setRuta("C:/Users/USER/Desktop/Final compu/Repositorio/FinalCompu/Autotest/");
     gestorArchivos.setRaizGuardado(guardadas);
 
-    gestorArchivos.setRutaLUT("C:/Users/Usuario/Desktop/Final compu/Repositorio/FinalCompu/Autotest/");
-    gestorArchivos.setRaizLUT("ij_luts/");
+    bool seguir = true;
+    int opcion;
 
-    interfaz.mostrarArchivos();
-    interfaz.elegirArchivo();
+    do
+    {
+        opcion = interfaz.opcionesDeCarpetas();
 
-    graficador.cargarImagen();
+        while (opcion < 1 or opcion > 6)
+        {
+            interfaz.opcNoPermitida();
+            opcion = interfaz.opcionesDeCarpetas();
+        }
 
-    graficador.mostrar(500, 500, &app);
+        switch (opcion)
+        {
+        case 1:
+            gestorArchivos.setRaiz(grupo1);
+            break;
+        case 2:
+            gestorArchivos.setRaiz(grupo2);
+            break;
+        case 3:
+            gestorArchivos.setRaiz(grupo3);
+            break;
+        case 4:
+            gestorArchivos.setRaiz(corruptas);
+            break;
+        case 5:
+            gestorArchivos.setRaiz(guardadas);
+            break;
+        case 6:
+            gestorArchivos.setRaiz(grupoPBM_AIC);
+            break;
+        }
 
+        interfaz.limpiar();
 
-//prueba LUT
+        interfaz.mostrarArchivos();
+        interfaz.elegirArchivo();
+
+        graficador.cargarImagen();
+
+        graficador.mostrar(500, 500, &app);
+
+        interfaz.limpiar();
+        seguir = interfaz.preguntarSiSeguir();
+        interfaz.limpiar();
+
+    } while (seguir);
+
+    interfaz.finPrograma();
+
+    //prueba LUT
     /*
     GestorDeArchivos gestorArchivos;
     Interfaz interfaz (&gestorArchivos);
@@ -187,8 +235,3 @@ int main(int argc, char *argv[])
 
     return app.exec();
 }
-/*
-imagenes_pruebaPBM
-grupo_imagenes_1
-grupo_imagenes_2
-*/

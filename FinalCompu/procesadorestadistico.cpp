@@ -58,7 +58,7 @@ Pixel ProcesadorEstadistico::mediana(vector<Pixel> datos)
 
     vector <int> datosR, datosG, datosB;
 
-    for (int i = 0; i<datos.size(); i++)
+    for (unsigned int i = 0; i<datos.size(); i++)
     {
         datosR.push_back(datos[i].devolverComponente(0));
         datosG.push_back(datos[i].devolverComponente(1));
@@ -219,7 +219,7 @@ void ProcesadorEstadistico::modaRGB(vector<vector<int> > &datosDeFrecuencia)
 
     for (int i = 0; i<3; i++)
     {
-       if (get<0>(datosModa[i]) > mayorFrecuencia)
+       if (get<1>(datosModa[i]) > mayorFrecuencia)
            mayorFrecuencia = get<1>(datosModa[i]);
     }
 

@@ -32,12 +32,6 @@ Imagen::~Imagen()
 
 void Imagen::dimensionar()
 {
-//    imagen.resize(filas);
-//    for (unsigned int i=0; i<filas; i++)
-//    {
-//        imagen[i].resize(columnas);
-//    }
-
     imagen.resize(filas, vector <Pixel>(columnas));
 }
 
@@ -112,6 +106,30 @@ void Imagen::definirCodigoDeGuardado(int opcion)
         nuevoCodigo = "P2C";
 
     codigo = nuevoCodigo;
+}
+
+string Imagen::getExtension()
+{
+    if (codigo == "P2C")
+        return ".aic";
+
+    if (codigo == "P1")
+        return ".pbm";
+
+    if (codigo == "P2")
+        return ".pgm";
+
+    if (codigo == "P3")
+        return ".ppm";
+
+    if (codigo == "P4")
+        return ".pbm";
+
+    if (codigo == "P5")
+        return ".pgm";
+
+    if (codigo == "P6")
+        return ".ppm";
 }
 
 int Imagen::getRangoDinamico() const

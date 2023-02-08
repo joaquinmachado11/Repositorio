@@ -131,34 +131,32 @@ void GestorDeArchivos::almacenarUltimaImagen(Imagen& imagen)
 
     string nombre = "ultima_imagen";
 
-    remove("C:/Users/Usuario/Desktop/Final compu/Repositorio/FinalCompu/Autotest/ultimaimagen/ultima_imagen.aic");
-    remove("C:/Users/Usuario/Desktop/Final compu/Repositorio/FinalCompu/Autotest/ultimaimagen/ultima_imagen.ppm");
-    remove("C:/Users/Usuario/Desktop/Final compu/Repositorio/FinalCompu/Autotest/ultimaimagen/ultima_imagen.pgm");
-    remove("C:/Users/Usuario/Desktop/Final compu/Repositorio/FinalCompu/Autotest/ultimaimagen/ultima_imagen.pbm");
+//    remove("C:/Users/Usuario/Desktop/Final compu/Repositorio/FinalCompu/Autotest/ultimaimagen/ultima_imagen.aic");
+//    remove("C:/Users/Usuario/Desktop/Final compu/Repositorio/FinalCompu/Autotest/ultimaimagen/ultima_imagen.ppm");
+//    remove("C:/Users/Usuario/Desktop/Final compu/Repositorio/FinalCompu/Autotest/ultimaimagen/ultima_imagen.pgm");
+//    remove("C:/Users/Usuario/Desktop/Final compu/Repositorio/FinalCompu/Autotest/ultimaimagen/ultima_imagen.pbm");
+    remove("C:/Users/USER/Desktop/Final compu/Repositorio/FinalCompu/Autotest/ultimaimagen/ultima_imagen.aic");
+    remove("C:/Users/USER/Desktop/Final compu/Repositorio/FinalCompu/Autotest/ultimaimagen/ultima_imagen.ppm");
+    remove("C:/Users/USER/Desktop/Final compu/Repositorio/FinalCompu/Autotest/ultimaimagen/ultima_imagen.pgm");
+    remove("C:/Users/USER/Desktop/Final compu/Repositorio/FinalCompu/Autotest/ultimaimagen/ultima_imagen.pbm");
 
     ptrArchivo->escribirImagen(imagen, nombre, ruta + raizUltimaImagen);
     delete ptrArchivo;
+
+    ofstream arch_extension;
+    arch_extension.open(ruta + raizUltimaImagen + "extension ultima imagen.txt");
+    string extension = imagen.getExtension();
+    arch_extension << nombre << extension;
+    arch_extension.close();
 }
 
-string GestorDeArchivos::getNombreUltArchivo() //CONSULTAR
+string GestorDeArchivos::getNombreUltArchivo()
 {
+    ifstream arch_extension;
+    arch_extension.open(ruta + raizUltimaImagen + "extension ultima imagen.txt");
     string nombre;
-
-    DIR *dir = opendir((ruta + raizUltimaImagen).c_str());
-    if (dir != NULL)
-    {
-        string pto("."), ptopto("..");
-        struct dirent *entry;
-        if ((entry = readdir(dir)) != NULL)
-        {
-            if( entry->d_name != pto and entry->d_name != ptopto )
-            {
-                nombre = entry->d_name;
-            }
-        }
-
-        closedir(dir);
-    }
+    getline(arch_extension, nombre);
+    arch_extension.close();
 
     return nombre;
 }

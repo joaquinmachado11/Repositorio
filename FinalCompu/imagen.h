@@ -112,6 +112,8 @@ public:
      */
     void definirCodigoDeGuardado(int opcion);
 
+    string getExtension();
+
 private:
     vector < vector < Pixel >> imagen; /**< Matriz del tamaño de la imagen que aloja los pixeles */
     int filas; /**< Filas de la imagen */
