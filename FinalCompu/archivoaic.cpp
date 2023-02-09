@@ -15,7 +15,7 @@ Imagen ArchivoAIC::leerImagen(string pNombreArchivo)
 {
     archivo.open(pNombreArchivo, ios::in );
     Imagen imagen;
-    string identificacion, descripcion;
+    string codigo, descripcion;
     int filas, columnas;
     int rangoDin;
     char numeral;
@@ -26,10 +26,10 @@ Imagen ArchivoAIC::leerImagen(string pNombreArchivo)
     {
         try
         {
-            archivo>>identificacion;    archivo.ignore();
-            imagen.setCodigo(identificacion);
-            if (identificacion!="P2C")
+            archivo>>codigo;    archivo.ignore();
+            if (codigo!="P2C")
                 throw (excepcion);
+            imagen.setCodigo(codigo);
 
             archivo>>numeral;
             if (numeral != '#')
@@ -39,14 +39,14 @@ Imagen ArchivoAIC::leerImagen(string pNombreArchivo)
             imagen.setDescripcion(descripcion);
 
             archivo>>columnas;
-            imagen.setColumnas(columnas);
             if (columnas <= 0)
                 throw (excepcion);
+            imagen.setColumnas(columnas);
 
             archivo>>filas;
-            imagen.setFilas(filas);
             if (filas <= 0)
                 throw (excepcion);
+            imagen.setFilas(filas);
 
             imagen.dimensionar();
 
@@ -67,7 +67,7 @@ Imagen ArchivoAIC::leerImagen(string pNombreArchivo)
                 do
                 {
                     archivo >> datoPixel >> repeticiones;
-                    if (datoPixel < 0 or repeticiones <= 0)
+                    if (datoPixel > rangoDin or datoPixel < 0 or repeticiones <= 0)
                         throw (excepcion);
 
                     while (contadorRepeticiones<repeticiones)
@@ -90,13 +90,13 @@ Imagen ArchivoAIC::leerImagen(string pNombreArchivo)
 
                 contadorColumnas=0;
             }
+
+            return imagen;
         }
         catch (ExcepcionArchivoCorrupto)
         {
 
         }
-
-        return imagen;
     }
 }
 
@@ -109,14 +109,14 @@ void ArchivoAIC::escribirImagen(Imagen &imagen, string pNombreArchivo, string di
     ProcesadorEstadistico procesador;
     procesador.setPtrImagen(&imagen);
 
-    //    Pixel max = procesador.maximo();
-    //    int M = 0;
-    //    for (int i=0; i<3; i++)
-    //    {
-    //        if (max.devolverComponente(i)>M)
-    //            M = max.devolverComponente(i);
-    //    }
-    //    imagen.setRangoDinamico(M);
+    Pixel max = procesador.maximo();
+    int M = 0;
+    for (int i=0; i<3; i++)
+    {
+        if (max.devolverComponente(i)>M)
+            M = max.devolverComponente(i);
+    }
+    imagen.setRangoDinamico(M);
 
     int filas = imagen.getFilas();
     int columnas = imagen.getColumnas();
