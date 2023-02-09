@@ -21,7 +21,7 @@ void AlgoritmoPintor::aplicarAlgoritmo(int posY, int posX)
     areaDetectada = 0;
     profundidad = 0;
 
-    if (ptrImagen->getCodigo() == "P1" or ptrImagen->getCodigo() == "P4") //ver esto al binarizar
+    if (ptrImagen->getCodigo() == "P1" or ptrImagen->getCodigo() == "P4")
     {
         tolerancia = 0;
     }
@@ -37,8 +37,6 @@ void AlgoritmoPintor::aplicarAlgoritmo(int posY, int posX)
 
 void AlgoritmoPintor::detectarArea(int posY, int posX)
 {
-    // posY == filas
-    // posX == columnas
     profundidad++;
     if (profundidad < 10000 and ptrImagen->estaEnLaImagen(posY, posX))
     {

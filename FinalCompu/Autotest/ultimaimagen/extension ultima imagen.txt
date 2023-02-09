@@ -1,1 +1,1 @@
-ultima_imagen.ppm
+ultima_imagen.pbm

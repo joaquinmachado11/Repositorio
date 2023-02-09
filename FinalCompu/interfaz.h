@@ -1,6 +1,7 @@
 #ifndef INTERFAZ_H
 #define INTERFAZ_H
 #include <gestordearchivos.h>
+#include <windows.h>
 
 /**
  * @brief Muestra los textos por consola, permite que el usuario interactue con el graficador

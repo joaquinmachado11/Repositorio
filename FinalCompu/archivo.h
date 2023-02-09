@@ -3,6 +3,7 @@
 #include <fstream>
 #include <vector>
 #include <imagen.h>
+#include <ExcepcionArchivoCorrupto.h>
 
 using namespace std;
 

@@ -14,5 +14,4 @@ release/main.o
 release/mediana.o
 release/pixel.o
 release/procesadorestadistico.o
-release/realcedebordes.o
 release/suavizado.o

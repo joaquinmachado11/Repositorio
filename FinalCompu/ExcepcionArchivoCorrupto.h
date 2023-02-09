@@ -4,11 +4,11 @@
 #endif // EXCEPCIONARCHIVOCORRUPTO_H
 
 #include <stdexcept>
-using std::runtime_error;
+using namespace std;
 
 class ExcepcionArchivoCorrupto : public runtime_error
 {
 public:
     ExcepcionArchivoCorrupto()
-        : runtime_error ("Archivo corrupto. No se puede abrir la imagen,"){}
+        : runtime_error ("Archivo corrupto. No se puede abrir la imagen. ") {}
 };

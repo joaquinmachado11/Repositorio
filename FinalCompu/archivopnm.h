@@ -4,7 +4,7 @@
 #include <iostream>
 #include <string>
 #include <imagen.h>
-#include <ExcepcionArchivoCorrupto.h>
+#include <procesadorestadistico.h>
 
 using namespace std;
 
@@ -40,7 +40,7 @@ public:
 
 private:
     fstream archivo; /**< Atributo interno que se utilizara para la lectura/escritura de archivos */
-    ExcepcionArchivoCorrupto excepcion; /**< Atributo de manejo de excepciones */
+    //ExcepcionArchivoCorrupto excepcion; /**< Atributo de manejo de excepciones */
 
     /**
      * @brief leerTexto Metodo que leera un archivo en formato de texto

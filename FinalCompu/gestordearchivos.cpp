@@ -131,14 +131,14 @@ void GestorDeArchivos::almacenarUltimaImagen(Imagen& imagen)
 
     string nombre = "ultima_imagen";
 
-//    remove("C:/Users/Usuario/Desktop/Final compu/Repositorio/FinalCompu/Autotest/ultimaimagen/ultima_imagen.aic");
-//    remove("C:/Users/Usuario/Desktop/Final compu/Repositorio/FinalCompu/Autotest/ultimaimagen/ultima_imagen.ppm");
-//    remove("C:/Users/Usuario/Desktop/Final compu/Repositorio/FinalCompu/Autotest/ultimaimagen/ultima_imagen.pgm");
-//    remove("C:/Users/Usuario/Desktop/Final compu/Repositorio/FinalCompu/Autotest/ultimaimagen/ultima_imagen.pbm");
-    remove("C:/Users/USER/Desktop/Final compu/Repositorio/FinalCompu/Autotest/ultimaimagen/ultima_imagen.aic");
-    remove("C:/Users/USER/Desktop/Final compu/Repositorio/FinalCompu/Autotest/ultimaimagen/ultima_imagen.ppm");
-    remove("C:/Users/USER/Desktop/Final compu/Repositorio/FinalCompu/Autotest/ultimaimagen/ultima_imagen.pgm");
-    remove("C:/Users/USER/Desktop/Final compu/Repositorio/FinalCompu/Autotest/ultimaimagen/ultima_imagen.pbm");
+    remove("C:/Users/Usuario/Desktop/Final compu/Repositorio/FinalCompu/Autotest/ultimaimagen/ultima_imagen.aic");
+    remove("C:/Users/Usuario/Desktop/Final compu/Repositorio/FinalCompu/Autotest/ultimaimagen/ultima_imagen.ppm");
+    remove("C:/Users/Usuario/Desktop/Final compu/Repositorio/FinalCompu/Autotest/ultimaimagen/ultima_imagen.pgm");
+    remove("C:/Users/Usuario/Desktop/Final compu/Repositorio/FinalCompu/Autotest/ultimaimagen/ultima_imagen.pbm");
+//    remove("C:/Users/USER/Desktop/Final compu/Repositorio/FinalCompu/Autotest/ultimaimagen/ultima_imagen.aic");
+//    remove("C:/Users/USER/Desktop/Final compu/Repositorio/FinalCompu/Autotest/ultimaimagen/ultima_imagen.ppm");
+//    remove("C:/Users/USER/Desktop/Final compu/Repositorio/FinalCompu/Autotest/ultimaimagen/ultima_imagen.pgm");
+//    remove("C:/Users/USER/Desktop/Final compu/Repositorio/FinalCompu/Autotest/ultimaimagen/ultima_imagen.pbm");
 
     ptrArchivo->escribirImagen(imagen, nombre, ruta + raizUltimaImagen);
     delete ptrArchivo;

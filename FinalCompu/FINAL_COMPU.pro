@@ -27,7 +27,6 @@ SOURCES += \
         mediana.cpp \
         pixel.cpp \
         procesadorestadistico.cpp \
-        realcedebordes.cpp \
         suavizado.cpp
 
 # Default rules for deployment.
@@ -52,5 +51,4 @@ HEADERS += \
     mediana.h \
     pixel.h \
     procesadorestadistico.h \
-    realcedebordes.h \
     suavizado.h

@@ -30,6 +30,8 @@ public:
     //Pixel& operator*(int factor);
     bool operator==(Pixel &Pixel2);
 
+    void verificarIntensidad (int M);
+
 private:
     void verificarLimites();
     vector <int> pixel;

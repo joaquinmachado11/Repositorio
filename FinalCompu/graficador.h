@@ -11,7 +11,6 @@
 #include <algoritmopintor.h>
 #include <histograma.h>
 #include <filtro.h>
-#include <realcedebordes.h>
 #include <mediana.h>
 #include <interfaz.h>
 

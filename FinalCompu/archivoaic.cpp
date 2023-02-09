@@ -28,24 +28,36 @@ Imagen ArchivoAIC::leerImagen(string pNombreArchivo)
         {
             archivo>>codigo;    archivo.ignore();
             if (codigo!="P2C")
-                throw (excepcion);
+            {
+                imagen.estaCorrupta();
+                throw (ExcepcionArchivoCorrupto());
+            }
             imagen.setCodigo(codigo);
 
             archivo>>numeral;
             if (numeral != '#')
-                throw (excepcion);
+            {
+                imagen.estaCorrupta();
+                throw (ExcepcionArchivoCorrupto());
+            }
 
             getline(archivo, descripcion);
             imagen.setDescripcion(descripcion);
 
             archivo>>columnas;
             if (columnas <= 0)
-                throw (excepcion);
+            {
+                imagen.estaCorrupta();
+                throw (ExcepcionArchivoCorrupto());
+            }
             imagen.setColumnas(columnas);
 
             archivo>>filas;
             if (filas <= 0)
-                throw (excepcion);
+            {
+                imagen.estaCorrupta();
+                throw (ExcepcionArchivoCorrupto());
+            }
             imagen.setFilas(filas);
 
             imagen.dimensionar();
@@ -53,7 +65,10 @@ Imagen ArchivoAIC::leerImagen(string pNombreArchivo)
             archivo>>rangoDin;
             imagen.setRangoDinamico(rangoDin);
             if (filas <= 0)
-                throw (excepcion);
+            {
+                imagen.estaCorrupta();
+                throw (ExcepcionArchivoCorrupto());
+            }
 
             archivo.ignore();
 
@@ -68,7 +83,10 @@ Imagen ArchivoAIC::leerImagen(string pNombreArchivo)
                 {
                     archivo >> datoPixel >> repeticiones;
                     if (datoPixel > rangoDin or datoPixel < 0 or repeticiones <= 0)
-                        throw (excepcion);
+                    {
+                        imagen.estaCorrupta();
+                        throw (ExcepcionArchivoCorrupto());
+                    }
 
                     while (contadorRepeticiones<repeticiones)
                     {
@@ -82,21 +100,29 @@ Imagen ArchivoAIC::leerImagen(string pNombreArchivo)
                     contadorRepeticiones=0;
 
                     if (contadorColumnas>columnas)
-                        throw (excepcion);
+                    {
+
+                        throw (ExcepcionArchivoCorrupto());
+                    }
                     if (archivo.eof() and (f<filas or contadorColumnas<columnas))
-                        throw (excepcion);
+                    {
+                        imagen.estaCorrupta();
+                        throw (ExcepcionArchivoCorrupto());
+                    }
 
                 } while (contadorColumnas<columnas);
 
                 contadorColumnas=0;
             }
-
-            return imagen;
         }
-        catch (ExcepcionArchivoCorrupto)
+        catch (runtime_error &excep)
         {
-
+            system("CLS");
+            puts(excep.what());
+            exit(0);
         }
+
+        return imagen;
     }
 }
 

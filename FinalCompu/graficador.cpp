@@ -123,7 +123,6 @@ void Graficador::keyPressEvent(QKeyEvent *pPtrEvent)
     bool B = pPtrEvent->key() == Qt::Key_B;
     bool S = pPtrEvent->key() == Qt::Key_S;
     bool N = pPtrEvent->key() == Qt::Key_N;
-    bool R = pPtrEvent->key() == Qt::Key_R;
     bool M = pPtrEvent->key() == Qt::Key_M;
     bool G = pPtrEvent->key() == Qt::Key_G;
     bool H = pPtrEvent->key() == Qt::Key_H;
@@ -178,7 +177,7 @@ void Graficador::keyPressEvent(QKeyEvent *pPtrEvent)
         cout<<endl<<endl;
     }
 
-    if (S)
+    if (ctrl and S)
     {
         ptrInterfaz->limpiar();
         filtro = new Suavizado;
@@ -196,25 +195,7 @@ void Graficador::keyPressEvent(QKeyEvent *pPtrEvent)
         cout<<endl<<endl;
     }
 
-    if (R)
-    {
-        ptrInterfaz->limpiar();
-        filtro = new RealceDeBordes;
-
-        ptrInterfaz->informarAtajo('R');
-
-        if(filtro != NULL)
-        {
-            filtro->aplicarFiltro(imagenAGraficar);
-        }
-
-        delete filtro;
-
-        ptrInterfaz->mostrarAtajos();
-        cout<<endl<<endl;
-    }
-
-    if (M)
+    if (ctrl and M)
     {
         ptrInterfaz->limpiar();
         filtro = new Mediana;
@@ -255,15 +236,17 @@ void Graficador::keyPressEvent(QKeyEvent *pPtrEvent)
 
     if (mas)
     {
-        editor.aumentarBrillo();
+        if (imagenAGraficar.getCodigo()!= "P1" and imagenAGraficar.getCodigo()!= "P4")
+            editor.aumentarBrillo();
     }
 
     if (menos)
     {
-        editor.disminuirBrillo();
+        if (imagenAGraficar.getCodigo()!= "P1" and imagenAGraficar.getCodigo()!= "P4")
+            editor.disminuirBrillo();
     }
 
-    if (A)
+    if (ctrl and A)
     {
         ptrInterfaz->limpiar();
         editor.ajustarContraste();
@@ -273,7 +256,7 @@ void Graficador::keyPressEvent(QKeyEvent *pPtrEvent)
         cout<<endl<<endl;
     }
 
-    if (B)
+    if (ctrl and B)
     {
         ptrInterfaz->limpiar();
         if (imagenAGraficar.getCodigo() == "P2" or imagenAGraficar.getCodigo() == "P5")
@@ -298,7 +281,7 @@ void Graficador::keyPressEvent(QKeyEvent *pPtrEvent)
         cout<<endl<<endl;
     }
 
-    if (N)
+    if (ctrl and N)
     {
         ptrInterfaz->limpiar();
         editor.negativo();
@@ -343,7 +326,7 @@ void Graficador::keyPressEvent(QKeyEvent *pPtrEvent)
         cout<<endl<<endl;
     }
 
-    if (L)
+    if (ctrl and L)
     {
         ptrInterfaz->limpiar();
         if (imagenAGraficar.getCodigo() == "P5" or imagenAGraficar.getCodigo() == "P2" or imagenAGraficar.getCodigo() == "P2C")
@@ -375,11 +358,10 @@ void Graficador::keyPressEvent(QKeyEvent *pPtrEvent)
         }
     }
 
-    if (esc)//o alt+f4
+    if (esc)
     {
         ptrInterfaz->limpiar();
         ptrGestorDeArchivos->almacenarUltimaImagen(imagenAGraficar);
-        ptrInterfaz->finPrograma();
         close();
     }
 
@@ -401,9 +383,9 @@ void Graficador::mousePressEvent(QMouseEvent *pPtrEvent)
         pintor.aplicarAlgoritmo(pY, pX);
         ptrInterfaz->areaDetectada(pintor.getAreaDetectada());
 
-        if (imagenAGraficar.getCodigo() == "P1" or imagenAGraficar.getCodigo() == "P2")
+        if (imagenAGraficar.getCodigo() == "P2")
             imagenAGraficar.setCodigo("P3");
-        if (imagenAGraficar.getCodigo() == "P4" or imagenAGraficar.getCodigo() == "P5")
+        if (imagenAGraficar.getCodigo() == "P5")
             imagenAGraficar.setCodigo("P6");
 
         repaint();

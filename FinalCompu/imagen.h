@@ -114,6 +114,9 @@ public:
 
     string getExtension();
 
+    void estaCorrupta();
+    bool esCorrupta();
+
 private:
     vector < vector < Pixel >> imagen; /**< Matriz del tamaño de la imagen que aloja los pixeles */
     int filas; /**< Filas de la imagen */
@@ -121,6 +124,7 @@ private:
     int rangoDinamico; /**< Rango dinamico de la imagen */
     string descripcion; /**< Descripcion de la imagen */
     string codigo; /**< Codigo de la imagen */
+    bool corrupta;  /**< Bool que define si la imagen es corrupta */
 };
 
 #endif // IMAGEN_H

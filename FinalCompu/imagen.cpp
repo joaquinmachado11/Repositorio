@@ -22,7 +22,7 @@ void Imagen::setColumnas(int newColumnas)
 
 Imagen::Imagen()
 {
-
+    corrupta = false;
 }
 
 Imagen::~Imagen()
@@ -48,6 +48,7 @@ Pixel Imagen::getPixel(int fila, int columna)
 
 void Imagen::setPixel(int fila, int columna, Pixel pixel)
 {
+    pixel.verificarIntensidad(rangoDinamico);
     imagen[fila][columna] = pixel;
 }
 
@@ -130,6 +131,16 @@ string Imagen::getExtension()
 
     if (codigo == "P6")
         return ".ppm";
+}
+
+void Imagen::estaCorrupta()
+{
+    corrupta = true;
+}
+
+bool Imagen::esCorrupta()
+{
+    return corrupta;
 }
 
 int Imagen::getRangoDinamico() const

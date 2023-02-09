@@ -14,5 +14,4 @@ debug/main.o
 debug/mediana.o
 debug/pixel.o
 debug/procesadorestadistico.o
-debug/realcedebordes.o
 debug/suavizado.o

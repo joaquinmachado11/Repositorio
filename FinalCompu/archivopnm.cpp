@@ -34,19 +34,28 @@ Imagen ArchivoPNM::leerImagen(string pNombreArchivo)
 
             archivo>>numeral;
             if (numeral != '#')
-                throw (excepcion);
+            {
+                imagen.estaCorrupta();
+                throw (ExcepcionArchivoCorrupto());
+            }
 
             getline(archivo, descripcion);
             imagen.setDescripcion(descripcion);
 
             archivo >> columnas;
             if (columnas <= 0)
-                throw (excepcion);
+            {
+                imagen.estaCorrupta();
+                throw (ExcepcionArchivoCorrupto());
+            }
             imagen.setColumnas(columnas);
 
             archivo >> filas;
             if (filas <= 0)
-                throw (excepcion);
+            {
+                imagen.estaCorrupta();
+                throw (ExcepcionArchivoCorrupto());
+            }
             imagen.setFilas(filas);
 
             imagen.dimensionar();
@@ -63,16 +72,19 @@ Imagen ArchivoPNM::leerImagen(string pNombreArchivo)
                 }
                 else
                 {
-                    throw (excepcion);
+                    imagen.estaCorrupta();
+                    throw (ExcepcionArchivoCorrupto());
                 }
             }
-
-            return imagen;
         }
-        catch (ExcepcionArchivoCorrupto)
+        catch (runtime_error &excep)
         {
-
+            system("CLS");
+            puts(excep.what());
+            exit(0);
         }
+
+        return imagen;
     }
 }
 
@@ -80,6 +92,18 @@ void ArchivoPNM::escribirImagen(Imagen &imagen, string pNombreArchivo, string di
 {
     string codigo = imagen.getCodigo();
     string extension = definirExtension(codigo);
+
+    ProcesadorEstadistico procesador;
+    procesador.setPtrImagen(&imagen);
+
+    Pixel max = procesador.maximo();
+    int M = 0;
+    for (int i=0; i<3; i++)
+    {
+        if (max.devolverComponente(i)>M)
+            M = max.devolverComponente(i);
+    }
+    imagen.setRangoDinamico(M);
 
     archivo.open(directorio + pNombreArchivo + extension, ios:: out | ios::binary | ios::trunc); //ios::noreplace
 
@@ -131,6 +155,10 @@ void ArchivoPNM::escribirP1(Imagen &imagen)
         for (int c=0; c<imagen.getColumnas(); c++)
         {
             intensidad = imagen.getPixel(f,c).devolverComponente(0);
+            if (intensidad<0)
+                intensidad = 0;
+            if (intensidad > 1)
+                intensidad = 1;
             archivo << intensidad << " ";
         }
     }
@@ -178,6 +206,10 @@ void ArchivoPNM::escribirP4(Imagen &imagen)
         for (int c=0; c<imagen.getColumnas(); c++)
         {
             intensidad = imagen.getPixel(f,c).devolverComponente(0);
+            if (intensidad<0)
+                intensidad = 0;
+            if (intensidad > 1)
+                intensidad = 1;
             archivo.write((char*) &intensidad, sizeof (intensidad));
         }
     }
@@ -237,7 +269,10 @@ void ArchivoPNM::leerTexto(Imagen &pImagen)
         int rangoDinamico;
         archivo >> rangoDinamico;
         if (rangoDinamico <= 0)
-            throw (excepcion);
+        {
+            pImagen.estaCorrupta();
+            throw (ExcepcionArchivoCorrupto());
+        }
         pImagen.setRangoDinamico(rangoDinamico);
     }
     else
@@ -258,7 +293,10 @@ void ArchivoPNM::leerTexto(Imagen &pImagen)
                 archivo>>datoPixel;
 
                 if (datoPixel < 0 or datoPixel > pImagen.getRangoDinamico())
-                    throw (excepcion);
+                {
+                    pImagen.estaCorrupta();
+                    throw (ExcepcionArchivoCorrupto());
+                }
 
                 pixelAUX = pImagen.getPixel(f,c);
                 pixelAUX.definirPixel(datoPixel,datoPixel,datoPixel);
@@ -275,7 +313,10 @@ void ArchivoPNM::leerTexto(Imagen &pImagen)
                 archivo>>datoPixel;
 
                 if (datoPixel < 0 or datoPixel > pImagen.getRangoDinamico())
-                    throw (excepcion);
+                {
+                    pImagen.estaCorrupta();
+                    throw (ExcepcionArchivoCorrupto());
+                }
 
                 pixelAUX = pImagen.getPixel(f,c);
                 pixelAUX.definirPixel(datoPixel,datoPixel,datoPixel);
@@ -294,21 +335,30 @@ void ArchivoPNM::leerTexto(Imagen &pImagen)
                 archivo>>datoPixel;
 
                 if (datoPixel < 0 or datoPixel > pImagen.getRangoDinamico())
-                    throw (excepcion);
+                {
+                    pImagen.estaCorrupta();
+                    throw (ExcepcionArchivoCorrupto());
+                }
 
                 pixelAUX.definirComponente(0,datoPixel);
 
                 archivo>>datoPixel;
 
                 if (datoPixel < 0 or datoPixel > pImagen.getRangoDinamico())
-                    throw (excepcion);
+                {
+                    pImagen.estaCorrupta();
+                    throw (ExcepcionArchivoCorrupto());
+                }
 
                 pixelAUX.definirComponente(1,datoPixel);
 
                 archivo>>datoPixel;
 
                 if (datoPixel < 0 or datoPixel > pImagen.getRangoDinamico())
-                    throw (excepcion);
+                {
+                    pImagen.estaCorrupta();
+                    throw (ExcepcionArchivoCorrupto());
+                }
 
                 pixelAUX.definirComponente(2,datoPixel);
 
@@ -317,56 +367,6 @@ void ArchivoPNM::leerTexto(Imagen &pImagen)
         }
         break;
     }
-
-    /*if (pImagen.getCodigo()=="P1") //monocromatico
-    {
-        float datoPixel;
-
-        for (unsigned int f=0; f<pImagen.getFilas(); f++)
-        {
-            for (unsigned int c=0; c<pImagen.getColumnas(); c++)
-            {
-                archivo>>datoPixel; //agregar control de error
-                pImagen.getPixel(f,c).definirPixel(datoPixel,datoPixel,datoPixel);
-            }
-        }
-    }
-
-    if (pImagen.getCodigo()=="P2") //escala de grises
-    {
-        float datoPixel;
-
-        for (unsigned int f=0; f<pImagen.getFilas(); f++)
-        {
-            for (unsigned int c=0; c<pImagen.getColumnas(); c++)
-            {
-                archivo>>datoPixel; //agregar control de error
-                pImagen.getPixel(f,c).definirPixel(datoPixel,datoPixel,datoPixel);
-            }
-        }
-    }
-
-    if (pImagen.getCodigo()=="P3") //RGB
-    {
-        for (unsigned int f=0; f<pImagen.getFilas(); f++)
-        {
-            for (unsigned int c=0; c<pImagen.getColumnas(); c++)
-            {
-                pixelAUX = pImagen.getPixel(f,c);
-
-                archivo>>datoPixel; //agregar control de error q sea menor a M
-                pixelAUX.definirComponente(0,datoPixel);
-
-                archivo>>datoPixel;
-                pixelAUX.definirComponente(1,datoPixel);
-
-                archivo>>datoPixel;
-                pixelAUX.definirComponente(2,datoPixel);
-
-                pImagen.setPixel(f, c, pixelAUX);
-            }
-        }
-    }*/
 
     archivo.close();
 }
@@ -378,7 +378,10 @@ void ArchivoPNM::leerBinario(Imagen &pImagen)
         int rangoDinamico;
         archivo>>rangoDinamico;
         if (rangoDinamico <= 0)
-            throw (excepcion);
+        {
+            pImagen.estaCorrupta();
+            throw (ExcepcionArchivoCorrupto());
+        }
         pImagen.setRangoDinamico(rangoDinamico);
     }
     else
@@ -401,8 +404,8 @@ void ArchivoPNM::leerBinario(Imagen &pImagen)
             {
                 archivo.read((char * ) &datoPixel , sizeof(datoPixel));
 
-//                if (datoPixel < 0 or datoPixel > pImagen.getRangoDinamico())
-//                    throw (excepcion);
+                if ((int)datoPixel < 0 or (int)datoPixel > pImagen.getRangoDinamico())
+                    throw (ExcepcionArchivoCorrupto());
 
                 pixelAUX = pImagen.getPixel(f,c);
                 pixelAUX.definirPixel(datoPixel,datoPixel,datoPixel);
@@ -418,8 +421,8 @@ void ArchivoPNM::leerBinario(Imagen &pImagen)
             {
                 archivo.read((char * ) &datoPixel , sizeof(datoPixel));
 
-//                if (datoPixel < 0 or datoPixel > pImagen.getRangoDinamico())
-//                    throw (excepcion);
+                if ((int)datoPixel < 0 or (int)datoPixel > pImagen.getRangoDinamico())
+                    throw (ExcepcionArchivoCorrupto());
 
                 pixelAUX = pImagen.getPixel(f,c);
                 pixelAUX.definirPixel(datoPixel,datoPixel,datoPixel);
@@ -439,19 +442,18 @@ void ArchivoPNM::leerBinario(Imagen &pImagen)
 
                 archivo.read((char * ) &r , sizeof(r));
 
-//Ver esta excepcion, no se pueden comparar chars con valores enteros (0 y M)
-//                if (r < 0 or r > pImagen.getRangoDinamico())
-//                    throw (excepcion);
+                if ((int)r < 0 or (int)r > pImagen.getRangoDinamico())
+                    throw (ExcepcionArchivoCorrupto());
 
                 archivo.read((char * ) &g , sizeof(g));
 
-//                if (g < 0 or g > pImagen.getRangoDinamico())
-//                    throw (excepcion);
+                if ((int)g < 0 or (int)g > pImagen.getRangoDinamico())
+                    throw (ExcepcionArchivoCorrupto());
 
                 archivo.read((char * ) &b , sizeof(b));
 
-//                if (b < 0 or b > pImagen.getRangoDinamico())
-//                    throw (excepcion);
+                if ((int)b < 0 or (int)b > pImagen.getRangoDinamico())
+                    throw (ExcepcionArchivoCorrupto());
 
                 pixelAUX.definirComponente(0, r);
                 pixelAUX.definirComponente(1, g);

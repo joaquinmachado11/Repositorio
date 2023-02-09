@@ -9,12 +9,11 @@ void Interfaz::mostrarAtajos()
 {
     cout << "+ --> Aumentar brillo." << endl;
     cout << "- --> Disminuir brillo." << endl;
-    cout << "A --> Ajustar contraste." << endl;
-    cout << "N --> Negativo." << endl;
-    cout << "S --> Suavizado." << endl;
-    cout << "M --> Mediana." << endl;
-    cout << "R --> Realce de bordes." << endl;
-    cout << "L --> Aplicar LUT." << endl;
+    cout << "ctrl + A --> Ajustar contraste." << endl;
+    cout << "ctrl + N --> Negativo." << endl;
+    cout << "ctrl + S --> Suavizado." << endl;
+    cout << "ctrl + M --> Mediana." << endl;
+    cout << "ctrl + L --> Aplicar LUT." << endl;
     cout << "ctrl + clickIzq --> Algoritmo de pintor." << endl;
     cout << "ctrl + H --> Histograma." << endl;
     cout << "ctrl + G --> Guardar imagen." << endl;
@@ -113,7 +112,9 @@ int Interfaz::definirUmbralBinarizado()
 
 void Interfaz::opcNoPermitida()
 {
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 4);
     cout << "No se permite esta opción." << endl;
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
 }
 
 int Interfaz::opcionesDeCarpetas()
@@ -160,7 +161,11 @@ bool Interfaz::preguntarSiSeguir()
 
 void Interfaz::finPrograma()
 {
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 4);
     cout << "Fin del programa. ";
+    //Cambiamos nuevamente el color del texto para que se mantenga el original
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
+
 }
 
 void Interfaz::limpiar()
@@ -188,31 +193,30 @@ void Interfaz::informarAtajo(char atajo)
     switch (atajo)
     {
     case 'A':
-        cout << "Ajuste de contraste." << endl << endl;
+        cout << "ctrl + A --> Ajuste de contraste." << endl << endl;
         break;
     case 'B':
-        cout << "Binarizado." <<endl <<endl;
+        cout << "ctrl + B --> Binarizado." <<endl <<endl;
         break;
     case 'G':
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 3);
         cout << "Imagen guardada. " << endl << endl;
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
         break;
     case 'H':
-        cout << "Ctrl + H --> Histograma" << endl;
+        cout << "ctrl + H --> Histograma" << endl;
         break;
     case 'M':
-        cout << "M --> Mediana. " << endl << endl;
+        cout << "ctrl + M --> Mediana. " << endl << endl;
         break;
     case 'N':
-        cout << "Negativo de imagen. " << endl << endl;
+        cout << "ctrl + N --> Negativo de imagen. " << endl << endl;
         break;
     case 'P':
-        cout << "Ctrl + click izq --> Algoritmo de pintor " << endl << endl;
-        break;
-    case 'R':
-        cout << "R --> Realce de bordes. "<<endl << endl;
+        cout << "ctrl + click izq --> Algoritmo de pintor " << endl << endl;
         break;
     case 'S':
-        cout << "S --> Suavizado. "<<endl << endl;
+        cout << "ctrl + S --> Suavizado. "<<endl << endl;
         break;
     case 'X':
         cout << "ctrl + X --> Ultima imagen abierta en la ejecucion de programa anterior." << endl << endl;

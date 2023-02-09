@@ -90,14 +90,6 @@ Pixel Pixel::operator-(Pixel &Pixel2)
 
 Pixel &Pixel::operator+=(Pixel Pixel2)
 {
-    //    Pixel aux;
-
-    //    aux.definirComponente(0, pixel[0]+Pixel2.devolverComponente(0));
-    //    aux.definirComponente(1, pixel[1]+Pixel2.devolverComponente(1));
-    //    aux.definirComponente(2, pixel[2]+Pixel2.devolverComponente(2));
-
-    //    return aux;
-
     pixel[0] = pixel[0] + Pixel2.devolverComponente(0);
     pixel[1] = pixel[1] + Pixel2.devolverComponente(1);
     pixel[2] = pixel[2] + Pixel2.devolverComponente(2);
@@ -109,14 +101,6 @@ Pixel &Pixel::operator+=(Pixel Pixel2)
 
 Pixel& Pixel::operator*(float factor)
 {
-    //    Pixel aux;
-
-    //    aux.definirComponente(0, pixel[0]*factor);
-    //    aux.definirComponente(1, pixel[1]*factor);
-    //    aux.definirComponente(2, pixel[2]*factor);
-
-    //    return aux;
-
     pixel[0] = pixel[0] * factor;
     pixel[1] = pixel[1] * factor;
     pixel[2] = pixel[2] * factor;
@@ -126,18 +110,27 @@ Pixel& Pixel::operator*(float factor)
     return *this;
 }
 
-//Pixel& Pixel::operator*(int factor)
-//{
-//    pixel[0] = pixel[0] * factor;
-//    pixel[1] = pixel[1] * factor;
-//    pixel[2] = pixel[2] * factor;
-//    return *this;
-//}
-
 bool Pixel::operator ==(Pixel &Pixel2)
 {   return (pixel[0]==Pixel2.devolverComponente(0) and
             pixel[1]==Pixel2.devolverComponente(1) and
             pixel[2]==Pixel2.devolverComponente(2));
+}
+
+void Pixel::verificarIntensidad(int M)
+{
+    if (pixel[0] > M)
+        pixel[0] = M;
+    if (pixel[1] > M)
+        pixel[1] = M;
+    if (pixel[2] > M)
+        pixel[2] = M;
+
+    if (pixel[0] < 0)
+        pixel[0] = 0;
+    if (pixel[1] < 0)
+        pixel[1] = 0;
+    if (pixel[2] < 0)
+        pixel[2] = 0;
 }
 
 void Pixel::verificarLimites()

@@ -5,7 +5,6 @@
 #include <string>
 #include <imagen.h>
 #include <procesadorestadistico.h>
-#include <ExcepcionArchivoCorrupto.h>
 
 using namespace std;
 
@@ -41,7 +40,7 @@ public:
 
 private:
     fstream archivo; /**< Atributo interno que se utilizara para la lectura/escritura de archivos */
-    ExcepcionArchivoCorrupto excepcion; /**< Atributo de manejo de excepciones */
+    //ExcepcionArchivoCorrupto excepcion; /**< Atributo de manejo de excepciones */
 };
 
 #endif // ARCHIVOAIC_H

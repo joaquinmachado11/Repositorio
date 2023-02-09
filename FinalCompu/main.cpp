@@ -153,9 +153,9 @@ int main(int argc, char *argv[])
     Interfaz interfaz (&gestorArchivos);
     Graficador graficador(&gestorArchivos, &interfaz);
 
-    gestorArchivos.setRutaLUT("C:/Users/USER/Desktop/Final compu/Repositorio/FinalCompu/Autotest/");
+    gestorArchivos.setRutaLUT("C:/Users/Usuario/Desktop/Final compu/Repositorio/FinalCompu/Autotest/");
     gestorArchivos.setRaizLUT("ij_luts/");
-    gestorArchivos.setRuta("C:/Users/USER/Desktop/Final compu/Repositorio/FinalCompu/Autotest/");
+    gestorArchivos.setRuta("C:/Users/Usuario/Desktop/Final compu/Repositorio/FinalCompu/Autotest/");
     gestorArchivos.setRaizGuardado(guardadas);
 
     bool seguir = true;
