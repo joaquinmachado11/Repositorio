@@ -59,11 +59,11 @@ void Histograma::procesar()
 
     if (codigo == "P3" or codigo == "P6")
     {
-        datosRGB = procesadorEstadistico.obtenerDatosPixelesRGB();
+        datosRGB = procesadorEstadistico.obtenerFrecuenciaPixelesRGB();
     }
     else
     {
-        datosMonocGrises = procesadorEstadistico.obtenerDatosPixelesMonocGrises();
+        datosMonocGrises = procesadorEstadistico.obtenerFrecuenciaPixelesMonocGrises();
     }
 }
 

@@ -20,6 +20,7 @@ public:
      * @brief Histograma Metodo constructor de clase Histograma
      */
     Histograma();
+
     /**
      * @brief setImagen Metodo que define el puntero a imagen
      * @param pImagen Imagen de la que se quiere obtener el histograma y sus datos
@@ -30,10 +31,12 @@ public:
      * @brief mostrar Muestra una ventana con el grafico de histograma
      */
     void mostrar();
+
     /**
      * @brief datosEstadisticos Muestra los datos estadisticos del histograma
      */
     void datosEstadisticos();
+
     /**
      * @brief procesar Procesa los datos estadisticos del histograma
      */
@@ -41,17 +44,19 @@ public:
 
 protected:
     /**
-     * @brief initializeGL
+     * @brief initializeGL Inicializa los recursos necesarios para utilizar OpenGL
      */
     void initializeGL() override;
+
     /**
-     * @brief resizeGL
-     * @param w
-     * @param h
+     * @brief resizeGL Se modifica el tamaño cuando se modifica el tamaño de la ventana
+     * @param w Nuevo ancho
+     * @param h Nuevo alto
      */
     void resizeGL(int w, int h) override;
+
     /**
-     * @brief paintGL Dibuja el histograma
+     * @brief paintGL Grafica el histograma
      */
     void paintGL() override;
 

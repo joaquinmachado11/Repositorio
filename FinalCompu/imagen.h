@@ -18,6 +18,7 @@ public:
      * @brief Imagen Metodo constructor de imagen
      */
     Imagen();
+
     /**
      * @brief ~Imagen Metodo destructor de imagen
      */
@@ -112,9 +113,21 @@ public:
      */
     void definirCodigoDeGuardado(int opcion);
 
+    /**
+     * @brief getExtension Metodo que define la extension de la imagen segun su codigo
+     * @return String con la extension correspondiente al codigo
+     */
     string getExtension();
 
+    /**
+     * @brief estaCorrupta Metodo que define la imagen como corrupta
+     */
     void estaCorrupta();
+
+    /**
+     * @brief esCorrupta Metodo que devuelve si la imagen es o no corrupta
+     * @return Bool que define si la imagen es corrupta
+     */
     bool esCorrupta();
 
 private:

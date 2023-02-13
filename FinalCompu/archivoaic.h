@@ -20,16 +20,19 @@ public:
      * @brief ArchivoAIC Metodo constructor de la clase ArchivoAIC
      */
     ArchivoAIC();
+
     /**
      * @brief ~ArchivoAIC Metodo destructor de la clase ArchivoAIC
      */
     ~ArchivoAIC();
+
     /**
      * @brief leerImagen Metodo que genera una imagen a partir de un archivo tipo AIC
      * @param pNombreArchivo Directorio donde se encuentra el archivo
      * @return imagen generada a partir del archivo leido
      */
     Imagen leerImagen(string pNombreArchivo) override ;
+
     /**
      * @brief escribirImagen Metodo que crea un archivo a partir de una imagen tipo AIC
      * @param imagen Imagen que contiene los datos a guardar
@@ -40,10 +43,6 @@ public:
 
 private:
     fstream archivo; /**< Atributo interno que se utilizara para la lectura/escritura de archivos */
-    //ExcepcionArchivoCorrupto excepcion; /**< Atributo de manejo de excepciones */
 };
 
 #endif // ARCHIVOAIC_H
-
-//MANEJO DE EXCEPCIONES!!
-

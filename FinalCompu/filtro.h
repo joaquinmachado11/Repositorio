@@ -7,11 +7,23 @@
  * @author Machado Joaquin
  */
 
-class Filtro //filtradoEspacial
+class Filtro
 {
 public:
+    /**
+     * @brief Filtro Metodo constructor de la clase Filtro
+     */
     Filtro();
+
+    /**
+     * @brief ~Filtro Metodo destructor virtual de la clase Filtro
+     */
     virtual ~Filtro();
+
+    /**
+     * @brief aplicarFiltro Metodo virtual que aplica el filtro
+     * @param pImagen Imagen a la que se le aplica el filtro
+     */
     virtual void aplicarFiltro(Imagen &pImagen) = 0;
 };
 
@@ -21,10 +33,3 @@ const vector < Espacio > recorrido=
 {{0,0},{-1,0},{-1,1},{0,1},{1,1},{1,0},{1,-1},{0,-1},{-1,-1}};
 
 #endif // FILTRO_H
-
-/*
-filtrado espacial serian:
- - Pasabajos o suavizado
- - Pasaaltos o realce de bordes
- - Mediana
-*/

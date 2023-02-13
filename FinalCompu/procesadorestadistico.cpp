@@ -273,7 +273,7 @@ vector<float> ProcesadorEstadistico::desvioEstandar()
     return desvio;
 }
 
-vector<vector<int> > ProcesadorEstadistico::obtenerDatosPixelesRGB()
+vector<vector<int> > ProcesadorEstadistico::obtenerFrecuenciaPixelesRGB()
 {
     vector<vector<int>> datos;
     datos.resize(3, vector<int>(ptrImagen->getRangoDinamico()+1, 0));
@@ -300,7 +300,7 @@ vector<vector<int> > ProcesadorEstadistico::obtenerDatosPixelesRGB()
     return datos;
 }
 
-vector<int> ProcesadorEstadistico::obtenerDatosPixelesMonocGrises()
+vector<int> ProcesadorEstadistico::obtenerFrecuenciaPixelesMonocGrises()
 {
     int M = ptrImagen->getRangoDinamico();
     vector <int> datos;

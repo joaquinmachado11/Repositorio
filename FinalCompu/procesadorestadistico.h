@@ -17,6 +17,7 @@ public:
      * @brief ProcesadorEstadistico Metodo constructor de la clase ProcesadorEstadistico
      */
     ProcesadorEstadistico();
+
     /**
      * @brief setPtrImagen Metodo que define el puntero a la imagen que se quiere procesar
      * @param pImagen Imagen que se quiere procesar
@@ -28,6 +29,7 @@ public:
      * @return Vector con el promedio de cada componente
      */
     vector<float> promedio();
+
     /**
      * @brief mediana Metodo que devuelve la mediana en una zona de 3x3 pixeles
      * @param datos vector que contiene los pixeles de una zona
@@ -40,6 +42,7 @@ public:
      * @return Pixel con los valores minimos de cada componente
      */
     Pixel minimo();
+
     /**
      * @brief maximo Metodo que calcula el maximo para cada componente de la imagen
      * @return Pixel con los valores maximos de cada componente
@@ -51,6 +54,7 @@ public:
      * @param datosDeFrecuencia vector con la frecuencia de las distintas intensidades
      */
     void modaGrises(vector <int> &datosDeFrecuencia);
+
     /**
      * @brief modaRGB Metodo que obtiene la moda de imagenes RGB
      * @param datosDeFrecuencia matriz con la frecuencia de las distintas intensidades de cada componente
@@ -64,15 +68,16 @@ public:
     vector <float> desvioEstandar();
 
     /**
-     * @brief obtenerDatosPixelesRGB Metodo que procesa la frecuencia de los valores RGB en la imagen
+     * @brief obtenerFrecuenciaPixelesRGB Metodo que procesa la frecuencia de los valores RGB en la imagen
      * @return matriz con la frecuencia de las distintas intensidades de cada componente
      */
-    vector <vector <int>> obtenerDatosPixelesRGB(); //cambiar nombre a algo relacionado con frecuencia
+    vector <vector <int>> obtenerFrecuenciaPixelesRGB();
+
     /**
-     * @brief obtenerDatosPixelesMonocGrises Metodo que procesa la frecuencia de las distintas intensidades de la imagen
+     * @brief obtenerFrecuenciaPixelesMonocGrises Metodo que procesa la frecuencia de las distintas intensidades de la imagen
      * @return vector con la frecuencia de las distintas intensidades
      */
-    vector <int> obtenerDatosPixelesMonocGrises();
+    vector <int> obtenerFrecuenciaPixelesMonocGrises();
 
     /**
      * @brief getMayorFrecuencia Metodo que devuelve la mayor frecuencia observada en la imagen
@@ -83,8 +88,6 @@ public:
 private:
     Imagen *ptrImagen; /**< Puntero a objeto imagen, la cual se quiere procesar */
     int mayorFrecuencia; /**< Mayor frecuencia observada en la imagen */
-
-
 };
 
 #endif // PROCESADORESTADISTICO_H

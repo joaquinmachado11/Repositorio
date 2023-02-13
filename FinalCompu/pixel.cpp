@@ -31,7 +31,7 @@ void Pixel::definirPixel(int componente0, int componente1, int componente2)
     verificarLimites();
 }
 
-float Pixel::devolverComponente(int componente)
+int Pixel::devolverComponente(int componente)
 {
     return pixel[componente];
 }

@@ -431,7 +431,7 @@ void ArchivoPNM::leerBinario(Imagen &pImagen)
         }
         break;
 
-    case '6': //error en los colores
+    case '6':
         unsigned char r , g , b;
         r = g = b = 0;
         for (int f=0; f<pImagen.getFilas(); f++)

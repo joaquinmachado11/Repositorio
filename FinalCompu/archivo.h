@@ -19,16 +19,19 @@ public:
      * @brief Archivo metodo constructor de la clase Archivo
      */
     Archivo();
+
     /**
      * @brief ~Archivo metodo destructor de la clase archivo
      */
     virtual ~Archivo();
+
     /**
      * @brief leerImagen metodo virtual que genera una imagen a partir de su direccion
      * @param pNombreArchivo directorio donde se encuentra el archivo
      * @return imagen generada a partir del archivo leido
      */
     virtual Imagen leerImagen(string pNombreArchivo)=0;
+
     /**
      * @brief escribirImagen metodo virtual que crea un archivo a partir de una imagen
      * @param imagen imagen que contiene los datos a guardar

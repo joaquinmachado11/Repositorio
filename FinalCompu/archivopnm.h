@@ -20,16 +20,19 @@ public:
      * @brief ArchivoPNM Metodo constructor de la clase ArchivoPNM
      */
     ArchivoPNM();
+
     /**
      * @brief ~ArchivoPNM Metodo destructor de la clase ArchivoPNM
      */
     ~ArchivoPNM();
+
     /**
      * @brief leerImagen Metodo que genera una imagen a partir de un archivo tipo PNM
      * @param pNombreArchivo Directorio donde se encuentra el archivo
      * @return Imagen generada a partir del archivo leido
      */
     Imagen leerImagen(string pNombreArchivo) override;
+
     /**
      * @brief escribirImagen Metodo que crea un archivo a partir de una imagen tipo PNM
      * @param imagen Imagen que contiene los datos a guardar
@@ -40,13 +43,13 @@ public:
 
 private:
     fstream archivo; /**< Atributo interno que se utilizara para la lectura/escritura de archivos */
-    //ExcepcionArchivoCorrupto excepcion; /**< Atributo de manejo de excepciones */
 
     /**
      * @brief leerTexto Metodo que leera un archivo en formato de texto
      * @param pImagen Imagen donde se guardara la informacion del archivo
      */
     void leerTexto(Imagen& pImagen);
+
     /**
      * @brief leerBinario Metodo que leera un archivo binario
      * @param pImagen Imagen donde se guardara la informacion del archivo
@@ -94,5 +97,3 @@ private:
 };
 
 #endif // ARCHIVOPNM_H
-
-//MANEJO DE EXCEPCIONES!!

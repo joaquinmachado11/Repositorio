@@ -14,9 +14,10 @@ public:
      * @brief LUT Metodo constructor de la clase LUT
      */
     LUT();
+
     /**
      * @brief setGestor Metodo que define el puntero a un gestor de archivos
-     * @param pGestor gestor de archivos
+     * @param pGestor Gestor de archivos
      */
     void setGestor(GestorDeArchivos *pGestor);
 

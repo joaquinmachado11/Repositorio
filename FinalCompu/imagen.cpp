@@ -48,7 +48,6 @@ Pixel Imagen::getPixel(int fila, int columna)
 
 void Imagen::setPixel(int fila, int columna, Pixel pixel)
 {
-    pixel.verificarIntensidad(rangoDinamico);
     imagen[fila][columna] = pixel;
 }
 

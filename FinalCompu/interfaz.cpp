@@ -45,6 +45,15 @@ void Interfaz::elegirArchivo()
 {
     int opcion;
     cout << "Elegir archivo a leer: "; cin >> opcion;
+
+    while (opcion < 1 or opcion > ptrGestorDeArchivos->cantidadDeArchivos())
+    {
+        limpiar();
+        opcNoPermitida();
+        mostrarArchivos();
+        cout << "Elegir archivo a leer: "; cin >> opcion;
+    }
+
     ptrGestorDeArchivos->setID(opcion-1);
 
     limpiar();
@@ -126,9 +135,22 @@ int Interfaz::opcionesDeCarpetas()
     cout << "\t 3) Grupo de imagenes 3." << endl;
     cout << "\t 4) Grupo de imagenes corruptas." << endl;
     cout << "\t 5) Imagenes guardadas." << endl;
-    cout << "\t 6) Grupo de imagenes lolo." << endl;
 
     opcion = definirOpcion();
+
+    while (opcion < 1 or opcion > 5)
+    {
+        limpiar();
+        opcNoPermitida();
+        cout << "Ingrese la carpeta que desea abrir: " << endl;
+        cout << "\t 1) Grupo de imagenes 1." << endl;
+        cout << "\t 2) Grupo de imagenes 2." << endl;
+        cout << "\t 3) Grupo de imagenes 3." << endl;
+        cout << "\t 4) Grupo de imagenes corruptas." << endl;
+        cout << "\t 5) Imagenes guardadas." << endl;
+
+        opcion = definirOpcion();
+    }
 
     return opcion;
 }
@@ -142,7 +164,9 @@ bool Interfaz::preguntarSiSeguir()
 
     while (opcion != 1 and opcion != 2)
     {
+        limpiar();
         opcNoPermitida();
+        cout << "¿Desea continuar con el programa? Ingrese '1' si lo desea, '2' para finalizar. " << endl;
         opcion = definirOpcion();
     }
 
@@ -161,10 +185,9 @@ bool Interfaz::preguntarSiSeguir()
 
 void Interfaz::finPrograma()
 {
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 4);
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 4); //Cambio color de texto a rojo
     cout << "Fin del programa. ";
-    //Cambiamos nuevamente el color del texto para que se mantenga el original
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7); //Cambiamos nuevamente el color del texto para que se mantenga el original
 
 }
 
@@ -199,9 +222,9 @@ void Interfaz::informarAtajo(char atajo)
         cout << "ctrl + B --> Binarizado." <<endl <<endl;
         break;
     case 'G':
-        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 3);
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 3); //Cambio color de texto a azul
         cout << "Imagen guardada. " << endl << endl;
-        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7); //Vuelvo al color original
         break;
     case 'H':
         cout << "ctrl + H --> Histograma" << endl;

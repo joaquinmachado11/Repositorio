@@ -17,8 +17,7 @@ int main(int argc, char *argv[])
     system("chcp 65001");
     system("CLS");
 
-    string grupo1, grupo2, grupo3, corruptas, grupoPBM_AIC, guardadas;
-    grupoPBM_AIC = "imagenes_pruebaPBM/";
+    string grupo1, grupo2, grupo3, corruptas, guardadas;
     grupo1 = "grupo_imagenes_1/";
     grupo2 = "grupo_imagenes_2/";
     grupo3 = "ij_image_samples/";
@@ -26,7 +25,7 @@ int main(int argc, char *argv[])
     guardadas = "imagenes_guardadas/";
 
     //pruebas para pixel
-    /*R
+    /*
     //ejecucion de constructor de pixel y definicion
     Pixel pixel1(1,1,1), pixel2(2,2,2);
     //pixel1.definirPixel(1,1,1);
@@ -187,9 +186,6 @@ int main(int argc, char *argv[])
             break;
         case 5:
             gestorArchivos.setRaiz(guardadas);
-            break;
-        case 6:
-            gestorArchivos.setRaiz(grupoPBM_AIC);
             break;
         }
 

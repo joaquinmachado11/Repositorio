@@ -54,7 +54,7 @@ void AlgoritmoPintor::detectarArea(int posY, int posX)
     profundidad--;
 }
 
-void AlgoritmoPintor::pintarArea() //255,128,0
+void AlgoritmoPintor::pintarArea()
 {
     Pixel pixelResaltado(255,128,0);
     for (int f=0; f<filas; f++)

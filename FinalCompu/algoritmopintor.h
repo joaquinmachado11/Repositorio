@@ -17,6 +17,7 @@ public:
      * @brief AlgoritmoPintor constructor de la clase AlgoritmoPintor
      */
     AlgoritmoPintor();
+
     /**
      * @brief setImagen Metodo que define el puntero a imagen y define la mascara
      * @param pImagen Imagen a la que se aplicara el algoritmo de pintor
@@ -29,12 +30,14 @@ public:
      * @param posX coordenada X en la imagen
      */
     void aplicarAlgoritmo(int posY, int posX);
+
     /**
      * @brief detectarArea metodo que detecta el area pintada
      * @param posY coordenada Y en la imagen
      * @param posX coordenada X en la imagen
      */
     void detectarArea(int posY, int posX);
+
     /**
      * @brief pintarArea metodo recursivo que pinta el area definida por el algoritmo
      */
@@ -72,5 +75,3 @@ const vector < Vecindad > movimiento=
 {{-1,0},{-1,1},{0,1},{1,1},{1,0},{1,-1},{0,-1},{-1,-1}};
 
 #endif // ALGORITMOPINTOR_H
-
-

@@ -22,7 +22,7 @@ Imagen GestorDeArchivos::generarImagen()
         }
         else
         {
-            (throw (string) "No se reconoce el archivo.");
+            throw (ExcepcionArchivoCorrupto());
         }
     }
 
@@ -95,7 +95,7 @@ void GestorDeArchivos::setRaizLUT(const string &newRaizLUT)
 Imagen GestorDeArchivos::generarUltimaImagen()
 {
     Imagen im;
-    string extension = reconocerFormato(getNombreUltArchivo()); //en este lugar hay error
+    string extension = reconocerFormato(getNombreUltArchivo());
 
     if (extension == ".pbm" or  extension == ".pgm" or  extension == ".ppm" or  extension == ".pnm")
     {
@@ -109,7 +109,7 @@ Imagen GestorDeArchivos::generarUltimaImagen()
         }
         else
         {
-            (throw (string) "No se pudo abrir la ultima imagen.");
+            (throw (string) "No hubo una ejecucion del programa anterior a la actual. No se permite esta opción.\n");
         }
     }
 
@@ -131,6 +131,7 @@ void GestorDeArchivos::almacenarUltimaImagen(Imagen& imagen)
 
     string nombre = "ultima_imagen";
 
+    //El directorio que lleva remove varía según donde se encuentre la carpeta con el programa
     remove("C:/Users/Usuario/Desktop/Final compu/Repositorio/FinalCompu/Autotest/ultimaimagen/ultima_imagen.aic");
     remove("C:/Users/Usuario/Desktop/Final compu/Repositorio/FinalCompu/Autotest/ultimaimagen/ultima_imagen.ppm");
     remove("C:/Users/Usuario/Desktop/Final compu/Repositorio/FinalCompu/Autotest/ultimaimagen/ultima_imagen.pgm");
